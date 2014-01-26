@@ -1,0 +1,147 @@
+
+
+	
+		<h2>12.2 変数ステートメント / Variable Statement / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>12 ステートメント／文</h3>
+		
+
+		<h3>12.2 変数ステートメント</h3>
+
+<div class="pre-div">
+<pre>
+【構文】
+VariableStatement :
+	var VariableDeclarationList ;
+
+VariableDeclarationList :
+	VariableDeclaration
+	VariableDeclarationList , VariableDeclaration
+
+VariableDeclarationListNoIn :
+	VariableDeclarationNoIn
+	VariableDeclarationListNoIn , VariableDeclarationNoIn
+
+VariableDeclaration :
+	Identifier Initialiseropt
+
+VariableDeclarationNoIn :
+	Identifier InitialiserNoInopt
+
+Initialiser :
+	= AssignmentExpression
+
+InitialiserNoIn :
+	= AssignmentExpressionNoIn
+</pre>
+</div>
+
+		<p>
+		　変数ステートメントは、10.5 で定義したように生成される変数を宣言します。
+		変数は、生成される場合、Undefined(未定義)として初期化されます。
+		イニシャライザーを伴う変数は、その変数が生成される際ではなく、VariableStatementが実行される際に当該AssignmentExpressionの値を関連付けられます。
+		</p>
+
+<p>
+【セマンティックス】
+</p>
+
+<p>
+　プロダクション VariableStatement : var VariableDeclarationList ; は、次のように評価されます。
+</p>
+
+<div class="pre-div">
+<pre>
+1.VariableDeclarationListを評価
+2.return (normal, empty, empty)
+</pre>
+</div>
+
+<p>
+　プロダクション VariableDeclarationList :VariableDeclaration は、次のように評価されます。
+</p>
+
+<div class="pre-div">
+<pre>
+1.VariableDeclarationを評価
+</pre>
+</div>
+
+<p>
+　プロダクション VariableDeclarationList : VariableDeclarationList , VariableDeclaration は、次のように評価されます。
+</p>
+
+<div class="pre-div">
+<pre>
+1.VariableDeclarationListを評価
+2.VariableDeclarationを評価
+</pre>
+</div>
+
+<p>
+　プロダクション VariableDeclaration : Identifier は、次のように評価されます。
+</p>
+
+<div class="pre-div">
+<pre>
+1.識別子(Identifier)内にあるものと文字の並びが同じものを含むString値を返す
+</pre>
+</div>
+
+<p>
+　プロダクション VariableDeclaration : Identifier Initialiser は、次のように評価されます。
+</p>
+
+<div class="pre-div">
+<pre>
+1. lhs は、11.1.2で定義したようにIdentifier(識別子)を評価した結果とする
+2. rhs は、Initialiser(イニシャライザー)を評価した結果とする
+3. value は、 GetValue(rhs) とする
+4. PutValue(lhs, value) を呼ぶ
+5.識別子(Identifier)内にあるものと文字の並びが同じものを含むString値を返す
+</pre>
+</div>
+
+<p>
+[注釈]
+</p>
+<p>
+　VariableDeclaration(変数宣言)のString値は、 for-in 文(12.6.4)の評価の中で使用されます。
+</p>
+
+<p>
+　VariableDeclarationが、文を伴って内側にネストされたり、VariableDeclaration内の識別子が文のオブジェクト型環境レコードを伴うバインディングオブジェクトのプロパティ名と同名である場合には、ステップ4は、当該識別子のVariableEnvironmentバインディングへの代わりにプロパティに値を関連付けるでしょう。
+</p>
+
+<p>
+プロダクション Initialiser : = AssignmentExpression は、次のように評価されます。
+</p>
+
+<div class="pre-div">
+<pre>
+1.VariableEnvironmentを評価した結果を返す
+</pre>
+</div>
+
+<p>
+　VariableDeclarationListNoIn、VariableDeclarationNoIn、InitialiserNoInは、VariableDeclarationList、VariableDeclaration、Initialiser 、AssignmentExpressionのそれぞれ含む代わりにVariableDeclarationListNoIn、VariableDeclarationNoIn、InitialiserNoIn、AssignmentExpressionNoInを含んで評価される場合を除き、VariableDeclarationList、VariableDeclaration、Initialiserプロダクションと同じ方法で評価されます。
+</p>
+
+
+<h3>12.2.1 Strict(厳格)モードの制限・制約</h3>
+
+<p>
+　VariableDeclaration や VariableDeclarationNoIn が、strictコード内に現れたり、当該識別子が "eval" や "arguments"である場合には、SyntaxErrorです。
+</p>
+
+		
+
+		
+	

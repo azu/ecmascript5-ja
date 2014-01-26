@@ -1,0 +1,390 @@
+
+
+	
+		<h2>11.2 左辺式 / Left-Hand-Side Expressions / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>11 式</h3>
+		
+
+		<h3>11.2 左辺式</h3>
+
+<div class="pre-div">
+<pre>
+【構文】
+MemberExpression :
+	PrimaryExpression
+	FunctionExpression
+	MemberExpression [ Expression ]
+	MemberExpression .IdentifierName
+	new MemberExpression Arguments
+
+NewExpression :
+	MemberExpression
+	new NewExpression
+
+CallExpression :
+	MemberExpression Arguments
+	CallExpression Arguments
+	CallExpression [ Expression ]
+	CallExpression .
+
+IdentifierName Arguments :
+	()
+	( ArgumentList )
+
+ArgumentList :
+	AssignmentExpression
+	ArgumentList , AssignmentExpression
+
+LeftHandSideExpression :
+	NewExpression
+	CallExpression
+</pre>
+</div>
+
+		<h3>11.2.1 プロパティアクセサ</h3>
+		<p>
+		　プロパティは、何れかのドット記法を使って、
+		</p>
+
+<div class="pre-div">
+<pre>
+MemberExpression .IdentifierName
+CallExpression .IdentifierName
+</pre>
+</div>
+
+		<p>
+		または、ブラケット記法を使って
+		</p>
+
+<div class="pre-div">
+<pre>
+MemberExpression [ Expression ]
+CallExpression [ Expression ]
+</pre>
+</div>
+
+		<p>
+		名称でアクセスされます。
+		</p>
+
+		<p>
+		　ドット記法は、次の構文変換によって説明されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+MemberExpression .IdentifierName
+</pre>
+</div>
+
+		<p>
+		は、
+		</p>
+
+<div class="pre-div">
+<pre>
+MemberExpression [ &lt;identifier-name-string&gt; ]
+</pre>
+</div>
+
+		<p>
+		とその振る舞いが同じであり、また、似たようなものとして
+		</p>
+
+<div class="pre-div">
+<pre>
+CallExpression .IdentifierName
+</pre>
+</div>
+
+		<p>
+		は、
+		</p>
+
+<div class="pre-div">
+<pre>
+CallExpression [ &lt;identifier-name-string&gt; ]
+</pre>
+</div>
+
+		<p>
+		とその振る舞いが同じで
+		</p>
+<div class="pre-div">
+<pre>
+&lt;identifier-name-string&gt;
+</pre>
+</div>
+
+		<p>
+		は、IdentifierNameとしてUnicodeエスケープシーケンス処理の後に来る同じ文字の並びを含む文字列リテラルです。
+		</p>
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+MemberExpression : MemberExpression [ Expression ]
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. baseReference は、MemberExpressionを評価した結果とする
+2. baseValue は、GetValue(baseReference) とする
+3. propertyNameReference は、Expressionを評価した結果とする
+4. propertyNameValue は、 GetValue(propertyNameReference) とする
+5. CheckObjectCoercible(baseValue) を呼ぶ
+6. propertyNameString は、 ToString(propertyNameValue) とする
+7.評価中の構文上のプロダクションがstrict(厳格)モードのコード内に含まれる場合、 strict は、true、それ以外は、 strict は、false
+8.基準値がbaseValue、参照名がpropertyNameString、strict(厳格)モードフラグがstrictであるReference型の値を返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+CallExpression : CallExpression [ Expression ]
+</pre>
+</div>
+
+		<p>
+		は、ステップ1で評価されるCallExpressionを含む場合を除き、全く同じ方法で評価されます。
+		</p>
+
+		<h3>11.2.2 new 演算子</h3>
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+NewExpression : new NewExpression
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. ref は、NewExpressionを評価した結果とする
+2. constructor は、 GetValue(ref) とする
+3. Type(constructor) が、Objectでない場合には、TypeError例外を投げる(スローする)
+4. constructor が[[Construct]]内部メソッドを実装しない場合には、TypeError例外を投げる(スローする)
+5. 引数を何も渡さず(引数のリストがカラのまま)constructor における[[Construct]]内部メソッドを呼んだ結果を返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+MemberExpression : new MemberExpression Arguments
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. ref は、MemberExpressionを評価した結果とする
+2. constructor は、 GetValue(ref) とする
+3. argList は、引数値の内部リスト(11.2.4)を生成中にArgumentsを評価した結果とする
+4. Type(constructor) が、Objectではない場合、TypeError例外を投げる(スローする)
+5. constructor が、[[Construct]]内部メソッドを実行しない場合、TypeError例外を投げる(スローする)
+6. 引数の値としてリスト argList を渡し、constructor における[[Construct]]内部メソッドを呼んだ結果を返す
+</pre>
+</div>
+
+		<h3>11.2.3 関数呼び出し／ファンクションコール</h3>
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+CallExpression : MemberExpression Arguments
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. ref は、MemberExpressionを評価した結果とする
+2. func は、GetValue(ref) とする
+3. argList は、Argumentsを評価した結果とし、引数の値の内部リストを生成 ( 11.2.4 参照 )
+4. Type(func) がObjectではない場合、TypeError例外を投げる(スローする)
+5. IsCallable(func) が、falseである場合、TypeError例外を投げる(スローする)
+6. Type(ref) が、Referenceである場合、
+	a. IsPropertyReference(ref) が trueである場合、
+		i. thisValue は、 GetBase(ref) とする
+	b. それ以外の場合で ref の基準が、環境レコードである場合、
+		i. thisValue は、 GetBase(ref) の具体的なメソッド ImplicitThisValue を呼んだ結果とする
+7.それ以外の場合で Type(ref) がReferenceではない場合、
+	a. thisValue は、undefinedとする
+8.引数の値であるリスト argList 、this 値としてthisValue を渡し、 func における[[Call]]内部メソッドを呼んだ結果を返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+CallExpression : CallExpression Arguments
+</pre>
+</div>
+
+		<p>
+		は、ステップ1で評価されるCallExpressionを含む場合を除き、全く同じ方法で評価されます。
+		</p>
+		<p>
+		[注釈]
+		</p>
+		<p>
+		　返した結果は、 func が、ネイティブなECMAScriptオブジェクである場合、Reference型となることは決してありません。
+		ホストオブジェクトを呼ぶ場合は常に実装依存であるReference型の値を返すことができます。
+		Reference型の値が返される場合、非strict(厳格)なProperty Reference(プロパティ参照)にしなければいけません。
+		</p>
+
+		<h3>11.2.4 引数リスト</h3>
+		<p>
+		　引数リストの評価は、値のリストを生成します( 8.8 参照)。
+		</p>
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+Arguments : ( )
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1.カラのListを返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+Arguments : ( ArgumentList )
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1.ArgumentListを評価した結果を返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+ArgumentList : AssignmentExpression
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. ref は、AssignmentExpressionを評価した結果とする
+2. arg は、 GetValue(ref) とする
+3.唯一のアイテムが、 arg であるListを返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+ArgumentList : ArgumentList , AssignmentExpression
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. precedingArgs は、ArgumentListを評価した結果とする
+2. ref は、AssignmentExpressionを評価した結果とする
+3. arg は、 GetValue(ref) とする
+4. precedingArgs の長さより長く、新たなリストの最後のアイテムである arg によって末尾に続くことにより、precedingArgs のアイテムであるアイテムを持つ List を返す
+</pre>
+</div>
+
+		<h3>11.2.5 関数式</h3>
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+MemberExpression : FunctionExpression
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. FunctionExpression を評価した結果を返す
+</pre>
+</div>
+
+		
+
+		
+	

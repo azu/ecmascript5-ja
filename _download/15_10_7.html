@@ -1,0 +1,84 @@
+
+
+	
+		<h2>15.10.7 RegExp インスタンスのプロパティ / Properties of RegExp Instances / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>15 標準組み込みECMAScriptオブジェクト</h3>
+		
+		<h3>15.10 RegExp (Regular Expression／正規表現) オブジェクト</h3>
+		
+
+		<h3>15.10.7 RegExp インスタンスのプロパティ</h3>
+		<p>
+		　RegExpインスタンスは、 RegExp プロトタイプオブジェクトと値が、"RegExp"であるそれらの内部プロパティ[[Class]]からプロパティを継承します。
+		</p>
+		<p>
+		　RegExpインスタンスはまた、内部プロパティ[[Match]]とlengthプロパティも持ちます。
+		</p>
+		<p>
+		　内部プロパティ[[Match]]の値は、 RegExp オブジェクトの Pattern の実装依存の表現です。
+		</p>
+		<p>
+		　RegExpインスタンスはまた、次のプロパティも持ちます。
+		</p>
+
+		<h3>15.10.7.1 source</h3>
+		<p>
+		　source プロパティの値は、現在の正規表現を表す任意の Pattern の書式内にある文字列です。
+		</p>
+		<p>
+		　このプロパティは、属性 { [[Writable]]: false, [[Enumerable]]: false, [[Configurable]]: false } を持つようにしましょう。
+		</p>
+
+		<h3>15.10.7.2 global</h3>
+		<p>
+		　global プロパティの値は、文字 "g" を含んだフラグかどうかを示すBoolean値です。
+		</p>
+		<p>
+		　このプロパティは、属性 { [[Writable]]: false, [[Enumerable]]: false, [[Configurable]]: false } を持つようにしましょう。
+		</p>
+
+		<h3>15.10.7.3 ignoreCase</h3>
+		<p>
+		　 ignoreCase プロパティの値は、文字 "i" を含んだフラグかどうかを示すBoolean値です。
+		</p>
+		<p>
+		　このプロパティは、属性 { [[Writable]]: false, [[Enumerable]]: false, [[Configurable]]: false } を持つようにしましょう。
+		</p>
+
+		<h3>15.10.7.4 multiline</h3>
+		<p>
+		　multiline プロパティの値は、文字 "m" を含んだフラグかどうかを示すBoolean値です。
+		</p>
+		<p>
+		　このプロパティは、属性 { [[Writable]]: false, [[Enumerable]]: false, [[Configurable]]: false } を持つようにしましょう。
+		</p>
+
+		<h3>15.10.7.5 lastIndex</h3>
+		<p>
+		　 lastIndex プロパティの値は、次にマッチする開始位置における文字列を指定します。
+		</p>
+		<p>
+		　それは使用時に強制変換されます。( 15.10.6.2 参照)
+		</p>
+		<p>
+		　このプロパティは、属性 { [[Writable]]: true, [[Enumerable]]: false, [[Configurable]]: false } を持つようにしましょう。
+		</p>
+		<p>
+		[注釈]
+		</p>
+		<p>
+		　 RegExpインスタンスの他の標準組み込みプロパティとは異なり、 lastIndex は、書き込み可能(writable)です。
+		</p>
+
+		
+
+		
+	

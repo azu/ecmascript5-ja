@@ -1,0 +1,134 @@
+
+
+	
+		<h2>14 プログラム / Program / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>14 プログラム</h3>
+		
+
+<div class="pre-div">
+<pre>
+【構文】
+Program :
+	SourceElementsopt
+
+SourceElements :
+	SourceElement
+	SourceElements SourceElement
+
+SourceElement :
+	Statement
+	FunctionDeclaration
+</pre>
+</div>
+
+		<p>
+		【セマンティックス】
+		</p>
+		<p>
+		プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+Program : SourceElementsopt
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1.このProgramのコードは、指定プロローグ (14.1 指定プロローグ)が、 Use Strict 指定を含む当該SourceElementsから成る場合や一部が、 10.1.1を適用した条件から成る場合、strict mode(厳格モード)のコード
+   Programのコードが、strict mode(厳格モード)のコードである場合、SourceElementsは、strict mode(厳格モード)のコードのように次のステップ内で評価され、それ以外は、SourceElementsは、非strict mode(厳格モード)のコードのように次のステップ内で評価される
+2. SourceElementsが、存在しない場合には、return (normal, empty, empty)
+3. progCxt は、 10.4.1で説明したようにグローバルコードにおける新たな実行コンテキストとする
+4. result は、SourceElementsを評価した結果とする
+5.実行コンテキスト progCxt を抜ける
+6. resultを返す
+</pre>
+</div>
+
+		<p>
+		[注釈]
+		</p>
+		<p>
+		　Programの評価を初期化中、また、このような評価の結果を伴う処理中における複数のプロセスは、この仕様によって定義されるのではなく、ECMAScriptの実装によって定義されます。
+		</p>
+		<p>
+		プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+SourceElements : SourceElements SourceElement
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. headResult は、SourceElementsを評価した結果とする
+2. headResult が、中途完了(an abrupt completion)である場合、 headResultを返す
+3. tailResult は、SourceElementを評価した結果とする
+4. tailResult.value が、 emptyである場合、 V = headResult.value とし、それ以外の場合、 V = tailResult.valueとする
+5. return (tailResult.type, V, tailResult.target)
+</pre>
+</div>
+
+		<p>
+		プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+SourceElement : Statement
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. Statementを評価した結果を返す
+</pre>
+</div>
+
+		<p>
+		プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+SourceElement : FunctionDeclaration
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. return (normal, empty, empty).
+</pre>
+</div>
+
+		
+
+		
+	

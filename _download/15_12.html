@@ -1,0 +1,47 @@
+
+
+	
+		<h2>15.12 JSON オブジェクト / The JSON Object / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>15 標準組み込みECMAScriptオブジェクト</h3>
+		
+		<h3>15.12 JSON オブジェクト</h3>
+		
+
+		<p>
+		　JSONオブジェクトは、JSONテキストを解析し、構築する為に使用される parse と stringify という2つの関数を含む単一のオブジェクトです。
+		</p>
+		<p>
+		　JSON Data Interchange Format (JSONデータ変換書式) は、 RFC 4627 <a href="http://www.ietf.org/rfc/rfc4627.txt">&lt;http://www.ietf.org/rfc/rfc4627.txt&gt;</a> で説明されます。
+		</p>
+		<p>
+		　この仕様内で使用した JSON Data Interchange Format (JSONデータ変換書式) は、2つの例外があるものの(、それ以外は、) RFC 4627 で説明したものと全く同じです。
+		</p>
+		<ul>
+			<li>ECMAScriptのJSONの文法のトップレベルの JSONText プロダクションは、 RFC 4627 によって指定したような任意の JSONObject や任意の JSONArray の存在を制限したものではなく、何らかの JSONValue から構成される場合があります。</li>
+			<li>JSON.parse と JSON.stringify の実装に準拠するということは、書式への削除や拡張なしで、この仕様内で定義した確実な書式変換をサポートしなければならないということです。これは、非JSON書式と拡張を許容するJSONパーサーを許可する RFC 4627 とは異なります。</li>
+		</ul>
+		<p>
+		　 JSONオブジェクトの内部プロパティ[[Prototype]]の値は、標準組み込みObjectプロトタイプ(15.2.4)です。
+		JSONオブジェクトの内部プロパティ[[Class]]の値は、"JSON"です。
+		JSONオブジェクトの内部プロパティ[[Extensible]]の値は、trueに設定されます。
+		</p>
+		<p>
+		　 JSONオブジェクトは、内部プロパティ[[Construct]]を持たず、new 演算子を伴うコンストラクタとしてJSONオブジェクトを使用することはできません。
+		JSONオブジェクトは、内部プロパティ[[Call]]を持たず、関数としてJSONオブジェクトを呼び出すことはできません。
+		</p>
+		<p><a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_12/15_12_1/" title="JSON&#12398;&#25991;&#27861;">15.12.1 JSONの文法</a></p>
+		<p><a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_12/15_12_2/" title="parse ( text [ , reviver ] )">15.12.2 parse ( text [ , reviver ] )</a></p>
+		<p><a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_12/15_12_3/" title="stringify ( value [ , replacer [ , space ] ] )">15.12.3 stringify ( value [ , replacer [ , space ] ] )</a></p>
+
+		
+
+		
+	

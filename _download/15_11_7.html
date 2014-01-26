@@ -1,0 +1,121 @@
+
+
+	
+		<h2>15.11.7 NativeError オブジェクト構造 / NativeError Object Structure / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>15 標準組み込みECMAScriptオブジェクト</h3>
+		
+		<h3>15.11 Error オブジェクト</h3>
+		
+		<h3>15.11.7 NativeError オブジェクト構造</h3>
+
+		<p>
+		　ECMAScriptの実装が、実行エラーを検出する場合には、 15.11.6 で定義した NativeError オブジェクトの1つであるインスタンスを投げ(スローし)ます。
+		これら各オブジェクトは、プロトタイプオブジェクトのプロパティ名の中、またプロトタイプオブジェクトの実装定義のメッセージプロパティの中で NativeError の代わりにコンストラクタ名として使用した名称だけが異なる以下で説明した構造を持ちます。
+		各エラーオブジェクトごとに定義内にある NativeError を参照する場合には、 15.11.6 から成る適切なオブジェクト名を伴って置換されるべきです。
+		</p>
+
+		<h3>15.11.7.1 関数として呼んだ NativeError コンストラクタ</h3>
+		<p>
+		　 NativeErrorコンストラクタが、コンストラクタではなく、関数として呼ばれる場合には、新たなオブジェクトを生成、初期化します。
+		関数としてのオブジェクトの呼び出しは、同じ引数を伴うコンストラクタとしてそれを呼ぶことと等価です。
+		</p>
+
+		<h3>15.11.7.2 NativeError (message)</h3>
+		<p>
+		　新たに構築したオブジェクトの内部プロパティ[[Prototype]]は、このエラーコンストラクタにおけるプロトタイプオブジェクトに設定されます。
+		</p>
+		<p>
+		　新たに構築したオブジェクトの内部プロパティ[[Class]]は、"Error"に設定されます。
+		</p>
+		<p>
+		　新たに構築したオブジェクトの内部プロパティ[[Extensible]]は、trueに設定されます。
+		</p>
+		<p>
+		　引数 message が、undefinedではない場合、新たに構築したオブジェクトの当該メッセージ自身のプロパティは、 ToString(message) に設定されます。
+		</p>
+
+		<h3>15.11.7.3 NativeError コンストラクタ</h3>
+		<p>
+		　 NativeErrorコンストラクタが、 new 式の一部として呼ばれる場合には、それは、コンストラクタであり、新たに生成したオブジェクトを初期化します。
+		</p>
+
+		<h3>15.11.7.4 new NativeError (message)</h3>
+		<p>
+		　新たに構築したオブジェクトの内部プロパティ[[Prototype]]は、このNativeErrorコンストラクタにおけるプロトタイプオブジェクトに設定されます。
+		</p>
+		<p>
+		　新たに構築したオブジェクトの内部プロパティ[[Class]]は、"Error"に設定されます。
+		</p>
+		<p>
+		　新たに構築したオブジェクトの内部プロパティ[[Extensible]]は、trueに設定されます。
+		</p>
+		<p>
+		　引数 message が、undefinedではない場合、新たに構築したオブジェクトの当該メッセージ自身のプロパティは、 ToString(message) に設定されます。
+		</p>
+
+		<h3>15.11.7.5 NativeError コンストラクタのプロパティ</h3>
+		<p>
+		　 NativeErrorコンストラクタの内部プロパティ[[Prototype]]の値は、Functionプロトタイプオブジェクト(15.3.4)です。
+		</p>
+		<p>
+		　また、当該内部プロパティ、(値が1である)lengthプロパティ、NativeErrorコンストラクタは、次のプロパティも持ちます。
+		</p>
+
+		<h3>15.11.7.6 NativeError.prototype</h3>
+		<p>
+		　 NativeError.prototype の初期値は、NativeErrorプロトタイプオブジェクト(15.11.7.7)です。
+		</p>
+		<p>
+		　各NativeErrorコンストラクタは、個別のプロトタイプオブジェクトを持ちます。
+		このプロパティは、属性 { [[Writable]]: false, [[Enumerable]]: false, [[Configurable]]: false } を持ちます。
+		</p>
+
+		<h3>15.11.7.7 NativeErrorプロトタイプオブジェクトのプロパティ</h3>
+		<p>
+		　各NativeErrorプロトタイプオブジェクトは、任意のErrorオブジェクト(、[[Class]]は、"Error")です。
+		</p>
+		<p>
+		　各NativeErrorプロトタイプオブジェクトの内部プロパティ[[Prototype]]の値は、標準組み込みErrorプロトタイプオブジェクト(15.11.4)です。
+		</p>
+
+		<h3>15.11.7.8 NativeError.prototype.constructor</h3>
+		<p>
+		　与えられるNativeErrorコンストラクタにおけるプロトタイプのコンストラクタのプロパティの初期値は、NativeErrorコンストラクタ関数それ自身(15.11.7)です。
+		</p>
+
+		<h3>15.11.7.9 NativeError.prototype.name</h3>
+		<p>
+		　与えられるNativeErrorコンストラクタにおけるプロトタイプのプロパティ名の初期値は、当該コンストラクタの名称(NativeErrorの代わりに使用した名称)です。
+		</p>
+
+		<h3>15.11.7.10 NativeError.prototype.message</h3>
+		<p>
+		　与えられるNativeErrorコンストラクタにおけるプロトタイプのmessageプロパティの初期値は、カラの文字列です。
+		</p>
+		<p>
+		[注釈]
+		</p>
+		<p>
+		　NativeErrorコンストラクタにおけるプロトタイプは、自分自身は、toString関数を提供しませんが、エラーのインスタンスは、Errorプロトタイプオブジェクトからそれを継承します。
+		</p>
+
+		<h3>15.11.7.11 NativeError インスタンスのプロパティ</h3>
+		<p>
+		　 NativeErrorインスタンスは、それらのNativeErrorプロトタイプオブジェクトと値が"Error"であるそれらの内部プロパティ[[Class]]から継承します。
+		</p>
+		<p>
+		　 NativeErrorインスタンスは、特別なプロパティを何も持ちません。
+		</p>
+
+		
+
+		
+	

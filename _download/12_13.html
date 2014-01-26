@@ -1,0 +1,53 @@
+
+
+	
+		<h2>12.13 throw 文 / The throw Statement / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>12 ステートメント／文</h3>
+		
+
+		<h3>12.13  throw 文</h3>
+
+<div class="pre-div">
+<pre>
+【構文】
+ThrowStatement :
+	throw [no LineTerminator here] Expression ;
+</pre>
+</div>
+
+		<p>
+		【セマンティックス】
+		</p>
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+ThrowStatement : throw [no LineTerminator here] Expression ;
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. exprRef は、Expressionを評価した結果とする
+2. return (throw, GetValue(exprRef), empty)
+</pre>
+</div>
+
+		
+
+		
+	

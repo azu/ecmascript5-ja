@@ -1,0 +1,68 @@
+
+
+	
+		<h2>11.14 カンマ演算子 ( , ) / Comma Operator / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>11 式</h3>
+		
+
+		<h3>11.14 カンマ演算子 ( , )</h3>
+
+<div class="pre-div">
+<pre>
+【構文】
+Expression :
+	AssignmentExpression Expression , AssignmentExpression
+
+ExpressionNoIn :
+	AssignmentExpressionNoIn ExpressionNoIn , AssignmentExpressionNoIn
+</pre>
+</div>
+
+		<p>
+		【セマンティックス】
+		</p>
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+Expression : Expression , AssignmentExpression
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. lref は、Expressionを評価した結果とする
+2. GetValue(lref) を呼ぶ
+3. rref は、AssignmentExpressionを評価した結果とする
+4. GetValue(rref) を返す
+</pre>
+</div>
+
+		<p>
+		　ExpressionNoInは、Expression と AssignmentExpressionのそれぞれを含む代わりにExpressionNoIn と AssignmentExpressionNoInを含んで評価される場合を除き、Expressionプロダクションと同じ方法で評価されます。
+		</p>
+		<p>
+		[注釈]
+		</p>
+		<p>
+		　GetValueは、観測可能な副作用を持つ場合がある為、その値が使用されない場合でさえ呼ばれなければいけません。
+		</p>
+
+		
+
+		
+	

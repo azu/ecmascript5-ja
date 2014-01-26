@@ -1,0 +1,436 @@
+
+
+	
+		<h2>7.8 リテラル / Literals / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>7 語彙的な表記</h3>
+		
+
+		<h3>7.8 リテラル</h3>
+
+<pre>
+【構文】
+Literal ::
+	NullLiteral
+	BooleanLiteral
+	NumericLiteral
+	StringLiteral
+	RegularExpressionLiteral
+</pre>
+
+		<h3>7.8.1 Nullリテラル(NullLiteral)</h3>
+
+<pre>
+【構文】
+Null Literal ::
+	null
+</pre>
+
+		<p>
+		【セマンティクス(意味論・統語論)】
+		</p>
+		<p>
+		nullリテラルnullという値は、唯一のNullタイプという値、すなわちnullです。
+		</p>
+
+		<h3>7.8.2 Booleanリテラル(BooleanLiteral)</h3>
+
+<pre>
+【構文】
+BooleanLiteral ::
+	true
+	false
+</pre>
+
+		<p>
+		【セマンティクス(意味論・統語論)】
+		</p>
+		<p>
+		Booleanリテラルtrueという値は、Booleanタイプの値、すなわちtrueです。
+		</p>
+		<p>
+		Booleanリテラルfalseという値は、Booleanタイプの値、すなわちfalseです。
+		</p>
+
+		<h3>7.8.3 数値リテラル(NumericLiteral)</h3>
+
+<div class="pre-div">
+<pre>
+【構文】
+
+数値リテラル(NumericLiteral) ::
+	10進リテラル(DecimalLiteral)
+	16進整数リテラル(HexIntegerLiteral)
+
+10進リテラル(DecimalLiteral) ::
+	10進整数リテラル . 10進数字[オプション] 指数部[オプション]
+	(DecimalIntegerLiteral . DecimalDigitsopt ExponentPartopt)
+	 . 10進数字[オプション] 指数部[オプション]
+	( . DecimalDigitsopt ExponentPartopt)
+	10進整数リテラル 指数部[オプション]
+	(DecimalIntegerLiteral ExponentPartopt)
+
+
+10進整数リテラル(DecimalIntegerLiteral) ::
+	0
+	非ゼロ数字 10進数字[オプション]
+	(NonZeroDigit DecimalDigitsopt)
+
+
+10進数字 (DecimalDigits) ::
+	DecimalDigit
+	DecimalDigits DecimalDigit
+
+
+10進数字 (DecimalDigit) ::
+	0 1 2 3 4 5 6 7 8 9
+の何れか1つ
+
+非ゼロ数字 (NonZeroDigit) ::
+	1 2 3 4 5 6 7 8 9
+の何れか1つ
+
+指数部 (ExponentPart) ::
+	指数指標 符号付き整数
+	(ExponentIndicator SignedInteger)
+
+指数指標 (ExponentIndicator) ::
+	e	E
+の何れか1つ
+
+符号付き整数 (SignedInteger) ::
+	10進数字 (DecimalDigits)
+	+ 10進数字 (+ DecimalDigits)
+	- 10進数字 (- DecimalDigits)
+
+16進整数リテラル (HexIntegerLiteral) ::
+	0x 16進数字(0x HexDigit)
+	0X 16進数字(0X HexDigit)
+	16進整数リテラル 16進数字(HexIntegerLiteral HexDigit)
+
+16進数字(HexDigit) ::
+	0 1 2 3 4 5 6 7 8 9 a b c d e f A B C D E F
+の何れか1つ
+</pre>
+</div>
+
+		<p>
+		　数値リテラル(NumericLiteral)のすぐ後に続くソース文字は、識別子の開始(IdentifierStart)または10進数字(DecimalDigit)にしてはいけません。
+		</p>
+		<p>
+		[注釈]
+		</p>
+
+<pre>
+例)	3in
+</pre>
+		<p>
+		　3in というのはエラーであり、"3"と"in"という2つの入力要素ではありません(とはみなされません)。
+		</p>
+
+		<p>
+		【セマンティクス】
+		</p>
+		<p>
+		　ある数値リテラルは数字タイプの値に当てはまります。
+		この値は2つの段階を経て決められます。
+		まず最初に、1つの数学的な値(Mathematical Value / MV)は、リテラルから派生します。
+		次にこの数学的な値は以下に記述するように丸められます(丸め処理が行われます)。
+		</p>
+
+<div class="pre-div">
+<pre>
+・NumericLiteral(数値リテラル)から成るMV :: [ 10進リテラル(DecimalLiteral) ]は、10進リテラル(DecimalLiteral)から成るMV.
+・NumericLiteral(数値リテラル)から成るMV :: [ 16進整数リテラル(HexIntegerLiteral) ]は、16進整数リテラル(HexIntegerLiteral)から成るMV.
+・DecimalLiteral(10進リテラル)から成るMV :: [ 10進整数リテラル(DecimalIntegerLiteral) .  ]は、10進整数リテラル(DecimalIntegerLiteral)から成るMV.
+・DecimalLiteral(10進リテラル)から成るMV :: [ 10進整数リテラル(DecimalIntegerLiteral) . 10進数字(DecimalDigit) ]は、10進整数リテラル(DecimalIntegerLiteral)から成るMV plus (10進数字(DecimalDigit)から成るMVs の [ 10^-n ]倍(10のマイナスn乗))、[ n ]は、10進数字(DecimalDigits)... にある文字の数.
+・DecimalLiteral(10進リテラル)から成るMV :: [ 10進整数リテラル(DecimalIntegerLiteral) . 指数部(ExponentPart) ]は、10進整数リテラル(DecimalIntegerLiteral)から成るMV の[ 10e ]倍、[ e ]は、指数部(ExponentPart)から成るMV.
+・DecimalLiteral(10進リテラル)から成るMV :: [ 10進整数リテラル(DecimalIntegerLiteral) . 10進数字(DecimalDigits)... 指数部(ExponentPart) ]は、(10進整数リテラル(DecimalIntegerLiteral)から成るMV プラス (10進数字(DecimalDigit)から成るMVs の [ 10^-n ]倍(10のマイナスn乗))) [ 10e倍 ]、[ n ]は、10進数字(DecimalDigits)... にある文字の数、[ e ]は、指数部(ExponentPart)から成るMV.
+・DecimalLiteral(10進リテラル)から成るMV :: [ . 10進数字(DecimalDigit) ]は、10進数字(DecimalDigit)から成るMVs の [ 10^-n ]倍(10のマイナスn乗)、[ n ]は、10進数字(DecimalDigits)... にある文字の数.
+・DecimalLiteral(10進リテラル)から成るMV :: [ . 10進数字(DecimalDigits)... 指数部(ExponentPart) ]は、10進数字(DecimalDigit)から成るMVs の [ 10^-n ]倍(10のマイナスn乗)、[ n ]は、10進数字(DecimalDigits)... にある文字の数、[ e ]は、指数部(ExponentPart)から成るMV.
+・DecimalLiteral(10進リテラル)から成るMV :: [ 10進整数リテラル(DecimalIntegerLiteral) ]は、10進整数リテラル(DecimalIntegerLiteral)から成るMV.
+・DecimalLiteral(10進リテラル)から成るMV :: [ 10進整数リテラル(DecimalIntegerLiteral) 指数部(ExponentPart) ]は、10進整数リテラル(DecimalIntegerLiteral)から成るMV の[ 10e ]倍、[ e ]は、指数部(ExponentPart)から成るMV.
+・DecimalIntegerLiteral(10進整数リテラル)から成るMV :: [ 0 ] は、 0.
+・DecimalIntegerLiteral(10進整数リテラル)から成るMV :: [ 非ゼロ数字(NonZeroDigit) ]は、 非ゼロ数字(NonZeroDigit)から成るMV.
+・DecimalIntegerLiteral(10進整数リテラル)から成るMV :: [ 非ゼロ数字(NonZeroDigit) 10進数字(DecimalDigit) ]は、[ (非ゼロ数字(NonZeroDigit)から成るMV の[ 10^n ]倍(10のn乗)) プラス 10進数字(DecimalDigit)から成るMVs ]、[ n ]は、10進数字(DecimalDigits)... にある文字の数.
+・DecimalDigit(10進数字)から成るMVs :: [ 10進数字(DecimalDigit) ]は、10進数字(DecimalDigit)から成るMV.
+・DecimalDigit(10進数字)から成るMVs :: [ 10進数字(DecimalDigits)... 10進数字(DecimalDigit) ]は、[ (10進数字(DecimalDigit)から成るMVsの[ 10 ]倍) プラス 10進数字(DecimalDigit)から成るMV ].
+・ExponentPart(指数部)から成るMV :: [ 指数指標(ExponentIndicator) 符号付き整数(SignedInteger) ]は、符号付き整数(SignedInteger)から成るMV.
+・SignedInteger(符号付き整数)から成るMV :: [ 10進数字(DecimalDigit) ]は、10進数字(DecimalDigit)から成るMVs.
+・SignedInteger(符号付き整数)から成るMV :: [ + 10進数字(DecimalDigit) ]は、10進数字(DecimalDigit)から成るMVs.
+・SignedInteger(符号付き整数)から成るMV :: [ - 10進数字(DecimalDigit) ]は、10進数字(DecimalDigit)から成るMVsの負の値.
+・DecimalDigit(10進数字)から成るMV :: [ 0 ] または、16進数字から成る :: [ 0 ]は、 0.
+・DecimalDigit(10進数字)から成るMV :: [ 1 ] または、NonZeroDigit(非ゼロ数字)から成る :: [ 1 ] または、16進数字から成る :: [ 1 ]は、 1.
+・DecimalDigit(10進数字)から成るMV :: [ 2 ] または、NonZeroDigit(非ゼロ数字)から成る :: [ 2 ] または、16進数字から成る :: [ 2 ]は、 2.
+・DecimalDigit(10進数字)から成るMV :: [ 3 ] または、NonZeroDigit(非ゼロ数字)から成る :: [ 3 ] または、16進数字から成る :: [ 3 ]は、 3.
+・DecimalDigit(10進数字)から成るMV :: [ 4 ] または、NonZeroDigit(非ゼロ数字)から成る :: [ 4 ] または、16進数字から成る :: [ 4 ]は、 4.
+・DecimalDigit(10進数字)から成るMV :: [ 5 ] または、NonZeroDigit(非ゼロ数字)から成る :: [ 5 ] または、16進数字から成る :: [ 5 ]は、 5.
+・DecimalDigit(10進数字)から成るMV :: [ 6 ] または、NonZeroDigit(非ゼロ数字)から成る :: [ 6 ] または、16進数字から成る :: [ 6 ]は、 6.
+・DecimalDigit(10進数字)から成るMV :: [ 7 ] または、NonZeroDigit(非ゼロ数字)から成る :: [ 7 ] または、16進数字から成る :: [ 7 ]は、 7.
+・DecimalDigit(10進数字)から成るMV :: [ 8 ] または、NonZeroDigit(非ゼロ数字)から成る :: [ 8 ] または、16進数字から成る :: [ 8 ]は、 8.
+・DecimalDigit(10進数字)から成るMV :: [ 9 ] または、NonZeroDigit(非ゼロ数字)から成る :: [ 9 ] または、16進数字から成る :: [ 9 ]は、 9.
+・HexDigit(16進数字) :: [ a ] または、16進数字から成る :: [ A ]は、 10.
+・16進数字(HexDigit) :: [ b ] または、16進数字から成る :: [ B ]は、 11.
+・16進数字(HexDigit) :: [ c ] または、16進数字から成る :: [ C ]は、 12.
+・16進数字(HexDigit) :: [ d ] または、16進数字から成る :: [ D ]は、 13.
+・16進数字(HexDigit) :: [ e ] または、16進数字から成る :: [ E ]は、 14.
+・16進数字(HexDigit) :: [ f ] または、16進数字から成る :: [ F ]は、 15.
+・16進整数リテラル(HexIntegerLiteral)から成るMV :: [ 0x 16進数字(DecimalDigit) ]は、16進数字(HexDigit).
+・16進整数リテラル(HexIntegerLiteral)から成るMV :: [ 0X 16進数字(DecimalDigit) ]は、16進数字(HexDigit).
+・16進整数リテラル(HexIntegerLiteral)から成るMV :: [ 16進整数リテラル(HexIntegerLiteral) 16進数字(HexDigit) ]は、[ (16進整数リテラル(HexIntegerLiteral)から成るMVの16倍) プラス 16進数字(HexDigit) ].
+</pre>
+</div>
+
+		<p>
+		　一度、数値リテラルにおける正確なMVが決められると、それはNumber型の値に丸められます。
+		もし、MVが0だった場合、その丸め値は、[ +0 ]であり、そうでなければ、リテラルが10進リテラル(DecimalLiteral)であり、そのリテラルが20以上である有効な数字を持ち、Number(型の)値が、20番めの数字以降の有効な数字ごとに置き換えられることによって生成されたリテラルから成るMVにおけるNumber(型の)値、または数字0を伴う20番め以降の有効な数字ごとに置き換えられることによって生成されるリテラルから成るMVにおけるNumber(型の)値であり、そしてまた有効な数字の位置である20番めにリテラルを増分する場合でない限り、丸め値は、(8.5 に書いたように)MVにおけるNumber(型の)値にしなければいけません。
+		1つの数字は、もし、それが指数部の一部でない場合で且つ
+		</p>
+		<ul>
+			<li>それが0ではない、または</li>
+			<li>その左側が非ゼロ数字で、その右側に指数部内にない非ゼロ数字がある</li>
+		</ul>
+		<p>
+		という場合、かなり重要です。
+		準拠する実装は、strictモードのコードを処理する際( 10.1.1 参照)には、B.1.1 で説明したように8進数値リテラル(OctalIntegerLiteral)を含む為に数値リテラル(NumericLiteral)の構文を拡張してはいけません。
+		</p>
+
+		<h3>7.8.4 文字列リテラル(String Literals)</h3>
+		<p>
+		　文字列リテラルは、シングルクォートやダブルクォートで括られるゼロ個以上の文字です。
+		各文字は、エスケープシーケンスによって表現される場合もあります。
+		全ての文字は、書いた文字の通り、または、閉じるクォート、バックスラッシュ、キャリッジリターン、行セパレータ、段落セパレータ、ラインフィードを除く、文字列リテラル内に現れる場合があります。
+		一部の文字は、エスケープシーケンスから成る書式内に現れる場合もあります。
+		</p>
+
+<div class="pre-div">
+<pre>
+【構文】
+StringLiteral ::
+" DoubleStringCharactersopt " ' SingleStringCharactersopt '
+
+DoubleStringCharacters ::
+DoubleStringCharacter DoubleStringCharactersopt
+
+SingleStringCharacters ::
+SingleStringCharacter SingleStringCharactersopt
+
+DoubleStringCharacter ::
+SourceCharacter but not one of " or \ or LineTerminator \ EscapeSequence LineContinuation
+
+SingleStringCharacter ::
+SourceCharacter but not one of ' or \ or LineTerminator \ EscapeSequence LineContinuation
+
+LineContinuation ::
+\ LineTerminatorSequence
+
+EscapeSequence ::
+CharacterEscapeSequence 0 [lookahead ? DecimalDigit] HexEscapeSequence UnicodeEscapeSequence
+
+CharacterEscapeSequence ::
+SingleEscapeCharacter NonEscapeCharacter
+
+SingleEscapeCharacter ::
+one of ' " \ b f n r t v
+
+NonEscapeCharacter ::
+SourceCharacter but not one of EscapeCharacter or LineTerminator
+
+EscapeCharacter ::
+SingleEscapeCharacter
+DecimalDigit
+x
+u
+
+HexEscapeSequence ::
+x HexDigit HexDigit
+
+UnicodeEscapeSequence ::
+u HexDigit HexDigit HexDigit HexDigit
+</pre>
+</div>
+
+		<p>
+		　非終端の16進数字(HexDigit)の定義は、7.8.3 にあります。
+		</p>
+		<p>
+		　ソース文字(SourceCharacter)は、第6項で定義されます。
+		</p>
+
+		<p>
+		【セマンティクス】
+		</p>
+		<p>
+		　文字列リテラルはString型の値に当てはめられます。
+		リテラルから成るString値(String value / SV)は、文字列リテラルの様々な部分に寄与する文字値(character values / CV)の為に説明されます。
+		このプロセスの一部として、文字列リテラル内の一部の文字は、次や7.8.3 で説明したように数学的な値(mathematical value / MV)を持つものとして解釈されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+・文字列リテラル(StringLiteral)のSV :: "" は、カラ(空／empty)文字シーケンス.
+・文字列リテラル(StringLiteral)のSV :: '' は、カラ(空／empty)文字シーケンス.
+・文字列リテラル(StringLiteral)のSV :: " ダブルString文字...(DoubleStringCharacters) " は、ダブルString文字(DoubleStringCharacters)のSV.
+・文字列リテラル(StringLiteral)のSV :: ' シングルString文字...(SingleStringCharacters) ' は、シングルString文字(SingleStringCharacters)のSV.
+・ダブルString文字(DoubleStringCharacters)のSV :: ダブルString文字(DoubleStringCharacter)は、一文字のシーケンス(並び)、ダブルString文字(DoubleStringCharacter)のCV.
+・ダブルString文字(DoubleStringCharacters)のSV :: ダブルString文字(DoubleStringCharacter) ダブルString文字...(DoubleStringCharacters)は、指示内のダブルString文字(DoubleStringCharacters)のSVにある全ての文字に続くダブルString文字(DoubleStringCharacter)のCVのシーケンス(並び).
+・シングルString文字(SingleStringCharacters)のSV :: シングルString文字(SingleStringCharacter)は、一文字のシーケンス(並び)、シングルString文字(SingleStringCharacter)のCV.
+・シングルString文字(SingleStringCharacters)のSV :: シングルString文字(SingleStringCharacter シングルString文字...(SingleStringCharacters)は、指示内のシングルString文字(SingleStringCharacters)のSVにある全ての文字に続くシングルString文字(SingleStringCharacter)のCVのシーケンス(並び).
+・行継続(LineContinuation)のSV :: \ 行終端シーケンス(LineTerminatorSequence) は、カラ(空／empty)文字シーケンス.
+・ダブルString文字(DoubleStringCharacter)のCV :: " や \ や行終端(LineTerminator)の1つではないソース文字(SourceCharacter)は、その文字自身がソース文字(SourceCharacter).
+・ダブルString文字(DoubleStringCharacter)のCV :: \ エスケープシーケンス(EscapeSequence)は、エスケープシーケンス(EscapeSequence)のCV.
+・ダブルString文字(DoubleStringCharacter)のCV :: LineContinuation は、カラ(空／empty)文字シーケンス.
+・シングルString文字(SingleStringCharacter)のCV :: ' や \ や行終端(LineTerminator)の1つではないソース文字(SourceCharacter)は、その文字自身がソース文字(SourceCharacter).
+・シングルString文字(SingleStringCharacter)のCV :: \ エスケープシーケンス(EscapeSequence)は、エスケープシーケンス(EscapeSequence)のCV.
+・シングルString文字(SingleStringCharacter)のCV :: LineContinuation は、カラ(空／empty)文字シーケンス.
+・エスケープシーケンス(EscapeSequence)のCV :: 文字エスケープシーケンス(CharacterEscapeSequence)は、文字エスケープシーケンス(CharacterEscapeSequence)のCV.
+・エスケープシーケンス(EscapeSequence)のCV :: 0 [lookahead ? DecimalDigit] は、 &lt;NUL&gt; 文字 (Unicode値 0000).
+・エスケープシーケンス(EscapeSequence)のCV :: 16進エスケープシーケンス(HexEscapeSequence)は、 16進エスケープシーケンス(HexEscapeSequence)のCV.
+・エスケープシーケンス(EscapeSequence)のCV :: Unicodeエスケープシーケンス(UnicodeEscapeSequence)は、 Unicodeエスケープシーケンス(UnicodeEscapeSequence)のCV.
+・文字エスケープシーケンス(CharacterEscapeSequence)のCV :: シングルエスケープ文字(SingleEscapeCharacter)は、 Table 4と一致するシングルエスケープ文字(SingleEscapeCharacter)であるコードユニット値である文字：
+</pre>
+</div>
+
+		<div class="pre-div">
+		<table border="1" style="width:100%">
+		<tr><th colspan="4">Table 4 - String 1文字エスケープシーケンス</th></tr>
+		<tr><th>エスケープシーケンス</th><th>コードユニット値</th><th>名称</th><th>記号</th></tr>
+		<tr><th>\b</th><th>\u0008</th><td>backspace</td><th>&lt;BS&gt;</th></tr>
+		<tr><th>\t</th><th>\u0009</th><td>horizontal tab</td><th>&lt;HT&gt;</th></tr>
+		<tr><th>\n</th><th>\u000A</th><td>line feed (new line)</td><th>&lt;LF&gt;</th></tr>
+		<tr><th>\v</th><th>\u000B</th><td>vertical tab</td><th>&lt;VT&gt;</th></tr>
+		<tr><th>\f</th><th>\u000C</th><td>form feed</td><th>&lt;FF&gt;</th></tr>
+		<tr><th>\r</th><th>\u000D</th><td>carriage return</td><th>&lt;CR&gt;</th></tr>
+		<tr><th>\"</th><th>\u0022</th><td>double quote</td><th>&quot;</th></tr>
+		<tr><th>\'</th><th>\u0027</th><td>single quote</td><th>&apos;</th></tr>
+		<tr><th>\\</th><th>\u005C</th><td>backslash</td><th>\</th></tr>
+		</table>
+		</div>
+
+<div class="pre-div">
+<pre>
+・文字エスケープシーケンス(CharacterEscapeSequence)のCV ::
+　非エスケープ文字(NonEscapeCharacter)は、非エスケープ文字(NonEscapeCharacter)のCV
+
+・非エスケープ文字(NonEscapeCharacter)のCV ::
+　エスケープ文字(EscapeCharacter)や行終端ではないソース文字(SourceCharacter)は、ソース文字(SourceCharacter)自体がその文字自身
+
+・16進エスケープシーケンス(HexEscapeSequence)のCV ::
+　x 16進数字 16進数字( x HexDigit HexDigit)は、
+　コードユニット値が(最初の16進数字の MV 16通り) プラス 2番めの16進数字の MV である文字
+
+・Unicodeエスケープシーケンス(UnicodeEscapeSequence)のCV ::
+　u 16進数字 16進数字 16進数字 16進数字( u HexDigit HexDigit HexDigit HexDigit)は、
+　コードユニット値が(最初の16進数字の MV 4,096通り) プラス (2番めの16進数字の MV 256通り) プラス (3番めの16進数字16通り) プラス 4番めの16進数字の MV である文字
+</pre>
+</div>
+
+		<p>
+		　準拠する実装は、strictモードのコードを処理する際には、B.1.2で説明したように8進エスケープシーケンスを含む為にエスケープシーケンス(EscapeSequence)の構文を拡張しない場合があります。
+		</p>
+		<p>
+		[注釈]
+		</p>
+		<p>
+		　ある1つの行終端文字は、カラ文字シーケンスを生成する為の行継続の一部である場合を除き、文字列リテラル内に現れることはできません。
+		文字列リテラルのString値の一部とする為の行終端文字による修正方法は、\n や \u000A のようなエスケープシーケンスを利用することです。
+		</p>
+
+		<h3>7.8.5 正規表現リテラル(Regular Expression Literals)</h3>
+
+		<p>
+		　正規表現リテラルは、リテラルが評価されるたびにRegExpオブジェクト(15.10 参照)に変換される入力要素です。
+		正規表現オブジェクトを評価するプログラム内にある2つの正規表現リテラルは、リテラルの内容が識別される場合でさえ、それぞれが === として比較されることはありません。
+		RegExpオブジェクトは、新たなRegExp(15.10.4 参照)や関数(15.10.3)の場合にはRegExpコンストラクタを呼ぶことによって実行時に生成される場合もあります。
+		生成される結果は、続く正規表現リテラルにおけるシンタックスを説明し、正規表現リテラルの終わりまで探す為の入力要素の走査によって使われます。
+		正規表現本体(RegularExpressionBody)と正規表現フラグ(RegularExpressionFlags)を構成する複数文字の文字列は、正規表現コンストラクタとして解釈されずに渡され、独自の、より厳格な文法に従ってそれらを解釈します。
+		実装は、正規表現コンストラクタの文法を拡張する場合がありますが、これらのプロダクションで使用した正規表現本体(RegularExpressionBody)と正規表現フラグ(RegularExpressionFlags)、または、そのプロダクションを拡張してはいけません。
+		</p>
+
+<div class="pre-div">
+<pre>
+【構文】
+
+RegularExpressionLiteral ::
+/ RegularExpressionBody / RegularExpressionFlags
+
+RegularExpressionBody ::
+RegularExpressionFirstChar RegularExpressionChars
+
+RegularExpressionChars ::
+[empty] RegularExpressionChars RegularExpressionChar
+
+RegularExpressionFirstChar ::
+RegularExpressionNonTerminator but not one of * or \ or / or [ RegularExpressionBackslashSequence RegularExpressionClass
+
+RegularExpressionChar ::
+RegularExpressionNonTerminator but not one of \ or / or [ RegularExpressionBackslashSequence RegularExpressionClass
+
+RegularExpressionBackslashSequence ::
+\ RegularExpressionNonTerminator
+
+RegularExpressionNonTerminator ::
+SourceCharacter but not LineTerminator
+
+RegularExpressionClass ::
+[ RegularExpressionClassChars ]
+
+RegularExpressionClassChars ::
+[empty] RegularExpressionClassChars RegularExpressionClassChar
+
+RegularExpressionClassChar ::
+RegularExpressionNonTerminator but not one of ] or \ RegularExpressionBackslashSequence
+
+RegularExpressionFlags ::
+[empty] RegularExpressionFlags IdentifierPart
+</pre>
+</div>
+
+		<p>
+		[注釈]
+		</p>
+		<p>
+		　正規表現リテラルは、カラにならない場合もあります。
+		正規表現リテラルが、カラにならない場合、カラの正規表現リテラルを表現する代わりに文字
+		</p>
+
+<pre>
+//
+</pre>
+
+		<p>
+		(スラッシュ2つ)で始まる単一行コメントを使用します。
+		カラの正規表現を書くには、
+		</p>
+
+<pre>
+/(?:)/
+</pre>
+
+		<p>
+		を使用します。
+		</p>
+
+		<p>
+		【セマンティクス】
+		</p>
+		<p>
+		　正規表現リテラルは、標準組み込みコンストラクタRegExpのインスタンスであるObject型の値を評価します。
+		この値は、2つの段階を経て決められます。
+		まず、正規表現の正規表現本体(RegularExpressionBody)と正規表現フラグ(RegularExpressionFlags)の拡張を構成する複数文字は、それぞれ2つの文字列パターンとフラグについて解釈されずに収集されます。
+		その時、そのリテラルが評価されるごとに、その名前を持つ標準組み込みコンストラクタRegExpをまるで新たなRegExp(Pattern, Flags)という式によって生成されるかのように新たなオブジェクトが生成されます。
+		新たに構築されるオブジェクトは、正規表現リテラル(RegularExpressionLiteral)の値になります。
+		もし、new RegExp をコールすると 15.10.4.1 に書いたようなエラーを生成する場合、そのエラーは、初期エラー(第16項)として扱われなければいけません。
+		</p>
+
+		
+
+		
+	

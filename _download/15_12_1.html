@@ -1,0 +1,115 @@
+
+
+	
+		<h2>15.12.1 JSONの文法 / The JSON Grammar / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>15 標準組み込みECMAScriptオブジェクト</h3>
+		
+		<h3>15.12 JSON オブジェクト</h3>
+		
+		<h3>15.12.1 JSONの文法</h3>
+		<p>
+		　 JSON.stringify は、次のJSONの文法に準拠する文字列を生成します。
+		 JSON.parse は、JSONの文法に準拠する文字列を許容します。
+		</p>
+		<h3>15.12.1.1 JSONの語彙的な文法</h3>
+		<p>
+		　 JSONは、SourceCharacterの規則と一致する複数文字の並びから構成される中にあるECMAScriptのソーステキストに似ています。
+		JSONの語彙的な文法は、ECMAScriptのソーステキストのトークン(字句)を定義するECMAScriptの語彙的な文法における方法に似たJSONテキストを作り上げるトークンを定義します。
+		JSONの語彙的な文法は、プロダクションJSONWhiteSpaceによって定義したホワイトスペース文字を認識するだけです。
+		JSONの語彙的な文法は、ECMAScriptの語彙的な文法を伴う一部のプロダクションを共有します。
+		文字"JSON"を伴って始まらない文法上の全ての非終端記号は、ECMAScriptの語彙的な文法のプロダクションによって定義されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+【構文】
+JSONWhiteSpace ::
+&lt;TAB&gt;
+&lt;CR&gt;
+&lt;LF&gt;
+&lt;SP&gt;
+
+JSONString ::
+" JSONStringCharactersopt "
+
+JSONStringCharacters ::
+JSONStringCharacter JSONStringCharactersopt
+
+JSONStringCharacter ::
+ "  、 \ 、または、U+0000 から U+001F までの何れでもない SourceCharacter
+\ JSONEscapeSequence
+
+JSONEscapeSequence ::
+JSONEscapeCharacter
+UnicodeEscapeSequence
+
+JSONEscapeCharacter ::
+" / \ b f n r t
+の何れか1つ
+
+JSONNumber ::
+-opt DecimalIntegerLiteral JSONFractionopt ExponentPartopt
+
+JSONFraction ::
+ . DecimalDigits
+
+JSONNullLiteral ::
+NullLiteral
+
+JSONBooleanLiteral ::
+BooleanLiteral
+</pre>
+</div>
+
+		<h3>15.12.1.2 JSON 構文の文法</h3>
+		<p>
+		　 JSON構文の文法は、JSONの語彙的な文法によって定義したトークン(字句)の用語にある有効なJSONテキストを定義します。
+		その文法の目標シンボルは、JSONText です。
+		</p>
+
+<div class="pre-div">
+<pre>
+【構文】
+JSONText :
+JSONValue
+
+JSONValue :
+JSONNullLiteral
+JSONBooleanLiteral
+JSONObject
+JSONArray
+JSONString
+
+JSONNumber JSONObject :
+{ }
+{ JSONMemberList }
+
+JSONMember :
+JSONString : JSONValue
+
+JSONMemberList :
+JSONMember
+JSONMemberList , JSONMember
+
+JSONArray :
+[ ]
+[ JSONElementList ]
+
+JSONElementList :
+JSONValue
+JSONElementList , JSONValue
+</pre>
+</div>
+
+		
+
+		
+	

@@ -1,0 +1,202 @@
+
+
+	
+		<h2>7.6 識別子名と識別子 / Identifier Names and Identifiers / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>7 語彙的な表記</h3>
+		
+
+		<h3>7.6 識別子名と識別子</h3>
+		<p>
+		　字句である識別子名は、一部わずかな修飾子を伴うUnicode標準仕様の第5章の『Identifiers(識別子)』セクション(節)で与えられる文法によって解析されます。
+		あるIdentifierNameという、ある識別子( 7.6.1 参照)は、予約語(ReservedWord)ではありません。
+		Unicode識別子の文法は、Unicode標準仕様によって記述される非正規・正規の文字カテゴリ双方を基準にします。
+		Unicode標準仕様の第3版内のカテゴリに記述された中にある文字は、完全準拠するECMAScript実装によってそれらのカテゴリにあるものとして扱われます。
+		</p>
+		<p>
+		　この標準仕様は、文字追加の仕様を記述します。
+		ダラー記号( $ )とアンダースコア( _ )は、IdentifierName(識別子名)内のどこにあっても解釈されます。
+		</p>
+		<p>
+		　Unicodeエスケープシーケンスもまた、当該IdentifierName(識別子名)においてUnicodeEscapeSequence(Unicodeエスケープシーケンス)のCVによって算出される際に単独の文字に寄与するIdentifierName(識別子名)の中で解釈されます。( 7.8.4 参照)
+		先行するUnicodeEscapeSequence(Unicodeエスケープシーケンス) \ は、IdentifierName(識別子名)における文字に寄与し(使用され)ません。
+		Unicodeエスケープシーケンス(UnicodeEscapeSequence)は、不正ではないIdentifierName(識別子名)について文字を配置する為に利用されることはできません。
+		言い換えると、もし、UnicodeEscapeSequence(Unicodeエスケープシーケンス) \ が、当該UnicodeEscapeSequence(Unicodeエスケープシーケンス)のCVによって置き換えられる場合、その結果は、まだ元のIdentifierName(識別子名)と正確に同じ文字の並びを持つ有効なIdentifierName(識別子名)としなければいけません。
+		この仕様内の識別子についての全ての解釈は、一部の固有文字に寄与(使用)する為に利用されたエスケープシーケンスか否かに関わらず、それら実際の文字を基準にします。
+		</p>
+		<p>
+		　Unicode標準仕様と一致するまさに等価である2つのIdentifierName(識別子名)であっても、厳密に同一のコード単位の並びによって表されない限り、イコールではありません。
+		(言い換えるとECMAScript実装はIdentifierName(識別子名)をビット単位で比較する為にだけ、唯一要求されます。)
+		その意図は、コンパイラに到達する前に正規化形式 Cに変換されるソーステキストであるということです。
+		</p>
+		<p>
+		　ECMAScript実装はUnicode標準仕様の最新版で定義した識別子文字を認識する場合があります。
+		もし、移植性が気になる場合には、プログラマはUnicode 3.0で定義した識別子文字だけを採用するべきです。
+		</p>
+
+<div class="pre-div">
+<pre>
+【構文】
+識別子(Identifier) :: 
+予約語(ReservedWord)ではない識別子(IdentifierName)
+
+識別子名(IdentifierName) :: 
+識別子開始(IdentifierStart)
+識別子名 識別子部(IdentifierName IdentifierPart)
+
+識別子開始(IdentifierStart) ::
+Unicode文字(UnicodeLetter)
+$
+_
+\ Unicodeエスケープシーケンス(UnicodeEscapeSequence)
+</pre>
+</div>
+
+<div class="pre-div">
+<pre>
+IdentifierPart (識別子部分) ::
+	IdentifierStart (識別子の開始)
+	UnicodeCombiningMark (Unicode結合マーク)
+	UnicodeDigit (Unicode数字)
+	UnicodeConnectorPunctuation (Unicode接続句読点)
+	&lt;ZWNJ&gt;
+	&lt;ZWJ&gt;
+</pre>
+</div>
+
+<div class="pre-div">
+<pre>
+UnicodeLetter(Unicode文字) ::
+"Uppercase letter (Lu)"、"Lowercase letter (Ll)"、"Titlecase letter (Lt)"、"Modifier letter (Lm)"、"Other letter (Lo)"や"Letter number (Nl)"といったUnicodeカテゴリにある一部の文字
+("大文字 (Lu)"、"小文字 (Ll)"、"タイトル大文字 (Lt)"、"修飾文字 (Lm)"、"その他文字 (Lo)"や"文字番号 (Nl)"といったUnicodeカテゴリにある一部の文字)
+</pre>
+</div>
+
+<div class="pre-div">
+<pre>
+UnicodeCombiningMark(Unicode結合マーク) ::
+"Non-spacing mark (Mn)"や"Combining spacing mark (Mc)"といったUnicodeカテゴリにある一部の文字
+("非スペースマーク (Mn)"や"結合スペースマーク (Mc))"といったUnicodeカテゴリにある一部の文字)
+</pre>
+</div>
+
+<div class="pre-div">
+<pre>
+UnicodeDigit(Unicode数字) ::
+"Decimal number (Nd)(十進数 (Nd))"といったUnicodeカテゴリにある一部の文字
+</pre>
+</div>
+
+<div class="pre-div">
+<pre>
+UnicodeConnectorPunctuation(Unicode接続句読点) ::
+"Connector punctuation (Pc)(接続句読点 (Pc))"といったUnicodeカテゴリにある一部の文字
+</pre>
+</div>
+
+		<p>
+		 非終端のUnicodeエスケープシーケンス(UnicodeEscapeSequence)の定義は、 7.8.4 でなされます。
+		</p>
+
+		<h3>7.6.1 予約語</h3>
+		<p>
+		　予約語は、識別子として使うことができないIdentifierName(識別子名)です。
+		</p>
+
+<pre>
+【構文】
+	ReservedWord (予約語) :: 
+	Keyword (キーワード)
+	FutureReservedWord (将来の予約語)
+	NullLiteral (Nullリテラル)
+	BooleanLiteral (Booleanリテラル)
+</pre>
+
+		<h3>7.6.1.1 キーワード</h3>
+		<p>
+		　次に続く字句は、ECMAScriptのキーワードであり、一部は、ECMAScriptのプログラム内で識別子として使われない場合もあります。
+		</p>
+
+<pre>
+【構文】
+Keyword (キーワード)::
+	break
+	do
+	instanceof
+	typeof
+	case
+	else
+	new
+	var
+	catch
+	finally
+	return
+	void
+	continue
+	for
+	switch
+	while
+	debugger
+	function
+	this
+	with
+	default
+	if
+	throw
+	delete
+	in
+	try
+</pre>
+
+		<p>
+		の何れか1つ
+		</p>
+
+		<h3>7.6.1.2 将来の予約語</h3>
+		<p>
+		　次に続く単語は、推奨する拡張子内のキーワードとして使われるので、それら拡張子が将来採用される可能性を受け入れる為に予約されます。
+		</p>
+
+<pre>
+【構文】
+FutureReservedWord (将来の予約語) ::
+	class
+	enum
+	extends
+	super
+	const
+	export
+	import
+</pre>
+
+		<p>
+		の何れか1つ
+		</p>
+		<p>
+		　次に続く字句は、厳密モード(strict mode)のコード内に現れる場合にFutureReservedWord(将来の予約語)にすることが考慮されます。( 10.1.1 参照)
+		エラーを生成するであろうFutureReservedWord(将来の予約語)の出現のある文脈内においてstrictモード内にあるこれらの字句の一部の出現は、評価エラーをも生成しなければいけません。
+		</p>
+
+<pre>
+	implements
+	let
+	private
+	public
+	yield
+	interface
+	package
+	protected
+	static
+</pre>
+
+		
+
+		
+	

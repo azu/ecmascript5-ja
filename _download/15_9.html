@@ -1,0 +1,96 @@
+
+
+	
+		<h2>15.9 Date オブジェクト / Date Objects / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>15 標準組み込みECMAScriptオブジェクト</h3>
+		
+		<h3>15.9 Date オブジェクト</h3>
+		
+
+		<p><a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_9/15_9_1/" title="Date &#12458;&#12502;&#12472;&#12455;&#12463;&#12488;&#12398;&#27010;&#35201;&#12392;&#25277;&#35937;&#25805;&#20316;&#12398;&#23450;&#32681;">15.9.1 Date オブジェクトの概要と抽象操作の定義</a></p>
+                <p>--<a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_9/15_9_1/15_9_1_1/" title="&#26178;&#38291;&#12398;&#20516;&#12392;&#26178;&#38291;&#12398;&#31684;&#22258;">15.9.1.1 時間の値と時間の範囲</a></p>
+                <p>--<a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_9/15_9_1/15_9_1_2/" title="&#26085;&#25968;&#12392;1&#26085;&#12398;&#26178;&#38291;">15.9.1.2 日数と1日の時間</a></p>
+                <p>--<a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_9/15_9_1/15_9_1_3/" title="&#24180;&#38291;&#12398;&#26085;&#25968;">15.9.1.3 年間の日数</a></p>
+                <p>--<a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_9/15_9_1/15_9_1_4/" title="&#26376;&#38291;&#12398;&#25968;">15.9.1.4 月間の数</a></p>
+                <p>--<a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_9/15_9_1/15_9_1_5/" title="&#26085;&#20184;&#12398;&#25968;">15.9.1.5 日付の数</a></p>
+                <p>--<a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_9/15_9_1/15_9_1_6/" title="&#26332;&#26085;">15.9.1.6 曜日</a></p>
+                <p>--<a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_9/15_9_1/15_9_1_7/" title="&#22320;&#22495;&#12398;&#26178;&#38291;&#24111;(&#12525;&#12540;&#12459;&#12523;&#12479;&#12452;&#12512;&#12478;&#12540;&#12531;)&#35519;&#25972;">15.9.1.7 地域の時間帯(ローカルタイムゾーン)調整</a></p>
+                <p>--<a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_9/15_9_1/15_9_1_8/" title="&#22799;&#26178;&#38291;&#35519;&#25972;(DST / Daylight Saving Time Adjustment)">15.9.1.8 夏時間調整(DST / Daylight Saving Time Adjustment)</a></p>
+                <p>--<a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_9/15_9_1/15_9_1_9/" title="&#12525;&#12540;&#12459;&#12523;&#12479;&#12452;&#12512; / &#12525;&#12540;&#12459;&#12523;&#26178;&#38291; / Local Time">15.9.1.9 ローカルタイム / ローカル時間 / Local Time</a></p>
+                <p>--<a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_9/15_9_1/15_9_1_10/" title="&#26178;&#38291;&#12289;&#20998;&#12289;&#31186;&#12289;&#12511;&#12522;&#31186; &#65295; Hours, Minutes, Second, and Milliseconds">15.9.1.10 時間、分、秒、ミリ秒 ／ Hours, Minutes, Second, and Milliseconds</a></p>
+                <p>--<a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_9/15_9_1/15_9_1_11/" title="MakeTime (hour, min, sec, ms)">15.9.1.11 MakeTime (hour, min, sec, ms)</a></p>
+                <p>--<a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_9/15_9_1/15_9_1_12/" title="MakeDay (year, month, date)">15.9.1.12 MakeDay (year, month, date)</a></p>
+                <p>--<a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_9/15_9_1/15_9_1_13/" title="MakeDate (day, time)">15.9.1.13 MakeDate (day, time)</a></p>
+                <p>--<a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_9/15_9_1/15_9_1_14/" title="TimeClip (time)">15.9.1.14 TimeClip (time)</a></p>
+                <p>--<a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_9/15_9_1/15_9_1_15/" title="&#26085;&#20184;&#26178;&#21051;&#25991;&#23383;&#21015;&#12398;&#26360;&#24335;">15.9.1.15 日付時刻文字列の書式</a></p>
+                <p>----15.9.1.15.1 拡張した年</p>
+                <p><a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_9/15_9_2/" title="&#38306;&#25968;&#12392;&#12375;&#12390;&#21628;&#12406; Date&#12467;&#12531;&#12473;&#12488;&#12521;&#12463;&#12479;">15.9.2 関>数として呼ぶ Dateコンストラクタ</a></p>
+                <p>--15.9.2.1 Date ( [ year [, month [, date [, hours [, minutes [, seconds [, ms ] ] ] ] ] ] ] )</p>
+                <p><a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_9/15_9_3/" title="Date &#12467;&#12531;&#12473;&#12488;&#12521;&#12463;&#12479;">15.9.3 Date コンストラクタ</a></p>
+                <p>--15.9.3.1 new Date (year, month [, date [, hours [, minutes [, seconds [, ms ] ] ] ] ] )</p>
+                <p>--15.9.3.2 new Date (value)</p>
+                <p>--15.9.3.3 new Date ( )</p>
+                <p><a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_9/15_9_4/" title="Date &#12467;&#12531;&#12473;&#12488;&#12521;&#12463;&#12479;&#12398;&#12503;&#12525;&#12497;&#12486;&#12451;">15.9.4 Date コンストラクタのプロパティ</a></p>
+                <p>--15.9.4.1 Date.prototype</p>
+                <p>--15.9.4.2 Date.parse (string)</p>
+                <p>--15.9.4.3 Date.UTC (year, month [, date [, hours [, minutes [, seconds [, ms ] ] ] ] ] )</p>
+                <p>--15.9.4.4 Date.now ( )</p>
+                <p><a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_9/15_9_5/" title="Date &#12503;&#12525;&#12488;&#12479;&#12452;&#12503;&#12458;&#12502;&#12472;&#12455;&#12463;&#12488;&#12398;&#12503;&#12525;&#12497;&#12486;&#12451;">15.9.5 Date プロトタイプオブジェクトのプロパティ</a></p>
+                <p>--15.9.5.1 Date.prototype.constructor</p>
+                <p>--15.9.5.2 Date.prototype.toString ( )</p>
+                <p>--15.9.5.3 Date.prototype.toDateString ( )</p>
+                <p>--15.9.5.4 Date.prototype.toTimeString ( )</p>
+                <p>--15.9.5.5 Date.prototype.toLocaleString ( )</p>
+                <p>--15.9.5.6 Date.prototype.toLocaleDateString ( )</p>
+                <p>--15.9.5.7 Date.prototype.toLocaleTimeString ( )</p>
+                <p>--15.9.5.8 Date.prototype.valueOf ( )</p>
+                <p>--15.9.5.9 Date.prototype.getTime ( )</p>
+                <p>--15.9.5.10 Date.prototype.getFullYear ( )</p>
+                <p>--15.9.5.11 Date.prototype.getUTCFullYear ( )</p>
+                <p>--15.9.5.12 Date.prototype.getMonth ( )</p>
+                <p>--15.9.5.13 Date.prototype.getUTCMonth ( )</p>
+                <p>--15.9.5.14 Date.prototype.getDate ( )</p>
+                <p>--15.9.5.15 Date.prototype.getUTCDate ( )</p>
+                <p>--15.9.5.16 Date.prototype.getDay ( )</p>
+                <p>--15.9.5.17 Date.prototype.getUTCDay ( )</p>
+                <p>--15.9.5.18 Date.prototype.getHours ( )</p>
+                <p>--15.9.5.19 Date.prototype.getUTCHours ( )</p>
+                <p>--15.9.5.20 Date.prototype.getMinutes ( )</p>
+                <p>--15.9.5.21 Date.prototype.getUTCMinutes ( )</p>
+                <p>--15.9.5.22 Date.prototype.getSeconds ( )</p>
+                <p>--15.9.5.23 Date.prototype.getUTCSeconds ( )</p>
+                <p>--15.9.5.24 Date.prototype.getMilliseconds ( )</p>
+                <p>--15.9.5.25 Date.prototype.getUTCMilliseconds ( )</p>
+                <p>--15.9.5.26 Date.prototype.getTimezoneOffset ( )</p>
+                <p>--15.9.5.27 Date.prototype.setTime (time)</p>
+                <p>--15.9.5.28 Date.prototype.setMilliseconds (ms)</p>
+                <p>--15.9.5.29 Date.prototype.setUTCMilliseconds (ms)</p>
+                <p>--15.9.5.30 Date.prototype.setSeconds (sec [, ms ] )</p>
+                <p>--15.9.5.31 Date.prototype.setUTCSeconds (sec [, ms ] )</p>
+                <p>--15.9.5.32 Date.prototype.setMinutes (min [, sec [, ms ] ] )</p>
+                <p>--15.9.5.33 Date.prototype.setUTCMinutes (min [, sec [, ms ] ] )</p>
+                <p>--15.9.5.34 Date.prototype.setHours (hour [, min [, sec [, ms ] ] ] )</p>
+                <p>--15.9.5.35 Date.prototype.setUTCHours (hour [, min [, sec [, ms ] ] ] )</p>
+                <p>--15.9.5.36 Date.prototype.setDate (date)</p>
+                <p>--15.9.5.37 Date.prototype.setUTCDate (date)</p>
+                <p>--15.9.5.38 Date.prototype.setMonth (month [, date ] )</p>
+                <p>--15.9.5.39 Date.prototype.setUTCMonth (month [, date ] )</p>
+                <p>--15.9.5.40 Date.prototype.setFullYear (year [, month [, date ] ] )</p>
+                <p>--15.9.5.41 Date.prototype.setUTCFullYear (year [, month [, date ] ] )</p>
+                <p>--15.9.5.42 Date.prototype.toUTCString ( )</p>
+                <p>--15.9.5.43 Date.prototype.toISOString ( )</p>
+                <p>--15.9.5.44 Date.prototype.toJSON ( key )</p>
+                <p><a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_9/15_9_6/" title="Date &#12452;&#12531;&#12473;&#12479;&#12531;&#12473;&#12398;&#12503;&#12525;&#12497;&#12486;&#12451;">15.9.6 Date インスタンスのプロパティ</a></p>
+
+		
+
+		
+	

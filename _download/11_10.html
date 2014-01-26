@@ -1,0 +1,69 @@
+
+
+	
+		<h2>11.10 バイナリビット単位演算子 / Binary Bitwise Operators / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>11 式</h3>
+		
+
+		<h3>11.10 バイナリビット単位演算子</h3>
+
+<div class="pre-div">
+<pre>
+【構文】
+BitwiseANDExpression :
+	EqualityExpression
+	BitwiseANDExpression & EqualityExpression
+
+BitwiseANDExpressionNoIn :
+	EqualityExpressionNoIn
+	BitwiseANDExpressionNoIn & EqualityExpressionNoIn
+
+BitwiseXORExpression :
+	BitwiseANDExpression
+	BitwiseXORExpression ^ BitwiseANDExpression
+
+BitwiseXORExpressionNoIn :
+	BitwiseANDExpressionNoIn
+	BitwiseXORExpressionNoIn ^ BitwiseANDExpressionNoIn
+
+BitwiseORExpression :
+	BitwiseXORExpression
+	BitwiseORExpression | BitwiseXORExpression
+
+BitwiseORExpressionNoIn :
+	BitwiseXORExpressionNoIn
+	BitwiseORExpressionNoIn | BitwiseXORExpressionNoIn
+</pre>
+</div>
+
+		<p>
+		【セマンティックス】
+		</p>
+		<p>
+		　@ が上記プロダクション内にあるビット単位演算子の1つである場合、プロダクション A : A @ B は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. lref は、 A を評価した結果とする
+2. lval は、 GetValue(lref) とする
+3. rref は、 B を評価した結果とする
+4. rval は、 GetValue(rref) とする
+5. lnum は、 ToInt32(lval) とする
+6. rnum は、 ToInt32(rval) とする
+7.ビット単位演算子@を lnum と rnum に適用した結果を返す、その結果は、1つの符号付き32ビット整数
+</pre>
+</div>
+
+		
+
+		
+	

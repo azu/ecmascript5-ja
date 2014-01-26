@@ -1,0 +1,153 @@
+
+
+	
+		<h2>8.10 プロパティ記述子仕様型とプロパティ識別子仕様型 / The Property Descriptor and Property Identifier Specification Types / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>8 タイプ・型</h3>
+		
+
+		<h3>8.10 Property Descriptor と Property Identifier仕様型(仕様書説明上の型)</h3>
+		<p>
+		　Property Descriptor(プロパティ記述子)の型は、名前付きプロパティ属性の操作と具体化を説明する為に使用されます。
+		Property Descriptor(プロパティ記述子)の型の値は、8.6.1 で記述したように各項目名が属性名である名前付き項目とそれと一致する属性値である当該値から成る複雑なレコードです。
+		追記すると一部の項目は、存在したり、しなかったりする場合があります。
+		</p>
+		<p>
+		　Property Descriptor(プロパティ記述子)の値は、存在や厳密な項目の利用に基づくデータプロパティ記述子とアクセサプロパティ記述子として更に分類される場合もあります。
+		データプロパティ記述子は、[[Value]] や [[Writable]] 何れかの名称の任意の項目を含むものです。
+		アクセサプロパティ記述子は、[[Get]] や [[Set]] の何れかの名称の任意の項目を含むものです。
+		任意のプロパティ記述子は、[[Enumerable]] と [[Configurable]]という名称の項目を持ちます。
+		任意のプロパティ記述子の値は、データプロパティ記述子、アクセサプロパティ記述子の何れにもしない場合もありますが、何れかにする場合もあります。
+		一般的なプロパティ記述子は、データプロパティ記述子、アクセサプロパティ記述子の何れでもないプロパティ記述子の値です。
+		全て実装したプロパティ記述子は、アクセサプロパティ記述子とデータプロパティ記述子の何れか一方と 8.6.1 の Table 5 や Table 6 の何れかで定義したプロパティ属性と一致する項目の全てを持ちます。
+		</p>
+		<p>
+		　この仕様書内での表記上の利便性においてオブジェクトリテラル風の構文は、プロパティ記述子の値を定義する為に使用されることが可能です。
+		例えば、プロパティ記述子
+		</p>
+
+<pre>
+{[[Value]]: 42, [[Writable]]: false, [[Configurable]]: true}
+</pre>
+
+		<p>
+		は、データプロパティ記述子を定義します。
+		項目名の順序は重要です。
+		明示的に列挙されない一部の項目は、欠如したものと考慮されます。
+		仕様上のテキストとアルゴリズムにおいては、ドット記法は、プロパティ記述子を記述する項目を参照する為に使用される場合があります。
+		例えば、もし、D がプロパティ記述子であれば、D.[[Value]]は、Dと名づけられた[[Value]]という項目における略記です。
+		</p>
+		<p>
+		　プロパティ識別子の型は、プロパティ記述子を伴うプロパティ名との関連付けの為に使用されます。
+		プロパティ識別子の型の値は、(name、descriptor)から成るペアで、nameは、文字列、descriptorは、プロパティ記述子の値です。
+		</p>
+		<p>
+		　次の抽象操作(8.10.1～8.10.5)は、プロパティ記述子の値を操作する為に当該仕様内で使用されます。
+		</p>
+
+		<h3>8.10.1 IsAccessorDescriptor ( Desc )</h3>
+		<p>
+		　抽象操作IsAccessorDescriptorがプロパティ記述子Descを伴って呼ばれる場合には、次のような段階を踏みます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1.Descが未定義である場合、falseを返す
+2.Desc.[[Get]] と Desc.[[Set]] が何れも存在しない場合には、falseを返す
+3.trueを返す
+</pre>
+</div>
+
+		<h3>8.10.2 IsDataDescriptor ( Desc )</h3>
+		<p>
+		　抽象操作IsDataDescriptorがプロパティ記述子Descを伴って呼ばれる場合には、次のような段階を踏みます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1.Descが未定義である場合、falseを返す
+2.Desc.[[Value]] と Desc.[[Writable]] が何れも存在しない場合には、falseを返す
+3.trueを返す
+</pre>
+</div>
+
+		<h3>8.10.3 IsGenericDescriptor ( Desc )</h3>
+		<p>
+		　抽象操作IsGenericDescriptorがプロパティ記述子Descを伴って呼ばれる場合には、次のような段階を踏みます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1.Descが未定義である場合、falseを返す
+2.IsAccessorDescriptor(Desc) と IsDataDescriptor(Desc) が何れもfalseである場合には、trueを返す
+3.trueを返す
+</pre>
+</div>
+
+		<h3>8.10.4 FromPropertyDescriptor ( Desc )</h3>
+		<p>
+		　抽象操作FromPropertyDescriptorがプロパティ記述子Descを伴って呼ばれる場合には、次のような段階を踏みます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1.Descが未定義である場合、undefinedを返す
+2.objは、その名を持つ標準組み込みコンストラクタであるObjectにおいて new Object() という式によるかのように生成した新たなオブジェクトを結果とする
+3.IsDataDescriptor(Desc)がtrueである場合、
+	a.引数"value"、プロパティ記述子 {[[Value]]: Desc.[[Value]], [[Writable]]: true, [[Enumerable]]: true, [[Configurable]]: true}、 falseを伴うobjの[[DefineOwnProperty]]内部メソッドを呼ぶ
+	b.引数"writable"、プロパティ記述子 {[[Value]]: Desc.[[Writable]], [[Writable]]: true, [[Enumerable]]: true, [[Configurable]]: true}、 falseを伴うobjの[[DefineOwnProperty]]内部メソッドを呼ぶ
+4.1～3の何れでもなければ、IsAccessorDescriptor(Desc)は、trueにしなければならず、よって
+	a.引数"get"、プロパティ記述子 {[[Value]]: Desc.[[Get]], [[Writable]]: true, [[Enumerable]]: true, [[Configurable]]: true}、 falseを伴うobjの[[DefineOwnProperty]]内部メソッドを呼ぶ
+	b.引数"set"、プロパティ記述子 {[[Value]]: Desc.[[Set]], [[Writable]]: true, [[Enumerable]]: true, [[Configurable]]: true}、 falseを伴うobjの[[DefineOwnProperty]]内部メソッドを呼ぶ
+5.引数"enumerable"、プロパティ記述子 {[[Value]]: Desc.[[Enumerable]], [[Writable]]: true, [[Enumerable]]: true, [[Configurable]]: true}、 falseを伴うobjの[[DefineOwnProperty]]内部メソッドを呼ぶ
+6.引数"configurable"、プロパティ記述子 {[[Value]]: Desc.[[Configurable]], [[Writable]]: true, [[Enumerable]]: true, [[Configurable]]: true}、 falseを伴うobjの[[DefineOwnProperty]]内部メソッドを呼ぶ
+7.objを返す
+</pre>
+</div>
+
+		<h3>8.10.5 ToPropertyDescriptor ( Obj )</h3>
+		<p>
+		　抽象操作ToPropertyDescriptorがオブジェクトObjを伴って呼ばれる場合には、次のような段階を踏みます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. Type(Obj) がObjectでなければ、TypeError例外を投げる(スローする)
+2. desc は、生成する初期の項目を何も持たない新しいプロパティ記述子を結果とする
+3.引数"enumerable"を持つObjの[[HasProperty]]内部メソッドを呼んだ結果がtrueである場合、
+	a.enumは、引数"enumerable"を持つObjの[[Get]]内部メソッドを呼び、それを結果とする
+	b.ToBoolean(enum)に desc の[[Enumerable]]項目を設定
+4.引数"configurable"を持つObjの [[HasProperty]]内部メソッドを呼んだ結果がtrueである場合、
+	a.confは、引数"configurable"を持つObjの[[Get]]内部メソッドを呼び、それを結果とする
+	b.ToBoolean(conf)に desc の[[Configurable]]項目を設定
+5.引数"value"を持つObjの[[HasProperty]]内部メソッドを呼んだ結果がtrueである場合、
+	a.valueは、引数"value"を持つObjの[[Get]]内部メソッドを呼び、それを結果とする
+	b.値に desc の[[Value]]項目を設定
+6.引数"writable"を持つObjの[[HasProperty]]内部メソッドを呼んだ結果がtrueである場合、
+	a.writableは、引数"writable"を持つObjの[[Get]]内部メソッドを呼び、それを結果とする
+	b. desc の[[Writable]]項目にToBoolean(writable)を設定
+7.引数"get"を持つObjの[[HasProperty]]内部メソッドを呼んだ結果がtrueである場合、
+	a.getterは、引数"get"を持つObjの[[Get]]内部メソッドを呼び、それを結果とする
+	b.IsCallable(getter)がfalseでgetterがundefinedではない場合、TypeError例外を投げる(スローする)
+	c. desc の[[Get]]項目にgetterを設定
+8.引数"set"を持つObjの[[HasProperty]]内部メソッドを呼んだ結果がtrueである場合、
+	a.setterは、引数"set"を持つObjの[[Get]]内部メソッドを呼び、それを結果とする
+	b.IsCallable(setter)がfalseでsetterがundefinedではない場合、TypeError例外を投げる(スローする)
+	c.desc の[[Set]]項目にsetterを設定
+9.desc.[[Get]] や desc.[[Set]]が、何れも存在する場合、
+	a.desc.[[Value]] や desc.[[Writable]]が共に存在する場合には、TypeError例外を投げる(スローする)
+10.descを返す
+</pre>
+</div>
+
+		
+
+		
+	

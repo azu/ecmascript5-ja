@@ -1,0 +1,105 @@
+
+
+	
+		<h2>15.3.5 Functionインスタンスのプロパティ / Properties of Function Instances / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>15 標準組み込みECMAScriptオブジェクト</h3>
+		
+		<h3>15.3 Function オブジェクト</h3>
+		
+
+		<h3>15.3.5 Functionインスタンスのプロパティ</h3>
+		<p>
+		　内部プロパティについて追記すると、全ての関数のインスタンスは、内部プロパティ[[Call]]を持ち、多くの場合、内部プロパティ[[Get]]の異なるバージョンを使用します。
+		どのように生成されるか( 8.6.2, 13.2, 15, 15.3.4.5 各項参照)によって関数のインスタンスは、[[HasInstance]]内部プロパティ、[[Scope]]内部プロパティ、[[Construct]]内部プロパティ、[[FormalParameters]]内部プロパティ、[[Code]]内部プロパティ、[[TargetFunction]]内部プロパティ、[[BoundThis]]内部プロパティ、[[BoundArgs]]内部プロパティを持つ場合があります。
+		</p>
+		<p>
+		　内部プロパティ[[Class]]の値は、"Function"です。
+		</p>
+		<p>
+		　 strict モードの関数 (13.2) と一致する関数のインスタンスとFunction.prototype.bind メソッド (15.3.4.5)を使って生成した関数のインスタンスは、TypeError例外を投げる(スローする)"caller"、"arguments"という名のプロパティを持ちます。
+		ECMAScriptの実装は、strict モードの関数からこれらのプロパティのアクセスを伴う任意の実装仕様上の動作と関連付けてはいけません。
+		</p>
+
+		<h3>15.3.5.1 length</h3>
+		<p>
+		　 length プロパティの値は、関数によって期待される引数の"一般的な(典型的な・typical)"数を示す整数です。
+		しかしながら、言語は、任意の他の引数の数を伴って呼び出される関数を許容します。
+		当該 length プロパティによって記述した数ではなく、引数の数について呼び出す際の当該関数の動作については、その関数に依存します。
+		このプロパティは、属性 { [[Writable]]: false, [[Enumerable]]: false, [[Configurable]]: false } を持ちます。
+		</p>
+
+		<h3>15.3.5.2 prototype</h3>
+		<p>
+		　 prototypeプロパティは、新たに生成したオブジェクトにおけるコンストラクタのように呼び出されるFunctionオブジェクトの前に新たに生成したオブジェクトの内部プロパティ[[Prototype]]を初期化する為に使用されます。
+		このプロパティは、属性 { [[Writable]]: true, [[Enumerable]]: false, [[Configurable]]: false } を持ちます。
+		</p>
+		<p>
+		[注釈]
+		</p>
+		<p>
+		　 Function.prototype.bindを使用して生成した関数オブジェクトは、prototypeプロパティを持ちません。
+		</p>
+
+		<h3>15.3.5.3 [[HasInstance]] (V)</h3>
+		<p>
+		　関数オブジェクトであるFを呼び出します。
+		</p>
+		<p>
+		　 F の内部メソッド[[HasInstance]]が、値 V を伴って呼ばれる際には、次のステップが取られます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. V が、オブジェクトではない場合、falseを返す
+2. O は、プロパティ名"prototype"を伴う F の内部メソッド[[Get]]を呼んだ結果とする
+3. Type(O) が、 Objectではない場合、TypeError例外を投げる(スローする)
+4.繰り返す
+	a. V は、V の内部プロパティ[[Prototype]]の値とする
+	b. V が、 nullである場合、falseを返す
+	c. O と V が、同一のオブジェクトを参照する場合、trueを返す
+</pre>
+</div>
+
+		<p>
+		[注釈]
+		</p>
+		<p>
+		　 Function.prototype.bindを使って生成した関数オブジェクトは、 15.3.4.5.3 で定義した[[HasInstance]]の異なる実装を持ちます。
+		</p>
+
+		<h3>15.3.5.4 [[Get]] (P)</h3>
+		<p>
+		　Functionオブジェクトは、他のネイティブECMAScriptオブジェクト(8.12.3)において使用した内部メソッド[[Get]]のバリエーションを使用します。
+		 F は、Functionオブジェクトであると仮定します。
+		</p>
+		<p>
+		　 F の内部メソッド[[Get]]が、プロパティ名 P を伴って呼ばれる際には、次のステップが取られます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. v は、プロパティ名の引数として P を渡して F 上にある既定の内部メソッド[[Get]](8.12.3)を呼んだ結果とする
+2. P が、 "caller"で且つ、v が、strict モードのFunctionオブジェクトである場合、TypeError例外を投げる(スローする)
+3. v を返す
+</pre>
+</div>
+
+		<p>
+		[注釈]
+		</p>
+		<p>
+		　 Function.prototype.bindを使って生成したFunctionオブジェクトは、既定の[[Get]]内部メソッドを使用します。
+		</p>
+
+		
+
+		
+	

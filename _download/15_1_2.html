@@ -1,0 +1,153 @@
+
+
+	
+		<h2>15.1.2 GlobalオブジェクトのFunctionプロパティ / Function Properties of the Global Object / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>15 標準組み込みECMAScriptオブジェクト</h3>
+		
+		<h3>15.1 Globalオブジェクト</h3>
+		
+
+		<h3>15.1.2 GlobalオブジェクトのFunctionプロパティ</h3>
+
+		<h3>15.1.2.1 eval (x)</h3>
+		<p>
+		　 eval 関数は、引数 x を1つ伴って呼ばれる場合、次のステップをとります。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. Type(x) が、Stringでない場合には、xを返す
+2. prog は、Programとして x を構文解析した結果であるECMAScriptのコードとする
+  解析が失敗した場合、SyntaxError例外を投げる(が、第16項も参照)
+3. evalCtx は、 eval コードである  prog における新たな実行コンテキストを発行(10.4.2)した結果とする
+4. result は、プログラム prog を評価した結果とする
+5.実行コンテキストの前に復元中に実行中の実行コンテキスト evalCtx を抜ける
+6. result.type が、 normalで且つ、その完了値が、値 V である場合、その値 V を返す
+7. result.type が、 normalで且つ、その完了値が、empty(カラ)である場合、値undefinedを返す
+8.それ以外の場合、 result.type は、スローされなければならず、例外として result.value をスローする
+</pre>
+</div>
+
+		<h3>15.1.2.1.1 Evalを直接呼び出す</h3>
+		<p>
+		　 eval 関数を直接呼び出すということは、CallExpression (式を呼ぶこと)を表明されるということであり、次の2つの条件を満たしています。
+		CallExpression内でMemberExpressionを評価した結果である参照は、当該基準値と名称が"eval"である当該参照としての環境レコードを持ちます。
+		引数として参照を伴う抽象操作GetValueを呼んだ結果は、 15.1.2.1で定義した標準組み込み関数です。
+		</p>
+
+		<h3>15.1.2.2 parseInt (string , radix)</h3>
+		<p>
+		　 parseInt 関数は、 radixの指定による引数 string の内容の解釈によって決定した整数値を生成します。 
+		文字列内の先行するホワイトスペースは、無視されます。
+		 radix が、undefinedや0である場合、16という radix であると仮定されるケースにおいて数字が 0x や 0Xの文字の組み合わせを伴って始まる場合以外は、10であるものと仮定されます。
+		 radixが、 16である場合には、数字が、オプションとして 0x や 0Xの文字の組み合わせを伴って始まる場合があります。
+		</p>
+		<p>
+		　 parseInt 関数が呼ばれる場合、次のステップがとられます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. inputString は、 ToString(string) とする
+2. S は、StrWhiteSpaceCharではなく、その文字に続く全ての文字である新たに生成した最初の文字で構成するinputStringの部分文字列とする
+  (言い換えると先行するホワイトスペースを削除する)
+   inputString が、そのような文字列を一切含まない場合、 S は、カラの文字列とする
+3. sign は、 1とする
+4. S が、カラでなく、且つ、S の最初の文字がマイナス記号 - である場合、sign は、-1 とする
+5. S が、カラでなく、且つ、S の最初の文字がプラス記号 + または、マイナス記号 - である場合には、S から最初の文字を削除する
+6. R = ToInt32(radix)とする
+7. stripPrefix は、 trueとする
+8. R ≠ 0である場合、
+	a. R &lt; 2 または、 R &gt; 36 である場合、 NaNを返す
+	b. R ≠ 16 である場合、 stripPrefix は、 falseとする
+9.それ以外の場合で R = 0 である場合、
+	a. R = 10 とする
+10. stripPrefix が、 true である場合、
+	a.もし、 Sの長さが、少なくとも 2で且つ、S の2つの文字が、"0x"または、"0X"の何れかである場合、S から最初の2文字を削除し、 R = 16 とする
+11.もし、 S が、 radix-R 桁ではない何らかの文字を含む場合、 Z は、そのような文字の先頭の前の全ての文字から成る S の部分文字列とし、それ以外の場合、 Z は、 Sとする
+12. Z が、 empty(カラ)である場合、 NaNを返す
+13. mathInt は、10から35までの値を伴う桁において文字 A-Z、または、a-zを使用して radix-R 記法における Z によって表した数学的な整数値とする
+   (しかしながら、実装のオプションとして R が10で Zが、20桁以上を含む場合、それぞれの20番め以降の有効桁は、0桁に置き換えられる場合があり、また、 R が、2、4、8、10、16、32ではない場合、 mathInt は、 radix-R 記法である Z によって表した数学的な整数値における実装依存の近似値となる場合がある)
+14. number は、 mathIntにおけるNumber値とする
+15. sign x number を返す
+</pre>
+</div>
+
+		<p>
+		[注釈]
+		</p>
+		<p>
+		　 parseInt は、整数値として文字列の先頭部分でのみ解釈される場合があります。
+		それは、整数の表記法の一部として解釈されることができない一部の文字を無視したり、または、一部、そのような文字が無視された結果、表示されるものが何もないといったような場合です。
+		</p>
+
+		<h3>15.1.2.3 parseFloat (string)</h3>
+		<p>
+		　 parseFloat 関数は、小数リテラルとして引数 stringの内容を解釈することによって決定されるNumber値を生成します。
+		 parseFloat 関数が、呼ばれる場合、次のステップがとられます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. inputString は、 ToString(string) とする
+2. trimmedString は、StrWhiteSpaceCharではなく、その文字の右にある全ての文字において最も左側の文字から成る inputString の部分文字列とする
+  (言い換えると先行するホワイトスペースを削除する)
+   inputString が、そのような文字を何も含まない場合、 trimmedString はカラの文字列とする
+3. trimmedString や StrDecimalLiteral ( 9.3.1 参照)の構文を満たす trimmedString の接頭辞の何れもない場合、 NaNを返す
+4. numberString は、StrDecimalLiteralの構文を満たすtrimmedString自身である場合もあるtrimmedStringの最も長い接頭辞とする
+5. numberString の MV におけるNumber値を返す
+</pre>
+</div>
+
+		<p>
+		[注釈]
+		</p>
+		<p>
+		　 parseFloat は、Number値として文字列の先頭位置だけを解釈する場合があります。
+		それは、小数リテラルの表記法の一部として解釈できない一部の文字を無視したり、そのような文字が無視された結果、表示されるものが何もないといったような場合です。
+		</p>
+
+		<h3>15.1.2.4 isNaN (number)</h3>
+		<p>
+		　引数を強制的にNaNに変換する場合、trueを返し、それ以外の場合、falseを返します。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. ToNumber(number) が、NaNである場合、trueを返す
+2.それ以外の場合、falseを返す
+</pre>
+</div>
+
+		<p>
+		[注釈]
+		</p>
+		<p>
+		　値 X が、NaNである場合、テストの為のECMAScriptのコードにおける信頼性の高い方法は、 X !== X から成る式です。
+		 X が、NaNである場合、結果は、trueとなるでしょう。
+		</p>
+
+		<h3>15.1.2.5 isFinite (number)</h3>
+		<p>
+		　引数を強制的に +∞ や -∞ に変換する場合、falseを返し、それ以外の場合、trueを返します。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. ToNumber(number) が、 NaN、 +∞、 -∞ である場合、falseを返す
+2.それ以外の場合、trueを返す
+</pre>
+</div>
+
+		
+
+		
+	

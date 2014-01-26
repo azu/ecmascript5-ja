@@ -1,0 +1,60 @@
+
+
+	
+		<h2>12.7 continue 文 / The continue Statement / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>12 ステートメント／文</h3>
+		
+
+		<h3>12.7  continue 文</h3>
+
+<div class="pre-div">
+<pre>
+【構文】
+ContinueStatement :
+	continue ;
+	continue [no LineTerminator here] Identifier;
+</pre>
+</div>
+
+		<p>
+		【セマンティックス】
+		</p>
+		<p>
+		プログラムは、次の何れかが、trueである場合、構文上の誤りがあると考えられます。
+		</p>
+		<ul>
+			<li>プログラムが、IterationStatement(iteration・反復文)内で(関数の境界を超えずに)直接または、間接的にネストされない場合にオプションの識別子なしで continue 文を含む</li>
+			<li>プログラムが、IterationStatement(iteration・反復文)に(関数の境界を超えずに)括られるラベルのセット内に現れない識別子においてオプションの識別子を伴って continue 文を含む</li>
+		</ul>
+		<p>
+		　識別子のない ContinueStatement は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1.return (continue, empty, empty)
+</pre>
+</div>
+
+		<p>
+		　オプションの識別子を伴う ContinueStatement は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1.return (continue, empty, Identifier)
+</pre>
+</div>
+
+		
+
+		
+	

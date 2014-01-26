@@ -1,0 +1,110 @@
+
+
+	
+		<h2>15.6 Booleanオブジェクト / Boolean Objects / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>15 標準組み込みECMAScriptオブジェクト</h3>
+		
+
+		<h3>15.6 Booleanオブジェクト</h3>
+
+		<h3>15.6.1 関数として呼ぶBooleanコンストラクタ</h3>
+		<p>
+		　 Booleanが、コンストラクタではなく、関数として呼ばれる際には、型変換を実行します。
+		</p>
+
+		<h3>15.6.1.1 Boolean (value)</h3>
+		<p>
+		　 ToBoolean(value) によって算出したBoolean値を返します。
+		</p>
+
+		<h3>15.6.2  Boolean コンストラクタ</h3>
+		<p>
+		　 Booleanが、new 式の一部として呼ばれる場合、それはコンストラクタであり、新たに生成したオブジェクトを初期化します。
+		</p>
+
+		<h3>15.6.2.1 new Boolean (value)</h3>
+		<p>
+		　新たに構成したオブジェクトの内部プロパティ[[Prototype]]は、 Boolean.prototype (15.6.3.1)の初期値であるオリジナルのBooleanプロトタイプオブジェクトに設定されます。
+		</p>
+		<p>
+		　新たに構成したBoolean型オブジェクトの内部プロパティ[[Class]]は、"Boolean"に設定されます。
+		</p>
+		<p>
+		　新たに構成したBoolean型オブジェクトの内部プロパティ[[PrimitiveValue]]は、 ToBoolean(value) に設定されます。
+		</p>
+		<p>
+		　新たに構成したBoolean型オブジェクトの内部プロパティ[[Extensible]]は、 trueに設定されます。
+		</p>
+
+		<h3>15.6.3 Boolean コンストラクタのプロパティ</h3>
+		<p>
+		　 Booleanコンストラクタの内部プロパティ[[Prototype]]の値は、Functionプロトタイプオブジェクト(15.3.4)です。
+		更に内部プロパティと(値が1である)lengthプロパティ、Booleanコンストラクタは、次のプロパティも持ちます。
+		</p>
+
+		<h3>15.6.3.1 Boolean.prototype</h3>
+		<p>
+		　 Boolean.prototype の初期値は、Booleanプロトタイプオブジェクト(15.6.4)です。
+		このプロパティは、属性 { [[Writable]]: false, [[Enumerable]]: false, [[Configurable]]: false } を持ちます。
+		</p>
+
+		<h3>15.6.4 Booleanプロトタイプオブジェクトのプロパティ</h3>
+		<p>
+		　 Booleanプロトタイプオブジェクトは、値がfalseであるそれ自身の(その[[Class]]が"Boolean"である)Booleanオブジェクトです。
+		Booleanプロトタイプオブジェクトの内部プロパティ[[Prototype]]の値は、標準組み込みObjectプロトタイプオブジェクト(15.2.4)です。
+		</p>
+
+		<h3>15.6.4.1 Boolean.prototype.constructor</h3>
+		<p>
+		　 Boolean.prototype.constructor の初期値は、組み込みBooleanコンストラクタです。
+		</p>
+
+		<h3>15.6.4.2 Boolean.prototype.toString ( )</h3>
+		<p>
+		　(toStringは、)次のステップが取られます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. B は、 this 値とする
+2. Type(B) が、 Boolean である場合、 b は、 B とする
+3. Type(B) が、 Object 且つ、B の内部プロパティ[[Class]]の値が"Boolean"である場合、b は、B の内部プロパティ[[PrimitiveValue]]の値とする
+4.それ以外の場合、TypeError例外を投げる(スローする)
+5. b が、 true である場合、"true"を返し、それ以外の場合、"false"を返す
+</pre>
+</div>
+
+		<h3>15.6.4.3 Boolean.prototype.valueOf ( )</h3>
+		<p>
+		　(valueOfは、)次のステップが取られます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. B は、 this 値とする
+2. Type(B) が、 Boolean である場合、 b は、 B とする
+3. Type(B) が、 Object 且つ、B の内部プロパティ[[Class]]の値が"Boolean"である場合、b は、B の内部プロパティ[[PrimitiveValue]]の値とする
+4.それ以外の場合、TypeError例外を投げる(スローする)
+5. b を返す
+</pre>
+</div>
+
+		<h3>15.6.5 Boolean インスタンスのプロパティ</h3>
+		<p>
+		　 Booleanインスタンスは、Booleanプロトタイプオブジェクトと値が、"Boolean"であるそれらの内部プロパティ[[Class]]からプロパティを継承します。
+		Booleanインスタンスは、内部プロパティ[[PrimitiveValue]]も持ちます。
+		内部プロパティ[[PrimitiveValue]]は、このBooleanオブジェクトによって表したBoolean値です。
+		</p>
+
+		
+
+		
+	

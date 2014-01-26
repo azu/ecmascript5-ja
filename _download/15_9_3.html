@@ -1,0 +1,96 @@
+
+
+	
+		<h2>15.9.3 Date コンストラクタ / The Date Constructor / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>15 標準組み込みECMAScriptオブジェクト</h3>
+		
+		<h3>15.9 Date オブジェクト</h3>
+		
+
+		<h3>15.9.3 Date コンストラクタ</h3>
+		<p>
+		　Dateが、new 式の一部として呼ばれる場合、それは、コンストラクタであり、新たに生成したオブジェクトを初期化します。
+		</p>
+
+		<h3>15.9.3.1 new Date (year, month [, date [, hours [, minutes [, seconds [, ms ] ] ] ] ] )</h3>
+		<p>
+		　Dateが、2つから7つまでの引数を伴って呼ばれる際には、年、月、(オプションとして)日、時間、分、秒、ミリ秒を算出します。
+		</p>
+		<p>
+		　新たに構築されたオブジェクトの内部プロパティ[[Prototype]]は、 Date.prototype (15.9.4.1) の初期値であるオリジナルのDateプロトタイプオブジェクトに設定されます。
+		</p>
+		<p>
+		　新たに構築されたオブジェクトの内部プロパティ[[Class]]は、"Date"に設定されます。
+		</p>
+		<p>
+		　新たに構築されたオブジェクトの内部プロパティ[[Extensible]]は、trueに設定されます。
+		</p>
+		<p>
+		　新たに構築されたオブジェクトの内部プロパティ[[PrimitiveValue]]は、次のように設定されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. y は、 ToNumber(year) とする
+2. m は、 ToNumber(month) とする
+3. date が、提供される場合、 dt は、 ToNumber(date) とし、それ以外の場合、 dt は、 1 とする
+4. hours が、提供される場合、 h は、 ToNumber(hours) とし、それ以外の場合、 h は、 0 とする
+5. minutes が、提供される場合、 min は、 ToNumber(minutes) とし、それ以外の場合、 min は、 0 とする
+6. seconds が、提供される場合、 s は、 ToNumber(seconds) とし、それ以外の場合、 s は、 0 とする
+7. ms が、提供される場合、 milli は、 ToNumber(ms) とし、それ以外の場合、 milli は、 0 とする
+8. y が、NaNではない場合、且つ、 0 ≦ ToInteger(y) ≦ 99 である場合、 yr は、 1900+ToInteger(y) とし、それ以外の場合、yr は、y とする
+9. finalDate は、 MakeDate(MakeDay(yr, m, dt), MakeTime(h, min, s, milli)) とする
+10.新たに構築されたオブジェクトの内部プロパティ[[PrimitiveValue]]に TimeClip(UTC(finalDate)) を設定
+</pre>
+</div>
+
+		<h3>15.9.3.2 new Date (value)</h3>
+		<p>
+		　新たに構築したオブジェクトの内部プロパティ[[Prototype]]は、 Date.prototype (15.9.4.1) の初期値であるオリジナルのDateプロトタイプオブジェクトに設定されます。
+		</p>
+		<p>
+		　新たに構築したオブジェクトの内部プロパティ[[Class]]は、 "Date" に設定されます。
+		</p>
+		<p>
+		　新たに構築したオブジェクトの内部プロパティ[[Extensible]]は、 true に設定されます。
+		</p>
+		<p>
+		　新たに構築したオブジェクトの内部プロパティ[[PrimitiveValue]]は、 次のように設定されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. v は、 ToPrimitive(value) とする
+2. Type(v) が、 Stringである場合、
+	a. parseメソッド(15.9.4.2)と同じ方法で正確に日(date)として v を解析し、 V は、この日(date)における時間の値とする
+3.それ以外の場合、 V は、 ToNumber(v) とする
+4.新たに構築したオブジェクトの内部プロパティ[[PrimitiveValue]]に TimeClip(V) を設定し、返す
+</pre>
+</div>
+
+		<h3>15.9.3.3 new Date ( )</h3>
+		<p>
+		　新たに構築したオブジェクトの内部プロパティ[[Prototype]]は、 Date.prototype (15.9.4.1) の初期値であるオリジナルのDateプロトタイプオブジェクトに設定されます。
+		</p>
+		<p>
+		　新たに構築したオブジェクトの内部プロパティ[[Class]]は、 "Date" に設定されます。
+		</p>
+		<p>
+		　新たに構築したオブジェクトの内部プロパティ[[Extensible]]は、 true に設定されます。
+		</p>
+		<p>
+		　新たに構築したオブジェクトの内部プロパティ[[PrimitiveValue]]は、現在時刻を識別して時間の値(UTC)に設定されます。
+		</p>
+
+		
+
+		
+	

@@ -1,0 +1,65 @@
+
+
+	
+		<h2>15.5.5 String インスタンスのプロパティ / Properties of String Instances / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>15 標準組み込みECMAScriptオブジェクト</h3>
+		
+		<h3>15.5 String オブジェクト</h3>
+		
+
+		<h3>15.5.5 String インスタンスのプロパティ</h3>
+		<p>
+		　 Stringインスタンスは、Stringプロトタイプオブジェクトとそれらの内部メソッドで値が"String"である[[Class]]からプロパティを継承します。
+		Stringインスタンスはまた、内部プロパティ[[PrimitiveValue]]、 length プロパティ、配列インデックス名を伴う列挙プロパティの集合も持ちます。
+		</p>
+		<p>
+		　内部プロパティ[[PrimitiveValue]]は、 this Stringオブジェクトによって表されるString値です。
+		配列インデックス名付きプロパティは、String値の当該個別の文字と一致します。
+		特殊な内部メソッド[[GetOwnProperty]]は、数、値、配列インデックス名付きプロパティの属性を指定する為に利用されます。
+		</p>
+
+		<h3>15.5.5.1 length</h3>
+		<p>
+		　this Stringオブジェクトによって表したString値内の文字数。
+		</p>
+		<p>
+		　一度、Stringオブジェクトが生成されると、このプロパティは、変更されることはありません。
+		それは、属性 { [[Writable]]: false, [[Enumerable]]: false, [[Configurable]]: false } を持ちます。
+		</p>
+
+		<h3>15.5.5.2 [[GetOwnProperty]] ( P )</h3>
+		<p>
+		　 Stringオブジェクトは、他のネイティブなECMAScriptオブジェクト( 8.12.1 )において使用した内部メソッド[[GetOwnProperty]]のバリエーションを使用します。
+		この特別な内部メソッドは、Stringオブジェクトの個別の文字と一致する名前付きプロパティへのアクセスを提供します。
+		</p>
+		<p>
+		　 S は、Stringオブジェクトであり、P は文字列であると仮定します。
+		 S の内部メソッド[[GetOwnProperty]]は、プロパティ名 P を伴って呼ばれる際には、次のステップが取られます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. desc は、引数 P を伴う S において既定の内部メソッド[[GetOwnProperty]] ( 8.12.1 )を呼んだ結果とする
+2. desc が、 undefined ではない場合、 desc を返す
+3. ToString(abs(ToInteger(P))) が、 P と同じ値ではない場合、undefined を返す
+4. str は、 S の内部プロパティ[[PrimitiveValue]]のString値とする
+5. index は、 ToInteger(P) とする
+6. len は、 str 内の文字数とする
+7. len ≦ index である場合、 undefined を返す
+8. resultStr は、位置0、位置1...のようになると考えられる str 内の最初の(最も左の)文字における位置インデックスにある特殊な文字 str から1文字を含む長さ 1 の文字列とする
+9.プロパティ記述子 { [[Value]]: resultStr, [[Enumerable]]: true, [[Writable]]: false, [[Configurable]]: false } を返す
+</pre>
+</div>
+
+		
+
+		
+	

@@ -1,0 +1,369 @@
+
+
+	
+		<h2>11.1 主要な式 / Primary Expressions / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>11 式</h3>
+		
+
+		<h3>11.1 主要な式</h3>
+<pre>
+構文
+
+PrimaryExpression :
+	this
+	Identifier
+	Literal
+	ArrayLiteral
+	ObjectLiteral
+	( Expression )
+</pre>
+
+		<h3>11.1.1 thisキーワード</h3>
+		<p>
+		　thisキーワードは、現在の実行コンテキストのThisBindingの値を評価します。
+		</p>
+
+		<h3>11.1.2 識別子参照</h3>
+		<p>
+		　識別子は、 10.3.1 で記述したように識別子解決を実行することによって評価されます。
+		識別子を評価した結果は、常にReference型の値となります。
+		</p>
+
+		<h3>11.1.3 リテラル参照</h3>
+		<p>
+		　リテラルは、7.8 で説明したように評価されます。
+		</p>
+
+		<h3>11.1.4 配列イニシャライザー</h3>
+		<p>
+		　配列イニシャライザーは、リテラルの書式で書かれたArrayオブジェクトの初期化を説明する式です。
+		それは、角ブラケットで括られた各配列要素を表すゼロ以上の式の列挙です。
+		要素は、リテラルとする必要はなく、それらは配列イニシャライザーが評価される度に評価されます。
+		</p>
+		<p>
+		　配列要素は、要素リストの先頭、中間や末尾で省略される場合があります。
+		要素リスト内にあるカンマは、いかなる場合にもAssignmentExpressionによって先行される(例：他のカンマの前や後にカンマがある)ことはなく、不完全な配列要素は、配列の長さと要素の添え字のインデックスの増加に影響(寄与)します。
+		省略した配列要素は定義されません。
+		配列の末尾にある要素が省略される場合、その要素は、その配列・リストの長さに影響しません。
+		</p>
+
+<div class="pre-div">
+<pre>
+【構文】
+ArrayLiteral :
+[ Elisionopt ]
+[ ElementList ]
+[ ElementList , Elisionopt ]
+
+ElementList :
+Elisionopt AssignmentExpression
+ElementList , Elisionopt AssignmentExpression
+
+Elision :
+,
+Elision ,
+</pre>
+</div>
+
+
+		<p>
+		【セマンティクス】
+		</p>
+		<p>
+		　プロダクション ArrayLiteral : [ Elisionopt ] は次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. array は、配列が名前付き標準組み込みコンストラクタとなる式 new Array() であるかのように新たなオブジェクトを生成したものを結果とする
+2. pad は、Elisionを評価したものを結果とし、存在しない場合には、数値ゼロを使用
+3.引数 "length "、pad 、false を伴う配列の[[Put]]内部メソッドを呼ぶ
+4. array を返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション ArrayLiteral : [ ElementList ] は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1.ElementListを評価した結果を返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション ArrayLiteral : [ ElementList , Elisionopt ] は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. array は、ElementListを評価した結果とする
+2. pad は、Elisionを評価した結果とし、存在しなければ、数値ゼロを使用
+3. len は、引数 "length " を伴う配列の[[Get]]内部メソッドを呼び結果とする
+4.引数 "length " 、ToUint32(pad+len)、false を伴う配列の[[Put]]内部メソッドを呼ぶ
+5. array を返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション ElementList : Elisionopt AssignmentExpression は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. array は、名前付き標準組み込みコンストラクタである配列となる式 new Array() によるかのように新たなオブジェクトを生成したものを結果とする
+2. firstIndex は、Elisionを評価したものを結果とし、存在しない場合、数値ゼロを使用
+3. initResult は、AssignmentExpressionを評価した結果とする
+4. initValue は、 GetValue(initResult) とする
+5.引数 ToString(firstIndex)、プロパティ記述子 { [[Value]]: initValue, [[Writable]]: true, [[Enumerable]]: true, [[Configurable]]: true}、falseを伴う配列の[[DefineOwnProperty]]内部メソッドを呼ぶ
+6. array を返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション ElementList : ElementList , Elisionopt AssignmentExpression は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. array は、ElementListを評価したものを結果とする
+2. pad は、Elisionを評価したものを結果とし、存在しない場合、数値ゼロを使用
+3. initResult は、AssignmentExpressionを評価した結果とする
+4. initValue は、GetValue(initResult) とする
+5. len は、引数 "length "を伴う配列の[[Get]]内部メソッドを呼び結果とする
+6.引数 ToString(ToUint32((pad+len)) 、プロパティ記述子 { [[Value]]: initValue, [[Writable]]: true, [[Enumerable]]: true, [[Configurable]]: true}、falseを伴う配列の[[DefineOwnProperty]]内部メソッドを呼ぶ
+7. array を返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション Elision : ,  は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1.数値1を返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション Elision : Elision , は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. preceding は、Elisionを評価した結果とする
+2. preceding+1 を返す
+</pre>
+</div>
+
+		<p>
+		[注釈]
+		</p>
+		<p>
+		 　[[DefineOwnProperty]] は、[[Put]]を使って新たな自身のプロパティを生成することを阻む方法において変更される標準組み込みArrayプロトタイプオブジェクトでさえ、当該配列において定義される自身のプロパティを確保する為に使用されます。
+		</p>
+
+		<h3>11.1.5 オブジェクトイニシャライザー</h3>
+		<p>
+		　オブジェクトイニシャライザーは、リテラルに似た書式で書かれるオブジェクトの初期化を説明する式です。
+		それは、波カッコで括られたゼロ以上のプロパティ名の組と関連値のリストです。
+		その値は、リテラルにする必要はなく、オブジェクトイニシャライザーが評価されるごとに評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+【構文】
+ObjectLiteral :
+	{ }
+	{ PropertyNameAndValueList }
+	{ PropertyNameAndValueList , }
+
+PropertyNameAndValueList :
+	PropertyAssignment
+	PropertyNameAndValueList , PropertyAssignment
+
+PropertyAssignment :
+	PropertyName : AssignmentExpression
+	get PropertyName ( ) { FunctionBody }
+	set PropertyName ( PropertySetParameterList ) { FunctionBody }
+
+PropertyName :
+	IdentifierName
+	StringLiteral
+	NumericLiteral
+
+PropertySetParameterList :
+	Identifier
+</pre>
+</div>
+
+		<p>
+		【セマンティクス】
+		</p>
+		<p>
+		　プロダクション ObjectLiteral : { } は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1.名前付き標準組み込みコンストラクタであるObjectとなる式 new Object() によるかのように生成した新たなオブジェクトを返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション ObjectLiteral : { PropertyNameAndValueList } と ObjectLiteral : { PropertyNameAndValueList ,} は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1.PropertyNameAndValueListを評価した結果を返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション PropertyNameAndValueList : PropertyAssignment は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. obj は、名前付き標準組み込みコンストラクタであるObjectとなる式 new Object() によるかのように新たなオブジェクトを生成した結果とする
+2. propId は、PropertyAssignmentを評価した結果とする
+3.引数 propId.name、propId.descriptor、falseを伴う obj の[[DefineOwnProperty]]内部メソッドを呼ぶ
+4. obj を返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション PropertyNameAndValueList : PropertyNameAndValueList , PropertyAssignment は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. obj は、PropertyNameAndValueListを評価した結果とする
+2. propId は、PropertyAssignmentを評価した結果とする
+3. previous は、引数 propId.name を伴う obj の[[GetOwnProperty]]内部メソッドを呼び結果とする
+4. previous がundefinedではない場合、次の何れかの条件がtrueである場合、SyntaxError例外を投げる(スローする)
+	a.strict(厳格)コードとIsDataDescriptor(previous)に含まれるプロダクションが true 且つ、 IsDataDescriptor(propId.descriptor) が true
+	b. IsDataDescriptor(previous) が true 且つ、 IsAccessorDescriptor(propId.descriptor) が true
+	c. IsAccessorDescriptor(previous)  が true 且つ、IsDataDescriptor(propId.descriptor) が true
+	d. IsAccessorDescriptor(previous) が true 且つ、 IsAccessorDescriptor(propId.descriptor) が true、且つ、 previous と propId.descriptor の双方何れかが[[Get]]項目を持つか、または previous と propId.descriptor の双方何れかが[[Set]]項目を持つ
+5.引数 propId.name、propId.descriptor、falseを伴う obj の[[DefineOwnProperty]]内部メソッドを呼ぶ
+6. obj を返す
+</pre>
+</div>
+
+		<p>
+		　もし、上記ステップがSyntaxErrorを投げる(スローする)場合には、実装は、初期エラー(第16項)としてそのエラーを扱わなければいけません。
+		</p>
+		<p>
+		プロダクション PropertyAssignment : PropertyName : AssignmentExpression は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. propName は、PropertyNameを評価した結果とする
+2. exprValue は、AssignmentExpressionを評価した結果とする
+3. propValue  は、 GetValue(exprValue) とする
+4. desc は、プロパティ記述子 {[[Value]]: propValue, [[Writable]]: true, [[Enumerable]]: true, [[Configurable]]: true} とする
+5.プロパティ識別子(propName、desc)を返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション PropertyAssignment : get PropertyName ( ) { FunctionBody } は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. propName は、PropertyNameを評価した結果とする
+2. closure は、カラのパラメータリストとFunctionBodyによって指定した body を伴い、 13.2 で指定したように新たなFunctionオブジェクトを生成した結果とする
+   Scope のように実行中の実行コンテキストのLexicalEnvironment内で渡す
+   PropertyAssignment が、strict(厳格)コード内に含まれたり、そのFunctionBodyが、strict(厳格)コードである場合にはStrictフラグがtrueの場合に渡す
+3. desc は、プロパティ記述子 {[[Get]]: closure, [[Enumerable]]: true, [[Configurable]]: true} とする
+4.プロパティ識別子(propName、desc)を返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション PropertyAssignment : set PropertyName ( PropertySetParameterList ) { FunctionBody } は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. propName は、PropertyNameを評価した結果とする
+2. closure は、PropertySetParameterListによって指定したパラメータとFunctionBodyによって指定した body を伴い、 13.2 で指定したように新たなFunctionオブジェクトを生成した結果とする
+   その Scope として実行中の実行コンテキストのLexicalEnvironment内で渡す
+   PropertyAssignment が、strict(厳格)コード内に含まれたり、そのFunctionBodyが、strict(厳格)コードである場合にはStrictフラグがtrueの場合に渡す
+3. desc は、プロパティ記述子 {[[Set]]: closure, [[Enumerable]]: true, [[Configurable]]: true} とする
+4.プロパティ識別子(propName、desc)を返す
+</pre>
+</div>
+
+		<p>
+		　識別子 "eval" や識別子 "arguments" が、strict(厳格)コード内に含まれたり、そのFunctionBodyがstrict(厳格)コードであるPropertyAssignmentのPropertySetParameterList内にある識別子として現れる場合、それは、SyntaxErrorです。
+		</p>
+		<p>
+		　プロダクション PropertyName : IdentifierName は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1.IdentifierNameとして同じ文字の並びを含むString型の値を返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション PropertyName : StringLiteral は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1.StringLiteral の SV を返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション PropertyName : NumericLiteral は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. nbr は、NumericLiteralの値を形成した結果とする
+2. ToString(nbr) を返す
+</pre>
+</div>
+
+		<h3>11.1.6 グループ化演算子</h3>
+		<p>
+		　プロダクション PrimaryExpression : ( Expression ) は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1.Expressionを評価した結果を返す
+  これはReference型になる場合もある
+</pre>
+</div>
+
+		<p>
+		[注釈]
+		</p>
+		<p>
+		　このアルゴリズムは、GetValueには、Expressionを評価した結果を適用しません。
+		これについての主な動機は、deleteやtypeofといったような演算子は、カッコ付きの式を適用される場合がある為です。
+		</p>
+
+		
+
+		
+	

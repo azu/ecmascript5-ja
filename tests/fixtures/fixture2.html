@@ -1,0 +1,492 @@
+<!doctype html public "-//w3c//dtd html 4.01 transitional//en" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja-jp">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>15.10.4 RegExp コンストラクタ / The RegExp Constructor / Standard ECMA-262 5.1 Edition</title>
+    <meta name="description"
+          content="『15.10.4 RegExp コンストラクタ / The RegExp Constructor / Standard ECMA-262 5.1 Edition』Ecma International(http://www.ecma-international.org/)によるECMAScript標準仕様 Standard ECMA-262 5.1 Edition 訳">
+    <meta name="keywords" lang="ja" content="正規表現コンストラクタ">
+    <meta name="keywords" lang="en" content="The RegExp Constructor">
+    <meta name="author" content="Ryo">
+    <link rel="shortcut icon" href="http://www.webzoit.net/webzoit.ico">
+    <meta http-equiv="content-style-type" content="text/css">
+    <link rel="stylesheet" href="http://www.webzoit.net/css/css.css" type="text/css">
+</head>
+<body>
+<div class="for_win_ie">
+<div class="container">
+<a name="top"></a>
+
+<div class="bg_top_comment">IT/ICT資格情報、各種IT/ICT仕様邦訳、ホームページ作成・制作、Web・システム等々IT/ICT全般解説サイト</div>
+<div class="thumb_top"><a href="http://www.webzoit.net/"><img
+        src="http://www.webzoit.net/hp/img/banner/wall_label_top.gif" alt="webzoit.netウェブサイトホームページ"
+        title="webzoit.netウェブサイトホームページ"></a></div>
+<div class="bg_top_comment">ECMAScript/JavaScript解説</div>
+<div class="head1_top"><h1>15.10.4 RegExp コンストラクタ / The RegExp Constructor / Standard ECMA-262 5.1 Edition</h1></div>
+<div class="guid_top"><a href="http://www.webzoit.net/hp/"><img src="http://www.webzoit.net/hp/img/home.jpg"
+                                                                alt="ウェブ造ホーム" title="ウェブ造ホーム"></a><a
+        href="javascript:history.back()"><img src="http://www.webzoit.net/hp/img/return.jpg" alt="前へ" title="前へ"></a><a
+        href="javascript:history.forward()"><img src="http://www.webzoit.net/hp/img/next.jpg" alt="次へ" title="次へ"></a>
+</div>
+<div class="search_top">
+    <div class="search_for_site_text">サイト内検索</div>
+    <style type="text/css">
+        @import url(http://www.google.com/cse/api/branding.css);
+    </style>
+    <div class="cse-branding-right" style="background-color:#ffffff;color:#000000">
+        <div class="cse-branding-form">
+            <form action="http://www.google.co.jp/cse" id="cse-search-box">
+                <div>
+                    <input type="hidden" name="cx" value="partner-pub-8086706034172592:f6up1p3bx5u"/>
+                    <input type="hidden" name="ie" value="UTF-8"/>
+                    <input type="text" name="q" size="56"/>
+                    <input type="submit" name="sa" value="&#x691c;&#x7d22;"/>
+                </div>
+            </form>
+        </div>
+        <div class="cse-branding-logo">
+            <img src="http://www.google.com/images/poweredby_transparent/poweredby_FFFFFF.gif" title="Google"
+                 alt="Google"/>
+        </div>
+        <div class="cse-branding-text">
+            &#12459;&#12473;&#12479;&#12512;&#26908;&#32034;
+        </div>
+    </div>
+
+</div>
+<div class="clear_pos"></div>
+<div class="menu">
+    <div class="menu1">
+        <div class="m"><a href="/hp/menu/" title="IT/ICT用語一覧"><img src="http://www.webzoit.net/hp/img/itwords.jpg"
+                                                                   alt="IT/ICT用語解説" title="IT/ICT用語解説"></a></div>
+        <div class="list"><a href="/hp/menu/" title="IT/ICT用語一覧">IT/ICT用語一覧</a></div>
+    </div>
+    <div class="menu2">
+        <div class="m"><a href="/hp/menu/level/" title="MENU"><img src="http://www.webzoit.net/hp/img/menu.jpg"
+                                                                   alt="MENU" title="MENU"></a></div>
+        <div class="list_in_m">
+            <div class="m_title"><img src="http://www.webzoit.net/hp/img/reference.jpg" alt="リファレンス" title="リファレンス">
+            </div>
+            <div class="list"><a href="/hp/reference/html/" title="HTML/XHTML"
+                                 style="text-decoration:none;">HTML/XHTML</a></div>
+            <div class="list"><a href="/hp/reference/css/" title="CSS/Style Sheets" style="text-decoration:none;">CSS/Style
+                Sheets</a></div>
+            <div class="list"><a href="/hp/reference/javascript/" title="JavaScript/ECMAScript"
+                                 style="text-decoration:none;">JavaScript</a></div>
+            <div class="list"><a href="/hp/reference/xml/" title="XML" style="text-decoration:none;">XML</a>/<a
+                    href="/hp/reference/xsl/" title="XSL" style="text-decoration:none;">XSL</a>/<a
+                    href="/hp/reference/xslt/" title="XSLT" style="text-decoration:none;">XSLT</a></div>
+            <div class="list"><a href="/hp/reference/perl/" title="Perl" style="text-decoration:none;">Perl</a></div>
+            <div class="list"><a href="/hp/reference/java/" title="Java/Servlet/JSP/Applet/JavaFX"
+                                 style="text-decoration:none;">Java</a></div>
+            <div class="list"><a href="/hp/reference/c/" title="C/C++/C#" style="text-decoration:none;">C/C++/C#</a>
+            </div>
+            <div class="list"><a href="/hp/reference/unix_linux_cmd/" title="UNIX/Linuxコマンド"
+                                 style="text-decoration:none;">UNIX/Linux</a></div>
+            <div class="list"><a href="/hp/reference/shell/" title="Shell Script/Login Shell"
+                                 style="text-decoration:none;">Shell</a></div>
+        </div>
+        <div class="list_in_m">
+            <div class="m_title"><img src="http://www.webzoit.net/hp/img/stepup.jpg" alt="ステップアップ" title="ステップアップ">
+            </div>
+            <div class="list"><a href="/hp/menu/level/hp/" title="ホームページ編" style="text-decoration:none;">【ホームページ作成】</a>
+            </div>
+            <div class="list"><a href="/hp/menu/level/hp/s_beginner/" title="ホームページ超初心" style="text-decoration:none;">超初心</a>
+            </div>
+            <div class="list"><a href="/hp/menu/level/hp/beginner/" title="ホームページ初級"
+                                 style="text-decoration:none;">初級</a></div>
+            <div class="list"><a href="/hp/menu/level/hp/middle/" title="ホームページ中級" style="text-decoration:none;">中級</a>
+            </div>
+            <div class="list"><a href="/hp/menu/level/hp/high/" title="ホームページ上級" style="text-decoration:none;">上級</a>
+            </div>
+            <div class="list"><a href="/hp/menu/level/dev/" title="ウェブ開発編" style="text-decoration:none;">【ウェブ開発編】</a>
+            </div>
+            <div class="list"><a href="/hp/menu/level/dev/beginner/" title="ウェブ開発初級"
+                                 style="text-decoration:none;">初級</a></div>
+            <div class="list"><a href="/hp/menu/level/dev/middle/" title="ウェブ開発中級～"
+                                 style="text-decoration:none;">中級～</a></div>
+        </div>
+        <div class="list_in_m">
+            <div class="m_title"><img src="http://www.webzoit.net/hp/img/howto.jpg" alt="how to code"
+                                      title="how to code"></div>
+            <div class="list"><a href="/hp/menu/list/" title="どうしたらできるの？" style="text-decoration:none;">どうしたらできるの？</a>
+            </div>
+            <div class="list"><a href="/hp/it/internet/homepage/make/" title="ホームページの作り方" style="text-decoration:none;">ホームページの作り方</a>
+            </div>
+            <div class="list"><a href="/hp/it/internet/homepage/upload/filemanager/" title="ホームページの公開方法"
+                                 style="text-decoration:none;">ホームページ公開方法</a></div>
+            <div class="list"><a href="/hp/it/internet/homepage/css/hover/" title="はずむ画像・テキスト"
+                                 style="text-decoration:none;">はずむ画像・テキスト</a></div>
+            <div class="list"><a href="/hp/it/internet/homepage/css/underline/" title="消えた！下線"
+                                 style="text-decoration:none;">消えた！下線</a></div>
+            <div class="list"><a href="/hp/it/internet/homepage/css/" title="サイト全体デザイン一発変更"
+                                 style="text-decoration:none;">サイトデザイン一発変更</a></div>
+            <div class="list"><a href="/hp/it/internet/homepage/html/tag/body/map/" title="画像の一部がボタンになった！"
+                                 style="text-decoration:none;">画像の一部がボタンに！</a></div>
+            <div class="list">などなど</div>
+        </div>
+        <div class="list_in_m">
+            <div class="m_title"><img src="http://www.webzoit.net/hp/img/licence.jpg" alt="資格メニュー" title="資格メニュー"></div>
+            <div class="list"><a href="/examination/" title="資格試験" style="text-decoration:none;">資格試験</a></div>
+            <div class="list"><a href="/examination/state/it/" title="情報処理技術者"
+                                 style="text-decoration:none;">情報処理技術者とは</a></div>
+            <div class="list">【<a href="/examination/state/it/user/" title="ユーザー資格試験" style="text-decoration:none;">ユーザー資格試験</a>】
+            </div>
+            <div class="list">【<a href="/examination/state/it/dev/" title="開発者資格試験" style="text-decoration:none;">開発者資格試験</a>】
+            </div>
+            <div class="list">【<a href="/examination/state/it/audit/" title="監査資格試験" style="text-decoration:none;">監査資格試験</a>】
+            </div>
+            <div class="list">【<a href="/examination/state/" title="情報処理に身近な国家資格"
+                                  style="text-decoration:none;">参考国家資格</a>】
+            </div>
+            <div class="list">【ICT/IT民間資格】</div>
+            <div class="list"><a href="http://www.itc.or.jp/" title="ITコーディネータ"
+                                 style="text-decoration:none;">ITコーディネータ</a></div>
+            <div class="list"><a href="http://www.xmlmaster.org/" title="XMLマスター"
+                                 style="text-decoration:none;">XMLマスター</a></div>
+            <div class="list"><a href="http://www.oracle.com/global/jp/education/certification/allcertification.html"
+                                 title="Oracle認定資格" style="text-decoration:none;">Oracle認定資格</a></div>
+            <div class="list"><a href="http://www.microsoft.com/japan/learning/default.mspx" title="マイクロソフト技術者認定"
+                                 style="text-decoration:none;">マイクロソフト技術者認定</a></div>
+            <div class="list"><a href="http://www.cisco.com/web/JP/event/tra_ccc/ccc/certprog/paths/home.html"
+                                 title="シスコ技術者認定" style="text-decoration:none;">シスコ技術者認定</a></div>
+        </div>
+    </div>
+    <div>
+        <script type="text/javascript"><!--
+        google_ad_client = "ca-pub-8086706034172592";
+        /* 160x600, 作成済み 09/01/14 */
+        google_ad_slot = "1735327696";
+        google_ad_width = 160;
+        google_ad_height = 600;
+        //-->
+        </script>
+        <script type="text/javascript"
+                src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+        </script>
+    </div>
+
+</div>
+<div class="contents">
+
+    <div class="bg_powderblue">
+        <img src="http://www.webzoit.net/hp/img/folder/webzoit_filefolder.gif" width="16" height="16" title="" alt=""><a
+            name="about_ecmascript_javascript"></a>ECMAScript / JavaScript とは
+    </div>
+    <h2>15.10.4 RegExp コンストラクタ / The RegExp Constructor / Standard ECMA-262 5.1 Edition</h2>
+
+    <p>
+        <script type="text/javascript"><!--
+        google_ad_client = "pub-8086706034172592";
+        /* 336x280, 作成済み 09/01/14 */
+        google_ad_slot = "3167055669";
+        google_ad_width = 336;
+        google_ad_height = 280;
+        //-->
+        </script>
+        <script type="text/javascript"
+                src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+        </script>
+    </p>
+    <h3>ECMAScript言語仕様 / ECMA-262 5.1 Edition</h3>
+
+    <p>　訳の正確性を保証するものではありませんので必要に応じて原文である<a href="http://www.ecma-international.org/" title="Ecma International">Ecma
+        International</a>の<a href="http://www.ecma-international.org/publications/standards/Ecma-262.htm"
+                             title="Ecma International / ECMA-262">ECMA-262</a>にある ECMA-262.pdf ( ECMA-262 5.1 Edition
+        )を参照下さい。</p>
+
+    <p style="float:right ;">訳:2012年04月 webzoit.net</p>
+
+    <p style="float:left ;"><a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/copyright/">ECMA-262 5.1
+        Edition 著作権情報</a></p>
+
+    <div class="clear_pos"></div>
+    <p style="line-height:1px ;font-size:13px ;"><a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/">ECMA-262
+        5.1 読解時の留意点と原文リソース</a></p>
+
+    <div class="page_link">
+        <div style="font-size:10.5pt ; text-align:center ;"><a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/">目次</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/introduction/">Intro</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/1/">&nbsp;1&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/2/">&nbsp;2&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/3/">&nbsp;3&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/4/">&nbsp;4&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/5/">&nbsp;5&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/6/">&nbsp;6&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/7/">&nbsp;7&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/8/">&nbsp;8&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/9/">&nbsp;9&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/10/">&nbsp;10&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/11/">&nbsp;11&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/12/">&nbsp;12&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/13/">&nbsp;13&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/14/">&nbsp;14&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/">&nbsp;15&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/16/">&nbsp;16&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/#annex">付録</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/bibliography/">文献</a></div>
+        <div style="float:left ;">&lt;&lt;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/14/" title="プログラム">14 プログラム</a>
+        </div>
+        <div style="float:right ;"><a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/16/"
+                                      title="エラー">16 エラー</a>&nbsp;&gt;&gt;</div>
+        <div class="clear_pos"></div>
+    </div>
+    <h3>15 標準組み込みECMAScriptオブジェクト</h3>
+
+    <div class="page_link">
+        <div style="font-size:10.5pt ; text-align:center ;"><a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/">15</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_1/">15.1</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_2/">15.2</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_3/">15.3</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_4/">15.4</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_5/">15.5</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_6/">15.6</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_7/">15.7</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_8/">15.8</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_9/">15.9</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/">15.10</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_11/">15.11</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_12/">15.12</a></div>
+        <div style="float:left ;">&lt;&lt;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/" title="RegExpオブジェクト">15.10
+            RegExpオブジェクト</a></div>
+        <div style="float:right ;"><a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_12/"
+                                      title="JSONオブジェクト">15.12 JSONオブジェクト</a>&nbsp;&gt;&gt;</div>
+        <div class="clear_pos"></div>
+    </div>
+    <h3>15.10 RegExp (Regular Expression／正規表現) オブジェクト</h3>
+
+    <div class="page_link">
+        <div style="font-size:10.5pt ; text-align:center ;"><a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/">15.10</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/15_10_1/">15.10.1</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/15_10_2/">15.10.2</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/15_10_3/">15.10.3</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/15_10_4/">15.10.4</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/15_10_5/">15.10.5</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/15_10_6/">15.10.6</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/15_10_7/">15.10.7</a>
+        </div>
+        <div style="float:left ;">&lt;&lt;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/15_10_3/"
+                title="関数としてコールしたRegExpコンストラクタ">15.10.3 関数としてコールしたRegExpコンストラクタ</a></div>
+        <div style="float:right ;"><a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/15_10_5/"
+                title="RegExpコンストラクタのプロパティ">15.10.5 RegExpコンストラクタのプロパティ</a>&nbsp;&gt;&gt;</div>
+        <div class="clear_pos"></div>
+    </div>
+
+    <h3>15.10.4 RegExp コンストラクタ</h3>
+
+    <p>
+        　 RegExp が、 new 式の一部として呼ばれる場合、それは、コンストラクタであり、新たに生成したオブジェクトを初期化します。
+    </p>
+
+    <h3>15.10.4.1 new RegExp(pattern, flags)</h3>
+
+    <p>
+        　 pattern が、内部プロパティ[[Class]]が "RegExp"、フラグが、undefinedであるオブジェクト R である場合、P は、Rを構築する為に使用したpatternとし、F は、 R
+        を構築する為に使用したフラグとします。
+        pattern が、内部プロパティ[[Class]]が "RegExp"、フラグが、undefinedでないオブジェクト R である場合、TypeError例外を投げ(スローし)ます。
+        それ以外の場合、 pattern が、 undefined である場合、 P は、カラの文字列とし、それ以外の場合、フラグがundefinedで且つ、 ToString(flags) 以外の場合、 F
+        はカラの文字列とします。
+    </p>
+
+    <p>
+        　 P を構成する文字が、Pattern から成る構文を持たない場合、SyntaxError例外を投げ(スローし)ます。
+        それ以外の場合、新たに構築したオブジェクトは、15.10.2 で説明したように同じ Pattern である P
+        を構成する文字("compiling")を評価することによって得られた内部プロパティ[[Match]]を持つものとします。
+    </p>
+
+    <p>
+        　 F が、 "g", "i", "m" 以外の文字を含んだり、1つ以上の同一文字を含む場合、SyntaxError例外を投げ(スローし)ます。
+    </p>
+
+    <p>
+        　 SyntaxError例外を投げ(スローし)ない場合、
+    </p>
+
+    <div style="width:370pt ; height:120pt ; border:inset 3pt blue ; overflow:auto ;">
+<pre>
+ S は、以下で説明したようにエスケープ(符号化)される特定の文字内にある P と同等の任意の Pattern の書式にある文字列とします。
+ S は、 P や pattern と同一であったり、そうでなかったりする場合がありますが、しかしながら、任意の Pattern として S を評価することによって得られる結果である内部プロシージャは、構築したオブジェクトの内部プロパティ[[Match]]によって与えられる内部プロシージャと同一の動作をしなければいけません。
+ pattern 内に現れる文字 / (スラッシュ)は、構築した正規表現と同一の動作をする RegularExpressionLiteral として(適切な語彙的内容内で)解析されることが可能な文字列 "/", S, "/", F を連結することによって形成されるString値として確保する為に必要となる S 内でエスケープされるようにしましょう。
+例えば、 P が、 "/" である場合、 F が続く /// は、 RegularExpressionLiteral ではなく、SingleLineComment として解析される可能性があるので S は、他の可能性の中でも"/"ではなく "\/" や "\u002F" とすべきです。
+ P が、カラの文字列である場合、この仕様は、 S が、"(?:)" であるものとすることによって満たされます。
+</pre>
+    </div>
+
+    <p>
+        新たに構築したオブジェクトの次のプロパティは、 15.10.7 で指定される属性を伴うデータプロパティです。
+    </p>
+
+    <p>
+        　各プロパティの[[Value]]は、次のように設定されます。
+    </p>
+
+    <div style="width:370pt ; height:160pt ; border:inset 3pt blue ; overflow:auto ;">
+<pre>
+新たに構築したオブジェクトの source プロパティは、 S に設定されます。
+新たに構築したオブジェクトの global プロパティは、 F が、文字 "g" と false以外を含む場合、trueであるBoolean値に設定されます。
+新たに構築したオブジェクトのignoreCaseプロパティは、 F が、文字 "i" と false以外を含む場合、trueであるBoolean値に設定されます。
+新たに構築したオブジェクトの multiline プロパティは、 F が、文字 "m" と false以外を含む場合、trueであるBoolean値に設定されます。
+新たに構築したオブジェクトの lastIndex プロパティは、 0に設定されます。
+新たに構築したオブジェクトの内部プロパティ[[Prototype]]は、 15.10.6 で指定したように標準組み込み RegExp プロトタイプオブジェクトに設定されます。
+新たに構築したオブジェクトの内部プロパティ[[Class]]は、 "RegExp" に設定されます。
+</pre>
+    </div>
+
+    <p>
+        [注釈]
+    </p>
+
+    <p>
+        　 pattern が、StringLiteral である場合、通常、エスケープシーケンスの置換は、文字列が、 RegExp によって処理される前に実行されます。
+        pattern が、 RegExp によって認識される為にエスケープシーケンスを含む場合、バックスラッシュである \ 文字は、 StringLiteral の内容が、形成される際に削除されることを防ぐために
+        StringLiteral 内でエスケープされなければいけません。
+    </p>
+
+    <div class="page_link">
+        <div style="float:left ;">&lt;&lt;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/15_10_3/"
+                title="関数としてコールしたRegExpコンストラクタ">15.10.3 関数としてコールしたRegExpコンストラクタ</a></div>
+        <div style="float:right ;"><a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/15_10_5/"
+                title="RegExpコンストラクタのプロパティ">15.10.5 RegExpコンストラクタのプロパティ</a>&nbsp;&gt;&gt;</div>
+        <div class="clear_pos"></div>
+        <div style="font-size:10.5pt ; text-align:center ;"><a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/">15.10</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/15_10_1/">15.10.1</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/15_10_2/">15.10.2</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/15_10_3/">15.10.3</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/15_10_4/">15.10.4</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/15_10_5/">15.10.5</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/15_10_6/">15.10.6</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/15_10_7/">15.10.7</a>
+        </div>
+        <div style="float:left ;">&lt;&lt;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/" title="RegExpオブジェクト">15.10
+            RegExpオブジェクト</a></div>
+        <div style="float:right ;"><a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_12/"
+                                      title="JSONオブジェクト">15.12 JSONオブジェクト</a>&nbsp;&gt;&gt;</div>
+        <div class="clear_pos"></div>
+        <div style="font-size:10.5pt ; text-align:center ;"><a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/">15</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_1/">15.1</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_2/">15.2</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_3/">15.3</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_4/">15.4</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_5/">15.5</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_6/">15.6</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_7/">15.7</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_8/">15.8</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_9/">15.9</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_10/">15.10</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_11/">15.11</a>&nbsp;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/15_12/">15.12</a></div>
+        <div style="float:left ;">&lt;&lt;&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/14/" title="プログラム">14 プログラム</a>
+        </div>
+        <div style="float:right ;"><a href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/16/"
+                                      title="エラー">16 エラー</a>&nbsp;&gt;&gt;</div>
+        <div class="clear_pos"></div>
+        <div style="font-size:10.5pt ; text-align:center ;"><a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/">目次</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/introduction/">Intro</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/1/">&nbsp;1&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/2/">&nbsp;2&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/3/">&nbsp;3&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/4/">&nbsp;4&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/5/">&nbsp;5&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/6/">&nbsp;6&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/7/">&nbsp;7&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/8/">&nbsp;8&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/9/">&nbsp;9&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/10/">&nbsp;10&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/11/">&nbsp;11&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/12/">&nbsp;12&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/13/">&nbsp;13&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/14/">&nbsp;14&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/15/">&nbsp;15&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/16/">&nbsp;16&nbsp;</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/#annex">付録</a>&nbsp;<a
+                href="/hp/it/internet/homepage/script/ecmascript/ecma262_51/contents/bibliography/">文献</a></div>
+    </div>
+    <p>
+        <script type="text/javascript"><!--
+        google_ad_client = "pub-8086706034172592";
+        /* 336x280, 作成済み 09/01/14 */
+        google_ad_slot = "3167055669";
+        google_ad_width = 336;
+        google_ad_height = 280;
+        //-->
+        </script>
+        <script type="text/javascript"
+                src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+        </script>
+    </p>
+    <ul>
+        <li><a href="/hp/menu/list/" title="一覧メニュー" style="text-decoration:none;">一覧メニュー</a></li>
+        <li><a href="/hp/menu/level/hp/" title="ホームページ作成レベル別メニュー" style="text-decoration:none;">ホームページ作成レベル別メニュー</a>
+        </li>
+        <li><a href="/hp/menu/level/dev/" title="ウェブ開発レベル別メニュー" style="text-decoration:none;">ウェブ開発レベル別メニュー</a></li>
+    </ul>
+</div>
+<div class="clear_pos"></div>
+<!--Button-->
+<p class="guid_bottom"><a href="http://www.webzoit.net/hp/"><img src="http://www.webzoit.net/hp/img/home.jpg"
+                                                                 alt="ウェブ造ホーム" title="ウェブ造ホーム"></a><a
+        href="javascript:history.back()"><img src="http://www.webzoit.net/hp/img/return.jpg" alt="前へ" title="前へ"></a><a
+        href="javascript:history.forward()"><img src="http://www.webzoit.net/hp/img/next.jpg" alt="次へ" title="次へ"></a>
+</p>
+<!--/Button-->
+<div class="bg_footer">
+    <p>&nbsp;</p>
+
+    <p>|&nbsp;<a href="http://www.rmarketmall.com/online/shopping/internet/broad_band/" title="フレッツ光・ADSLブロードバンド"
+                 style="text-decoration:none ;">フレッツ光・ADSLブロードバンド</a>&nbsp;|&nbsp;<a
+            href="http://www.rmarketmall.com/online/shopping/internet/web_hosting/" title="ウェブホスティング"
+            style="text-decoration:none ;">ウェブホスティング</a>&nbsp;|&nbsp;<a
+            href="http://www.rmarketmall.com/online/shopping/internet/web_hosting/rental_server/" title="レンタルサーバ"
+            style="text-decoration:none ;">レンタルサーバ</a>&nbsp;|&nbsp;<a
+            href="http://www.rmarketmall.com/online/shopping/internet/shop/domain/" title="ドメイン取得"
+            style="text-decoration:none ;">ドメイン取得</a>&nbsp;|&nbsp;<a
+            href="http://www.rmarketmall.com/online/shopping/electronics/pc/software/security/" title="セキュリティソフト"
+            style="text-decoration:none ;">セキュリティソフト</a>&nbsp;|&nbsp;<a
+            href="http://www.rmarketmall.com/online/shopping/electronics/pc/software/application/" title="アプリケーションソフト"
+            style="text-decoration:none ;">アプリケーションソフト</a>&nbsp;|</p>
+
+    <p>|&nbsp;<a href="http://www.rmarketmall.com/online/shopping/internet/license/security/" title="セキュリティライセンス"
+                 style="text-decoration:none ;">セキュリティライセンス</a>&nbsp;|&nbsp;<a
+            href="http://www.rmarketmall.com/online/shopping/internet/license/application/" title="ソフトウェアライセンス"
+            style="text-decoration:none ;">ソフトウェアライセンス</a>&nbsp;|&nbsp;<a
+            href="http://www.rmarketmall.com/online/shopping/internet/shop/opening_tool/" title="ネットショップ構築ツール"
+            style="text-decoration:none ;">ネットショップ構築ツール</a>&nbsp;|&nbsp;<a
+            href="http://www.rmarketmall.com/online/shopping/internet/shop/marketing/" title="検索エンジン広告"
+            style="text-decoration:none ;">検索エンジン広告</a>&nbsp;|&nbsp;<a
+            href="http://www.rmarketmall.com/online/shopping/internet/shop/ssl/" title="SSLサーバ証明書"
+            style="text-decoration:none ;">SSLサーバ証明書</a>&nbsp;|</p>
+
+    <p style="text-align:center ;"><a href="/"><img src="http://www.webzoit.net/hp/img/banner/webzoit.gif"
+                                                    alt="webzoitバナー" title="webzoitバナー"></a></p>
+
+    <p>
+
+    <h2>webzoit.net</h2></p>
+    <p class="tac">2004-someday</p>
+
+    <p>&nbsp;</p>
+</div>
+</div>
+</div>
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+    _uacct = "UA-565136-4";
+    urchinTracker();
+</script>
+</body>
+</html>

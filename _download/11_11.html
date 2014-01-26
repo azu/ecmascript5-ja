@@ -1,0 +1,104 @@
+
+
+	
+		<h2>11.11 バイナリ論理演算子 / Binary Logical Operators / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>11 式</h3>
+		
+
+		<h3>11.11 バイナリ論理演算子</h3>
+
+<div class="pre-div">
+<pre>
+【構文】
+LogicalANDExpression :
+	BitwiseORExpression
+	LogicalANDExpression && BitwiseORExpression
+
+LogicalANDExpressionNoIn :
+	BitwiseORExpressionNoIn
+	LogicalANDExpressionNoIn && BitwiseORExpressionNoIn
+
+LogicalORExpression :
+	LogicalANDExpression
+	LogicalORExpression || LogicalANDExpression
+
+LogicalORExpressionNoIn :
+	LogicalANDExpressionNoIn
+	LogicalORExpressionNoIn || LogicalANDExpressionNoIn
+</pre>
+</div>
+
+		<p>
+		【セマンティックス】
+		</p>
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+LogicalANDExpression : LogicalANDExpression && BitwiseORExpression
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. lref は、LogicalANDExpressionを評価した結果とする
+2. lval は、 GetValue(lref) とする
+3. ToBoolean(lval) が、falseである場合、 lval を返す
+4. rref は、BitwiseORExpressionを評価した結果とする
+5. GetValue(rref) を返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+LogicalORExpression : LogicalORExpression || LogicalANDExpression
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. lref は、LogicalORExpressionを評価した結果とする
+2. lval は、 GetValue(lref) とする
+3. ToBoolean(lval) が、 trueである場合、 lvalを返す
+4. rref は、LogicalANDExpressionを評価した結果とする
+5. GetValue(rref) を返す
+</pre>
+</div>
+
+		<p>
+		　LogicalANDExpressionNoInとLogicalORExpressionNoInプロダクションは、LogicalANDExpression、BitwiseORExpression、LogicalORExpressionをそれぞれ含む代わりにLogicalANDExpressionNoIn、BitwiseORExpressionNoIn、LogicalORExpressionNoInを含んで評価される場合を除き、 LogicalANDExpression と LogicalORExpression と同じ方法で評価されます。
+		</p>
+		<p>
+		[注釈]
+		</p>
+		<p>
+		　 && や || 演算子によって生成した値は、Boolean型である必要はありません。
+		生成した値は、常に2つのオペランドの内の一方の値になります。
+		</p>
+
+		
+
+		
+	

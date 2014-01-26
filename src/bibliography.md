@@ -1,0 +1,48 @@
+参考文献 / Bibliography / Standard ECMA-262 5.1 Edition
+-------------------------------------------------------
+
+### 【Bibliography / 参考文献】
+
+    [1]
+    IEEE Std 754-2008: IEEE Standard for Floating-Point Arithmetic.
+    Institute of Electrical and Electronic Engineers, New York (2008)
+
+    IEEE標準規格 754-2008: 浮動小数点数演算におけるIEEE標準規格
+    IEEE / Institute of Electrical and Electronic Engineers, New York (2008)
+
+    [2]
+    The Unicode Consortium.
+    The Unicode Standard, Version 3.0, defined by: The Unicode Standard, Version 3.0 (Reading, MA, Addison-Wesley, 2000.ISBN 0-201-61633-5)
+
+    Unicodeコンソーシアム
+    書籍『The Unicode Standard, Version 3.0』(Reading, MA, Addison-Wesley, 2000.ISBN 0-201-61633-5)によって定義したUnicode標準規格バージョン3.0
+
+    [3]
+    Unicode Inc. (2010), Unicode Technical Report #15: Unicode Normalization Forms
+
+    Unicode Inc. (2010)発行のUnicodeテクニカルリポート #15：Unicode正規化の形式
+
+    [4]
+    ISO 8601:2004(E) Data elements and interchange formats -- Information interchange -- Representation of dates and times
+
+    ISO規格 8601:2004(E) データ要素と書式変換 -- 情報変換 -- 日付と時刻の表現
+
+    [5]
+    RFC 1738 "Uniform Resource Locators (URL)", available at <http://tools.ietf.org/html/rfc1738>
+
+    RFC 1738 http://tools.ietf.org/html/rfc1738で利用可能な"Uniform Resource Locators (URL)"
+
+    [6]
+    RFC 2396 "Uniform Resource Identifiers (URI): Generic Syntax", available at <http://tools.ietf.org/html/rfc2396>
+
+    RFC 2396 http://tools.ietf.org/html/rfc2396で利用可能な"Uniform Resource Identifiers (URI): 一般的な構文"
+
+    [7]
+    RFC 3629 "UTF-8, a transformation format of ISO 10646", available at <http://tools.ietf.org/html/rfc3629>
+
+    RFC 3629 http://tools.ietf.org/html/rfc3629で利用可能な"UTF-8 ISO 10646 の変換書式"
+
+    [8]
+    RFC 4627 "The application/json Media Type for JavaScript Object Notation (JSON)" , available at <http://tools.ietf.org/html/rfc4627>
+
+    RFC 4627 http://tools.ietf.org/html/rfc4627で利用可能な"JSON / JavaScript Object Notation におけるメディアタイプ application/json"

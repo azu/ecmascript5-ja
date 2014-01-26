@@ -1,0 +1,76 @@
+
+
+	
+		<h2>15.3.2 Functionコンストラクタ / The Function Constructor / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>15 標準組み込みECMAScriptオブジェクト</h3>
+		
+		<h3>15.3 Function オブジェクト</h3>
+		
+
+		<h3>15.3.2 Functionコンストラクタ</h3>
+		<p>
+		　Functionが、 new 式の一部として呼ばれる場合、それはコンストラクタであり、それは、新たに生成したオブジェクトを初期化します。
+		</p>
+
+		<h3>15.3.2.1 new Function (p1, p2, … , pn, body)</h3>
+		<p>
+		　最後の引数は、関数の(実行コード)本体を指定し、先行する引数は正規のパラメータを指定します。
+		Functionコンストラクタが、( nは、0になる場合があり、つまり、それは引数 "p"が何もないことを意味し、bodyは、提供されない場合もある)引数 p1, p2, ... , pn、body を伴って呼ばれる際には、次のステップが取られます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. argCount は、この関数呼び出しに渡した引数の総数とする
+2. P は、カラの文字列とする
+3. argCount = 0である場合、 body は、カラの文字列とする
+4. argCount = 1である場合、 body は、その引数とする
+5. argCount &gt; 1である場合、
+	a. firstArg は、1つめの引数とする
+	b. P は、 ToString(firstArg) とする
+	c. k は、 2 とする
+	d. while k &lt; argCount (の条件下で)繰り返す
+		i. nextArg は、k 番めの引数とする
+		ii. P は、P の前の値、文字","、 ToString(nextArg) を連結した結果とする
+		iii. kを1で増分する
+	e. body は、k 番めの引数とする
+6. body は、 ToString(body) とする
+7. P が、FormalParameterList opt として解析不能な場合、SyntaxError例外を投げる(スローする)
+8. body が、FunctionBodyとして解析不能な場合、SyntaxError例外を投げる(スローする)
+9. body が、strictモードのコードである場合、 strict は、true、それ以外の場合、 strict は、falseとする
+10. strict が、 trueである場合、 13.1 で適用する指定した例外を投げる(スローする)
+11. FormalParameterListopt として P  そして FunctionBody として body を渡して 13.2 で指定したように生成した新たな Function オブジェクトを返す
+    Scope パラメータとして Global 環境、Strict フラグとして strict を渡す
+</pre>
+</div>
+
+		<p>
+		　prototypeプロパティは、コンストラクタとして使用される可能性において提供する為に関数ごとに自動的に生成されます。
+		</p>
+		<p>
+		[注釈]
+		</p>
+		<p>
+		　それは、許容はされるものの必ずしも記述される正規のパラメータごとに1つの引数を持つ必要はありません。
+		例えば、次の3つの全ての式は、同じ結果を生成します。
+		</p>
+
+<div class="pre-div">
+<pre>
+new Function("a", "b", "c", "return a+b+c")
+new Function("a, b, c", "return a+b+c")
+new Function("a,b", "c", "return a+b+c")
+</pre>
+</div>
+
+		
+
+		
+	

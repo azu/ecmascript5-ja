@@ -1,0 +1,91 @@
+
+
+	
+		<h2>11.3 後置式 / Postfix Expressions / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>11 式</h3>
+		
+
+		<h3>11.3 後置式</h3>
+
+<div class="pre-div">
+<pre>
+【構文】
+PostfixExpression :
+	LeftHandSideExpression
+	LeftHandSideExpression [no LineTerminator here] ++
+	LeftHandSideExpression [no LineTerminator here] --
+</pre>
+</div>
+
+		<h3>11.3.1 後置増分演算子</h3>
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+PostfixExpression : LeftHandSideExpression [no LineTerminator here] ++
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. lhs は、LeftHandSideExpressionを評価した結果とする
+2.続く条件が全て true である場合、SyntaxError例外を投げる(スローする)
+・Referenceである Type(lhs) が、true
+・IsStrictReference(lhs) が、true
+・Type(GetBase(lhs)) が、環境レコード
+・GetReferencedName(lhs)が、 "eval" または "arguments" の何れか
+3. oldValue は、 ToNumber(GetValue(lhs)) とする
+4. newValue は、 + 演算子( 11.6.3 参照)における同様のルールを使っている間、oldValueに値 1 を追加した結果とする
+5. PutValue(lhs, newValue)を呼ぶ
+6. oldValue を返す
+</pre>
+</div>
+
+		<h3>11.3.2 後置減分演算子</h3>
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+PostfixExpression : LeftHandSideExpression [no LineTerminator here] --
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. lhs は、LeftHandSideExpressionを評価した結果とする
+2.続く条件が全て trueである場合、SyntaxError例外を投げる(スローする)
+・ReferenceであるType(lhs)が、 true
+・IsStrictReference(lhs)が、 true
+・Type(GetBase(lhs))が、環境レコード
+・GetReferencedName(lhs) が "eval" または "arguments" の何れか
+3. oldValue は、 ToNumber(GetValue(lhs)) とする
+4. newValue は、当該演算子における同様のルール(11.6.3)を使用中は、oldValue から 1 を引いた結果とする
+5.PutValue(lhs, newValue)を呼ぶ
+6. oldValue を返す
+</pre>
+</div>
+
+		
+
+		
+	

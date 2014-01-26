@@ -1,0 +1,83 @@
+
+
+	
+		<h2>12.5 if 文 / The if Statement / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>12 ステートメント／文</h3>
+		
+
+		<h3>12.5  if 文</h3>
+
+<div class="pre-div">
+<pre>
+【構文】
+IfStatement :
+	if ( Expression ) Statement else Statement
+	if ( Expression ) Statement
+</pre>
+</div>
+
+		<p>
+		　それぞれ他のどのifに関連する選択なのかが曖昧である場合は、他に何も一致するものがないという場合を除き、可能な限り最も近いものと関連させるようにしましょう。
+		</p>
+
+		<p>
+		【セマンティックス】
+		</p>
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+IfStatement : if ( Expression ) Statement else Statement
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. exprRef は、Expressionを評価した結果とする
+2. ToBoolean(GetValue(exprRef)) が、 trueである場合、
+	a.1つめの文を評価した結果を返す
+3.それ以外の場合、
+	a.2つめの文を評価した結果を返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+IfStatement : if ( Expression ) Statement
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. exprRef は、Expressionを評価した結果とする
+2. ToBoolean(GetValue(exprRef)) が、 falseである場合、 return (normal, empty, empty)
+3. Statementを評価した結果を返す
+</pre>
+</div>
+
+		
+
+		
+	

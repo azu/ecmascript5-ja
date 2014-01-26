@@ -1,0 +1,74 @@
+
+
+	
+		<h2>11.12 条件演算子 ( ? : ) / Conditional Operator / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>11 式</h3>
+		
+
+		<h3>11.12 条件演算子 ( ? : )</h3>
+
+<div class="pre-div">
+<pre>
+【構文】
+ConditionalExpression :
+	LogicalORExpression
+	LogicalORExpression ? AssignmentExpression : AssignmentExpression
+
+ConditionalExpressionNoIn :
+	LogicalORExpressionNoIn
+	LogicalORExpressionNoIn ? AssignmentExpression : AssignmentExpressionNoIn
+</pre>
+</div>
+
+		<p>
+		【セマンティックス】
+		</p>
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+ConditionalExpression : LogicalORExpression ? AssignmentExpression : AssignmentExpression
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. lref は、LogicalORExpressionを評価した結果とする
+2. ToBoolean(GetValue(lref)) が、 trueである場合、
+	a. trueRef は、AssignmentExpressionを評価した結果とする
+	b. GetValue(trueRef) を返す
+3.それ以外の場合、
+	a. falseRef は、2つめのAssignmentExpressionを評価した結果とする
+	b. GetValue(falseRef) を返す
+</pre>
+</div>
+
+		<p>
+		　ConditionalExpressionNoInプロダクションは、LogicalORExpression、1つめのAssignmentExpression、2つめのAssignmentExpressionをそれぞれ含む代わりにLogicalORExpressionNoIn、AssignmentExpression 、AssignmentExpressionNoInを含んで評価される場合を除き、ConditionalExpressionと同じ方法で評価されます。
+		</p>
+		<p>
+		[注釈]
+		</p>
+		<p>
+		　ECMAScript内のConditionalExpression(条件式)における文法は、2つめの副次式がExpression(式)とすることを許容する一方、3つめの式については、ConditionalExpressionにすることを制限する C や Java での場合とは、ほんの少しばかり異なります。
+		ECMAScript内のこの相違における動機は、条件の一方(arm of a conditional)だけを有効にする場合、紛らわしさを排除したい場合、中央の式の大部分が、かなり無駄なカンマ式である場合の何れかによって規定される式の指定を許容する為です。
+		</p>
+
+		
+
+		
+	

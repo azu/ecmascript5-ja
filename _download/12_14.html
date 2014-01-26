@@ -1,0 +1,177 @@
+
+
+	
+		<h2>12.14 try 文 / The try Statement / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>12 ステートメント／文</h3>
+		
+
+		<h3>12.14  try 文</h3>
+
+<div class="pre-div">
+<pre>
+【構文】
+TryStatement :
+	try Block Catch
+	try Block Finally
+	try Block Catch Finally
+
+Catch :
+	catch ( Identifier ) Block
+
+Finally :
+	finally Block
+</pre>
+</div>
+
+		<p>
+		　 try 文は、 ランタイムエラー(実行時エラー)や throw 文のように現れる例外的な条件についてコードのブロックで括ります。
+		 catch 句は、例外操作(exception-handling)コードを提供します。
+		 catch 句が、例外を捕捉した場合、その識別子は、例外にバインド(連結・結合)されます。
+		</p>
+
+		<p>
+		【セマンティックス】
+		</p>
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+TryStatement : try Block Catch
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. B は、Blockを評価した結果とする
+2. B.type が、throwではない場合、Bを返す
+3.パラメータ B.value を伴う Catch を評価した結果を返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+TryStatement : try Block Finally
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. B は、Blockを評価した結果とする
+2. F は、Finallyを評価した結果とする
+3. F.type が、normalである場合、 Bを返す
+4. F を返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+TryStatement : try Block Catch Finally
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. B は、Blockを評価した結果とする
+2. B.type が、 throwである場合、
+	a. C は、パラメータ B.valueを伴う Catch を評価した結果とする
+3.それ以外の場合、 B.type が、throwではない場合、
+	a. C は、 Bとする
+4. F は、Finallyを評価した結果とする
+5. F.type が、normalである場合、Cを返す
+6. F を返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+Catch : catch ( Identifier ) Block
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. C は、このプロダクションに解釈されるパラメータとする
+2. oldEnv は、実行中の実行コンテキストのLexicalEnvironmentとする
+3. catchEnv は、引数として oldEnv を渡すことによってNewDeclarativeEnvironmentを呼んだ結果とする
+4.引数として識別子のString値を渡すことによって catchEnv の具体的なメソッドCreateMutableBindingを呼ぶ
+5.引数として識別子、C、falseを渡すことによって catchEnv の具体的なメソッドSetMutableBindingを呼ぶ、注釈としては、最後の引数は、このような状況下では、さして重要ではない
+6.実行中の実行コンテキストのLexicalEnvironmentをcatchEnvに設定
+7. B は、Blockを評価した結果とする
+8.実行中の実行コンテキストのLexicalEnvironmentをoldEnvに設定
+9. B を返す
+</pre>
+</div>
+
+		<p>
+		[注釈]
+		</p>
+		<p>
+		　操作が、どれほどBlockを残したとしてもLexicalEnvironmentは、常に元の状態に復元されます。
+		</p>
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+Finally : finally Block
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1.Blockを評価した結果を返す
+</pre>
+</div>
+
+		<h3>12.14.1 strict(厳格)モードの制限・制約 ／ Strict Mode Restrictions</h3>
+		<p>
+		　 Catch を伴うTryStatementがstrict(厳格)コード内で現れたり、 Catch プロダクションの識別子が、"eval" または、 "arguments"の何れかである場合には、SyntaxErrorです。
+		</p>
+
+		
+
+		
+	

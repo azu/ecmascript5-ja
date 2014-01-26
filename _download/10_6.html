@@ -1,0 +1,186 @@
+
+
+	
+		<h2>10.6 argumentsオブジェクト / Arguments Object / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>10 実行コードと実行コンテキスト</h3>
+		
+
+		<h3>10.6 argumentsオブジェクト / Arguments Object / 引数オブジェクト</h3>
+		<p>
+		　操作が、関数のコードにおける実行コンテキストを入力する場合、(10.5で記述したように)識別子の引数が関数のFormalParameterList内にあるIdentifierとして現れるか、または、関数コード内に含まれるVariableDeclaration や FunctionDeclarationのIdentifierとして現れない限り、argumentsオブジェクトが生成されます。
+		</p>
+		<p>
+		　当該argumentsオブジェクトは、評価される為にあるコード、関数の正規名を含んだ名称 List、[[Call]]内部メソッドへの実引数 args 、関数コードにおける変数環境 env 、関数コードがstrict(厳格)コードか否かを示すBoolean型のstrictを持つ関数オブジェクトである引数 func を伴う抽象操作CreateArgumentsObjectを呼ぶことによって生成されます。
+		CreateArgumentsObjectが呼ばれる場合、次のステップが実行されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. len は、args 内の要素の数とする
+2. obj は、新たなECMAScriptオブジェクトを生成したものを結果とする
+3. 8.12 で記述したように obj の全ての内部メソッドを設定
+4. obj の[[Class]]内部プロパティに"Arguments"を設定
+5. Object は、標準組み込みObjectコンストラクタ(15.2.2)とする
+6. obj の[[Prototype]]内部プロパティに標準組み込みObjectのプロトタイプオブジェクト(15.2.4)を設定
+7.引数として"length"、Property Descriptor(プロパティ記述子) {[[Value]]: len, [[Writable]]: true, [[Enumerable]]: false, [[Configurable]]: true}、falseを渡すことによって obj 上で[[DefineOwnProperty]]内部メソッドを呼ぶ
+8. map は、名前付き標準組み込みコンストラクタであるObjectである式 new Object() によるかのように新たなオブジェクトを生成することで結果とする
+9. mappedNames は、カラのListとする
+10. indx = len - 1 とする
+11. indx >= 0 である間繰り返す
+	a. val は、0基準リスト(0-origined list)の位置 indx における args の要素とする
+	b. 引数として ToString(indx)、プロパティ記述子 {[[Value]]: val, [[Writable]]: true, [[Enumerable]]: true, [[Configurable]]: true}、falseを渡すことによって obj 上で[[DefineOwnProperty]]内部メソッドを呼ぶ
+	c. indx が names にある要素数よりも小さい場合、
+		i. name は、0基準リスト(0-origined list)の位置 indx における names の要素とする
+		ii. strict が、falseで且つ name が mappedNames の要素ではない場合、
+			1.リストmappedNamesの要素の1つとして name を追加
+			2. g は、引数 name と env を伴う抽象操作MakeArgGetterを呼んだ結果とする
+			3. p は、引数 name と env を伴う抽象操作MakeArgSetterを呼んだ結果とする
+			4.引数として ToString(indx)、プロパティ記述子 {[[Set]]: p, [[Get]]: g, [[Configurable]]: true}、false を渡すことによって map の[[DefineOwnProperty]]内部メソッドを呼ぶ
+	d. indx = indx - 1 とする
+12. mappedNames がカラではない場合、
+	a. obj の[[ParameterMap]]内部プロパティに map を設定
+	b. obj の[[Get]]、[[GetOwnProperty]]、[[DefineOwnProperty]]、[[Delete]]内部メソッドに以下で提供した定義を設定
+13. strict が、false である場合、
+	a.引数として"callee"、プロパティ記述子 {[[Value]]: func, [[Writable]]: true, [[Enumerable]]: false, [[Configurable]]: true}、false を渡すことによって obj 上で[[DefineOwnProperty]]内部メソッドを呼ぶ
+14.それ以外の場合、strict は、true となるので
+	a. thrower は、[[ThrowTypeError]]関数Object(13.2.3)とする
+	b.引数 "caller"、プロパティ記述子 {[[Get]]: thrower, [[Set]]: thrower, [[Enumerable]]: false, [[Configurable]]: false}、falseを伴う obj の[[DefineOwnProperty]]メソッドを呼ぶ
+	c.引数 "callee"、プロパティ記述子 {[[Get]]: thrower, [[Set]]: thrower, [[Enumerable]]: false, [[Configurable]]: false}、falseを伴う obj の[[DefineOwnProperty]]メソッドを呼ぶ
+15. obj を返す
+</pre>
+</div>
+
+		<p>
+		　String型の name と環境レコード env を伴って呼ぶ抽象操作MakeArgGetterは、env にある name においてバインドする値を返す為に実行した場合、関数オブジェクトを生成します。
+		それは次のステップを実行します。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. body は、文字列 "return "、name、";"を連結したものを結果とする
+2.FormalParameterListがなく、FunctionBodyについては body 、Scopeとして env 、Strictについては trueとして使用することによって 13.2 で説明したように関数オブジェクトを生成した結果を返す
+</pre>
+</div>
+
+		<p>
+		　String型の name と 環境レコード env を伴って呼ぶ抽象操作MakeArgSetterは、env にある name においてバインドする値の設定を実行した場合、関数オブジェクトを生成します。
+		それは次のステップを実行します。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. param は、文字列  "_arg" と連結した文字列 name とする
+2. body は、name の値によって置換される &lt;name&gt; と param の値によって置換される &lt;param&gt; で文字列 "&lt;name&gt; = &lt;param&gt;;" とする
+3.FormalParameterListとして単独の文字列 param を含む List 、FunctionBodyについては body 、Scopeとして env 、Strictについては true を使用して 13.2 で説明したように関数オブジェクトを生成した結果を返す
+</pre>
+</div>
+
+		<p>
+		　プロパティ名 P を伴う非strict(厳格)モードの関数における引数 object の[[Get]]内部メソッドは、次のステップを実行します。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. map は、引数 object の[[ParameterMap]]内部プロパティの値とする
+2. isMapped は、引数として P を渡すことによって map の[[GetOwnProperty]]内部メソッドを呼んだ結果とする
+3. isMapped の値が undefined である場合には、
+	a. v は、引数として P を渡すことによって引数 objectにおける既定の[[Get]] 内部メソッド (8.12.3) を呼んだ結果とする
+	b. P が、"caller" である場合、 v は、strict(厳格)モードのFunctionオブジェクトであり、TypeError例外を投げる(スローする)
+	c. v を返す
+4.それ以外の場合、 map は、 P における正規なパラメータマッピングを含む為、
+	a.引数として P を渡すことによって map の[[Get]]内部メソッドを呼んだ結果を返す
+</pre>
+</div>
+
+		<p>
+		　プロパティ名 P を伴って呼ばれる場合、正規のパラメータを伴う非strict(厳格)モードの関数におけるargumentsオブジェクトの[[GetOwnProperty]]内部メソッドは、次のステップを実行します。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. desc は、引数として P を渡すことによって 引数 object における既定の[[GetOwnProperty]]内部メソッド (8.12.1) を呼んだ結果とする
+2. desc が、undefinedである場合、 desc を返す
+3. map は、argumentsオブジェクトの[[ParameterMap]]内部プロパティの値とする
+4. isMapped は、引数として P を渡すことによって map の[[GetOwnProperty]]内部メソッドを呼んだ結果とする
+5. isMapped の値が、undefinedである場合、
+	a. desc.[[Value]] に引数として P を渡すことによって map の[[Get]]内部メソッドを呼んだ結果を設定
+6. desc を返す
+</pre>
+</div>
+
+		<p>
+		　プロパティ名 P 、プロパティ記述子 Desc 、Boolean型フラグ Throw を伴って呼んだ正規のパラメータを伴う非strict(厳格)モードの関数におけるargumentsオブジェクトの[[DefineOwnProperty]]内部メソッドは、次のステップを実行します。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. map は、引数 s オブジェクトの[[ParameterMap]]内部プロパティの値とする
+2. isMapped は、引数として P を渡すことによって map の[[GetOwnProperty]]内部メソッドを呼んだ結果とする
+3. allowed は、引数として P、Desc、false を渡すことによってargumentsオブジェクトにおける既定の[[DefineOwnProperty]]内部メソッド (8.12.9) を呼んだ結果とする
+4. allowed が、false である場合、
+	a. Throw が、true である場合、TypeError例外を投げ、それ以外は、falseを返す
+5. isMapped の値が、undefinedである場合、
+	a. IsAccessorDescriptor(Desc) が、true であれば、
+		i.引数として P 、false を渡すことによって map の[[Delete]]内部メソッドを呼ぶ
+	b.それ以外の場合、
+		i. Desc.[[Value]] が、存在する場合、
+			1.引数としてP 、 Desc.[[Value]] 、 Throw を渡すことによって map の [[Put]]内部メソッドを呼ぶ
+		ii. Desc.[[Writable]] が、存在し、且つ、その値が falseである場合、
+			1.引数としてP 、falseを渡すことによって map の[[Delete]]内部メソッドを呼ぶ
+6. true を返す
+</pre>
+</div>
+
+		<p>
+		　プロパティ名 P 、Boolean型フラグ Throw を伴って呼んだ正規のパラメータを伴う非strict(厳格)モードの関数におけるargumentsオブジェクトの[[Delete]]内部メソッドは、次のステップを実行します。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. map は、argumentsオブジェクトの[[ParameterMap]]内部プロパティの値とする
+2. isMapped は、引数として P を渡すことによって map の[[GetOwnProperty]]内部メソッドを呼んだ結果とする
+3. result は、引数として P 、 Throwを渡すことによってargumentsオブジェクトにおける既定[[Delete]]内部メソッド (8.12.7) を呼んだ結果とする
+4. result が、true かつ、 isMapped の値が、undefined ではない場合、
+	a.引数として P 、 falseを渡すことによって map の[[Delete]]内部メソッドを呼ぶ
+5. result を返す
+</pre>
+</div>
+
+		<p>
+		[注釈1]
+		</p>
+		<p>
+		　( 15.4 で定義した)非厳格モード(non-strict)の関数の配列インデックスにおいては、数値名の値を持つargumentsオブジェクトの名前付きデータプロパティは、当該関数の実行コンテキスト内でバインディングに対応する引数を伴うそれらの値を初期に共有する関数オブジェクトと対応する正規のパラメータの数よりも小さくなります。
+		これは、変更中のプロパティは、argumentsオブジェクトの値(逆も真なり)と一致するものを変更するということを意味します。
+		この対応は、プロパティが削除され再定義される場合やプロパティがアクセサプロパティに変更される場合などに壊れます。
+		strict(厳格)モードの関数においては、argumentsオブジェクトのプロパティの値は、単に関数に渡した引数のコピーであり、プロパティ値と正規のパラメータ値とを動的にリンクするものではありません。
+		</p>
+		<p>
+		[注釈2]
+		</p>
+		<p>
+		　ParameterMapオブジェクトとそのプロパティ値は、引数バインディングと対応するargumentsオブジェクトを指定する為にデバイスとして使用されます。
+		ParameterMapオブジェクトとそのプロパティの値であるオブジェクトは、ECMAScriptのコードから直接アクセスすることは不可能です。
+		ECMAScriptの実装は、実際に生成したり、指定したセマンティクスを実装する為にそのようなオブジェクトを使用する必要はありません。
+		</p>
+		<p>
+		[注釈3]
+		</p>
+		<p>
+		　strict(厳格)モードの関数におけるargumentsオブジェクトは、アクセスするとTypeError例外を投げる(スローする) "caller" と "callee" と名付た未構成のアクセサプロパティを定義します。
+		 "callee" プロパティは、非strict(厳格)モードの関数においてという意味でより多くの仕様を持ち、"caller" プロパティは、一部のECMAScriptの実装によって実装定義の拡張として提供される履歴を持ちます。
+		それらの何れにも確実に存在するこれらプロパティのstrict(厳格)モード定義は、対応するECMAScriptの実装による他の方法の中で定義されます。
+		</p>
+
+		
+
+		
+	

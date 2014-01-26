@@ -1,0 +1,113 @@
+
+
+	
+		<h2>7.4 コメント / Comments / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>7 語彙的な表記</h3>
+		
+
+		<h3>7.4 コメント</h3>
+		<p>
+		　コメントは、単一行または複数行何れにすることもできます。
+		複数行コメントはネストできません。
+		</p>
+		<p>
+		　なぜなら単一行コメントは、一部、LineTerminator(行終端)文字を含むことができますし、一般規則からして字句は常に同じ長さであり、単独行コメントは常に行の最後までを印付けする // (スラッシュ2つ)から始まり文字全てから成るからです。
+		しかしながら、行の最後にある行終端(LineTerminator)は、単一行コメントの一部となることは考慮されません。
+		それは語彙的な文法によって分けて認識され、構文上の文法における入力要素のストリームの一部になります。
+		この点は、自動セミコロン挿入の経過に影響しない単一行コメントの存在や欠如という意味でとても重要です。(7.9参照)
+		</p>
+		<p>
+		　コメントは、ホワイトスペースのように振る舞い、それ以外は廃棄され、もし、複数行コメント(MultiLineComment)が行終端文字を含む場合には、入力コメントが構文上の文法によって構文解析する目的において行終端(LineTerminator)にすることが考慮されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+【構文】
+Comment (コメント) ::
+MultiLineComment (複数行コメント)
+SingleLineComment (単一行コメント)
+
+MultiLineComment (複数行コメント)::
+/* MultiLineCommentCharsopt */
+( /* 複数行コメント文字[オプション] */ )
+</pre>
+</div>
+
+<div class="pre-div">
+<pre>
+MultiLineCommentChars ::
+(複数行コメント文字)
+MultiLineNotAsteriskChar MultiLineCommentCharsopt
+アスタリスクのない複数行文字 複数行コメント文字[オプション]
+</pre>
+</div>
+
+<div class="pre-div">
+<pre>
+* PostAsteriskCommentCharsopt
+(後置アスタリスクコメント文字[オプション])
+</pre>
+</div>
+
+<div class="pre-div">
+<pre>
+PostAsteriskCommentChars ::
+(後置アスタリスクコメント文字)
+MultiLineNotForwardSlashOrAsteriskChar MultiLineCommentCharsopt
+(先行するスラッシュやアスタリスクのない複数行文字 複数行コメント文字[オプション])
+</pre>
+</div>
+
+<div class="pre-div">
+<pre>
+* PostAsteriskCommentCharsopt
+(後置アスタリスクコメント文字[オプション])
+</pre>
+</div>
+
+<div class="pre-div">
+<pre>
+MultiLineNotAsteriskChar ::
+(アスタリスクのない複数行文字)
+アスタリスクではない SourceCharacter(ソース文字)
+
+</pre>
+</div>
+
+<div class="pre-div">
+<pre>
+MultiLineNotForwardSlashOrAsteriskChar ::
+(先行するスラッシュやアスタリスクのない複数行文字)
+SourceCharacter but not forward-slash / or asetrisk *
+(先行するスラッシュやアスタリスクのないソース文字)
+</pre>
+</div>
+
+<div class="pre-div">
+<pre>
+SingleLineComment (単独行コメント) ::
+// SingleLineCommentCharsopt
+(// 単独行コメント文字[オプション])
+
+SingleLineCommentChars (単一行コメント文字) ::
+SingleLineCommentChar SingleLineCommentCharsopt
+(単一行コメント文字 単一行コメント文字[オプション])
+
+SingleLineCommentChar (単一行コメント文字) ::
+LineTerminator ではない SourceCharacter
+(行終端ではないソース文字)
+</pre>
+</div>
+
+		
+
+		
+	

@@ -1,0 +1,168 @@
+
+
+	
+		<h2>15.2.4 Objectのprototypeオブジェクトのプロパティ / Properties of the Object Prototype Object / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>15 標準組み込みECMAScriptオブジェクト</h3>
+		
+		<h3>15.2 Objectオブジェクト</h3>
+		
+
+		<h3>15.2.4 Objectのprototypeオブジェクトのプロパティ</h3>
+		<p>
+		　Objectのprototypeオブジェクトの内部プロパティ[[Prototype]]の値は、null、内部プロパティ[[Class]]の値は、"Object"、内部プロパティ[[Extensible]]の値は、trueです。
+		</p>
+
+		<h3>15.2.4.1 Object.prototype.constructor</h3>
+		<p>
+		　Object.prototype.constructor の初期値は、標準組み込みObjectコンストラクタです。
+		</p>
+
+		<h3>15.2.4.2 Object.prototype.toString ( )</h3>
+		<p>
+		　toStringメソッドが呼ばれる際には、次のステップが取られます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. this の値が、undefinedである場合、"[object Undefined]"を返す
+2. this の値が、nullである場合、"[object Null]"を返す
+3. O は、引数として this 値を渡して ToObject を呼んだ結果とする
+4. class は、O の内部プロパティ[[Class]]の値とする
+5.3つの文字列"[object ", class, そして "]"を連結した結果であるString値を返す
+</pre>
+</div>
+
+		<h3>15.2.4.3 Object.prototype.toLocaleString ( )</h3>
+		<p>
+		　toLocaleStringメソッドが呼ばれる際には、次のステップが取られます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. O は、引数として this 値を渡して ToObject を呼んだ結果とする
+2. toString は、引数として"toString"を渡して O の内部メソッド[[Get]]を呼んだ結果とする
+3. IsCallable(toString) が、 falseである場合、TypeError例外を投げる(スローする)
+4.引数のない this 値として O を渡して toString の内部メソッド[[Call]]を呼んだ結果とする
+</pre>
+</div>
+
+		<p>
+		[注釈 1]
+		</p>
+		<p>
+		　この関数は、全てがそれを使用すると言う訳ではありませんが、一般的なtoLocaleStringインタフェースを全てのオブジェクトに与える為に提供されます。
+		現在、Array、Number、Dateについては、ロケール依存(locale-sensitive)のtoLocaleStringメソッドを提供します。
+		</p>
+		<p>
+		[注釈 2]
+		</p>
+		<p>
+		　この関数における1つめのパラメータは、この標準規格の将来バージョン内で使用されるようになるかもしれません。
+		つまり、実装は、他のいかなる場合においても、このパラメータ位置を使わないことが推奨されるということです。
+		</p>
+
+		<h3>15.2.4.4 Object.prototype.valueOf ( )</h3>
+		<p>
+		　valueOfメソッドが呼ばれる際には、次のステップが取られます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. O は、引数として this 値を渡してToObjectを呼んだ結果とする
+2. O が、ホストオブジェクト(15.2.2.1)を伴うObjectコンストラクタを呼んだ結果となる場合、
+	a.そのコンストラクタを渡してホストオブジェクトオリジナルであるかのように0または、他の値を返す、返されるその仕様上の結果は、実装定義です。
+3. O を返す
+</pre>
+</div>
+
+		<h3>15.2.4.5 Object.prototype.hasOwnProperty (V)</h3>
+		<p>
+		　hasOwnPropertyメソッドが、引数 V を伴って呼ばれる際には、次のステップが取られます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. P は、 ToString(V) とする
+2. O は、引数として this 値を渡してToObjectを呼んだ結果とする
+3. desc は、引数として P を渡して O の内部メソッド[[GetOwnProperty]]を呼んだ結果とする
+4. desc が、 undefinedである場合、falseを返す
+5. trueを返す
+</pre>
+</div>
+
+		<p>
+		[注釈 1]
+		</p>
+		<p>
+		　[[HasProperty]] (8.12.6)とは異なり、このメソッドは、プロトタイプチェーン内にあるオブジェクトとはみなされません。
+		</p>
+		<p>
+		[注釈 2]
+		</p>
+		<p>
+		　ステップ1と2の順に関しては、 this 値が、undefined や nullである場合でさえ、 continue が投げられる(スローされる)この仕様上の前の版(エディション)にあるステップ1によって投げられる(スローされる)場合のある一部例外を捕捉する為に選択されます。
+		</p>
+
+		<h3>15.2.4.6 Object.prototype.isPrototypeOf (V)</h3>
+		<p>
+		　isPrototypeOfメソッドが、引数 V を伴って呼ばれる際には、次のステップが取られます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. V が、オブジェクトではない場合、false を返す
+2. O は、引数として this 値を渡して ToObject を呼んだ結果とする
+3.繰り返す
+	a. V は、V の内部プロパティ[[Prototype]]の値とする
+	b. V が、nullである場合、 false を返す
+	c. O と V が、同一のオブジェクトを参照する場合、true を返す
+</pre>
+</div>
+
+		<p>
+		[注釈]
+		</p>
+		<p>
+		　ステップ1と2の順に関しては、Vがオブジェクトではなく、 this 値が、undefined や null である場合においてこの仕様上の前の版(エディション)によって指定した動作を保持する(何らかの事情で使われないように温存しておく)為に選択されます。
+		</p>
+
+		<h3>15.2.4.7 Object.prototype.propertyIsEnumerable (V)</h3>
+		<p>
+		　propertyIsEnumerableメソッドが、引数 V を伴って呼ばれる際には、次のステップが取られます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. P は、 ToString(V) とする
+2. O は、引数として this 値を渡してToObjectを呼んだ結果とする
+3. desc は、引数として P を渡して O の内部メソッド[[GetOwnProperty]]を呼んだ結果とする
+4. desc が、undefinedである場合、falseを返す
+5. desc.[[Enumerable]]の値を返す
+</pre>
+</div>
+
+		<p>
+		[注釈 1]
+		</p>
+		<p>
+		　このメソッドは、プロトタイプチェーン内のオブジェクトとはみなされません。
+		</p>
+		<p>
+		[注釈 2]
+		</p>
+		<p>
+		　ステップ1と2の順に関しては、 this 値が、undefined や nullである場合でさえ、 continue が投げられる(スローされる)この仕様上の前の版(エディション)にあるステップ1によって投げられる(スローされる)場合のある一部例外を捕捉する為に選択されます。
+		</p>
+
+		
+
+		
+	

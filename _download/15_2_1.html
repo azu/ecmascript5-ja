@@ -1,0 +1,38 @@
+
+
+	
+		<h2>15.2.1 関数として呼ぶ Objectのコンストラクタ / The Object Constructor Called as a Function / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>15 標準組み込みECMAScriptオブジェクト</h3>
+		
+		<h3>15.2 Objectオブジェクト</h3>
+		
+
+		<h3>15.2.1 関数として呼ぶ Objectのコンストラクタ</h3>
+		<p>
+		　Objectが、コンストラクタではなく、関数として呼ばれる場合、型変換が実行されます。
+		</p>
+
+		<h3>15.2.1.1 Object ( [ value ] )</h3>
+		<p>
+		　Objectの関数が、引数なし、または1つの引数を取って呼ばれる際には、次のステップが取られます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. value が、 null 、または、undefined であるか、または、提供されない場合、標準組み込みコンストラクタが、同じ引数を伴って呼ばれているかのような正確な新しいオブジェクトを生成して返す(15.2.2.1)
+2. ToObject(value) を返す
+</pre>
+</div>
+
+		
+
+		
+	

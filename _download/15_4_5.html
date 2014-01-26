@@ -1,0 +1,95 @@
+
+
+	
+		<h2>15.4.5 Arrayインスタンスのプロパティ / Properties of Array Instances / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>15 標準組み込みECMAScriptオブジェクト</h3>
+		
+		<h3>15.4 Arrayオブジェクト</h3>
+		
+
+		<h3>15.4.5 Arrayインスタンスのプロパティ</h3>
+		<p>
+		　Arrayインスタンスは、Arrayプロトタイプオブジェクトからプロパティを継承し、それらの内部プロパティ[[Class]]の値は、"Array"です。
+		Arrayインスタンスはまた、次のプロパティも持ちます。
+		</p>
+
+		<h3>15.4.5.1 [[DefineOwnProperty]] ( P, Desc, Throw )</h3>
+		<p>
+		　Arrayオブジェクトは、他のネイティブなECMAScriptのオブジェクト(8.12.9)の為に使用した内部メソッド[[DefineOwnProperty]]のバリエーションを使用します。
+		仮に A が、Arrayオブジェクトであると仮定した場合、Desc は、プロパティ記述子であり、 Throw は、Boolean値のフラグです。
+		次のアルゴリズム内では、用語"Reject"は、"Throwが、trueである場合、TypeError例外を投げ(スローし)、それ以外の場合、falseを返す"ということを意味します。
+		</p>
+		<p>
+		　A の内部メソッド[[DefineOwnProperty]]が、プロパティ P、プロパティ記述子 Desc、Booleanフラグ Throwを伴って呼ばれる際には、次のステップが取られます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. oldLenDesc は、引数として"length"を渡して A の内部メソッド[[GetOwnProperty]]を呼んだ結果とする
+  その結果は、削除されたり、再構成されたりするデータプロパティ length を伴って生成されるArrayオブジェクトである為、決してundefinedまたは、アクセサ記述子になることはない
+2. oldLen は、 oldLenDesc.[[Value]] とする
+3. P が、 "length"である場合、
+	a. Desc の[[Value]]項目が、ない場合、
+		i.引数として"length"、Desc、Throw を渡して A 上で既定の内部メソッド[[DefineOwnProperty]](8.12.9)を呼んだ結果を返す
+	b. newLenDesc は、 Desc のコピーとする
+	c. newLen は、 ToUint32(Desc.[[Value]]) とする
+	d. newLen が、 ToNumber( Desc.[[Value]]) と等しくない場合、RangeError例外を投げる(スローする)
+	e. newLenDesc.[[Value] に newLen を設定する
+	f.  newLen ≧ oldLen である場合、
+		i.引数として"length"、newLenDesc、Throw を渡して A 上で既定の内部メソッド[[DefineOwnProperty]](8.12.9)を呼んだ結果を返す
+	g. oldLenDesc.[[Writable]] が、 false である場合、Reject
+	h. newLenDesc.[[Writable]] が、ないか、または、値 trueを持つ場合、 newWritable は、 trueとする
+	i.それ以外の場合、
+		i.一部の要素において[[Writable]]属性への false の設定を延期する必要がある場合、削除することはできない
+		ii. newWritable は、falseとする
+		iii. newLenDesc.[[Writable] に trueを設定する
+	j. succeeded は、引数として"length"、newLenDesc、Throw を渡して A 上で既定の内部メソッド[[DefineOwnProperty]](8.12.9)を呼んだ結果とする
+	k. succeeded が、 falseである場合、 falseを返す
+	l. newLen &lt; oldLen である間、繰り返す
+		i. oldLen は、oldLen - 1 とする
+		ii. deleteSucceeded は、引数として ToString(oldLen) と false を渡して A の内部メソッド[[Delete]]を呼んだ結果とする
+		iii. deleteSucceeded が、 falseである場合、
+			1. newLenDesc.[[Value] に oldLen+1 を設定する
+			2. newWritable が、 falseである場合、 newLenDesc.[[Writable] に false を設定する
+			3.引数として"length"、newLenDesc、false を渡して A 上で既定の内部メソッド[[DefineOwnProperty]](8.12.9)を呼ぶ
+			4.Reject
+	m. newWritable が、 false である場合、
+		i.引数として"length"、プロパティ記述子 {[[Writable]]: false}、false を渡して A 上で既定の内部メソッド[[DefineOwnProperty]](8.12.9)を呼ぶ、この呼び出しは、常にtrueを返す
+	n. true を返す
+4. P iが、配列インデックス (15.4) である場合、
+	a. index は、 ToUint32(P) とする
+	b. index ≧ oldLen 且つ、 oldLenDesc.[[Writable]] が、 false である場合、Reject
+	c. succeeded は、引数として P、Desc、falseを渡して A 上で既定の内部メソッド[[DefineOwnProperty]](8.12.9)を呼んだ結果とする
+	d. succeeded が、 falseである場合、Reject
+	e. index ≧ oldLen である場合、
+		i. oldLenDesc.[[Value]] に index + 1 を設定する
+		ii.引数として"length"、oldLenDesc、false を渡して A 上で既定の内部メソッド[[DefineOwnProperty]](8.12.9)を呼ぶ、この呼び出しは、常にtrueを返すでしょう
+	f. trueを返す
+5.引数として P、Desc、Throwを渡して A 上で既定の内部メソッド[[DefineOwnProperty]](8.12.9)を呼んだ結果を返す
+</pre>
+</div>
+
+		<h3>15.4.5.2 length</h3>
+		<p>
+		　 this Arrayオブジェクトの length プロパティは、配列インデックスである名称を持つ毎回削除可能なプロパティの名称よりも数値的に常に大きい値であるデータプロパティです。
+		 length プロパティは、最初、属性 { [[Writable]]: true, [[Enumerable]]: false, [[Configurable]]: false } を持ちます。
+		</p>
+		<p>
+		[注釈]
+		</p>
+		<p>
+		　配列の非削除プロパティをインデックスした既存の配列の最大の数値プロパティ名より小さいか等しい数値である値を任意のArrayオブジェクトのlengthプロパティに設定しようとするとその最大の数字のプロパティ名より1大きい数値に設定されている長さになるでしょう。
+		</p>
+
+		
+
+		
+	

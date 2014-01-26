@@ -1,0 +1,250 @@
+
+
+	
+		<h2>12.6 反復ステートメント / Iteration Statements / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>12 ステートメント／文</h3>
+		
+
+		<h3>12.6 反復ステートメント</h3>
+
+<div class="pre-div">
+<pre>
+【構文】
+IterationStatement :
+	do Statement while ( Expression );
+	while ( Expression ) Statement
+	for (ExpressionNoInopt; Expressionopt ; Expressionopt ) Statement
+	for ( var VariableDeclarationListNoIn; Expressionopt ; Expressionopt ) Statement
+	for ( LeftHandSideExpression in Expression ) Statement
+	for ( var VariableDeclarationNoIn in Expression ) Statement
+</pre>
+</div>
+
+		<h3>12.6.1  do-while 文</h3>
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+do Statement while ( Expression );
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. V = empty とする
+2. iteratingは、trueとする
+3. iteratingが、trueの間、繰り返し
+	a. stmt は、Statementを評価した結果とする
+	b. stmt.value が、emptyではない場合、 V = stmt.valueとする
+	c. stmt.type が、continueでない、または、 stmt.target が、現在のラベルのセットではない場合、
+		i. stmt.type が、breakで且つ、 stmt.target が現在のラベルのセットである場合、return (normal, V, empty)
+		ii. stmt が、途中完了(an abrupt completion)である場合、 stmt を返す
+	d. exprRef は、Expressionを評価した結果とする
+	e. ToBoolean(GetValue(exprRef)) が、falseである場合、iteratingにfalseを設定
+4. return (normal, V, empty)
+</pre>
+</div>
+
+		<h3>12.6.2  while 文</h3>
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+IterationStatement : while ( Expression ) Statement
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. V = empty とする
+2.繰り返す
+	a. exprRef は、Expressionを評価した結果とする
+	b. ToBoolean(GetValue(exprRef)) が、 falseである場合、return (normal, V, empty)
+	c. stmt は、Statementを評価した結果とする
+	d. stmt.value が、emptyではない場合、 V = stmt.value とする
+	e. stmt.type が、continueでない、または、 stmt.target が、現在のラベルのセットではない場合、
+		i. stmt.type が、breakで且つ、 stmt.target が、現在のラベルのセット内にある場合、
+			1. return (normal, V, empty)
+		ii. stmt が、途中完了(an abrupt completion)である場合、 stmt を返す
+</pre>
+</div>
+
+		<h3>12.6.3 for 文</h3>
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+IterationStatement : for (ExpressionNoInopt ; Expressionopt ; Expressionopt) Statement
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. ExpressionNoIn が存在する場合、
+	a. exprRef は、ExpressionNoInを評価した結果とする
+	b. GetValue(exprRef)を呼ぶ(この値は使われないが、副作用を持つ場合がある)
+2. V = empty とする
+3.繰り返す
+	a.1つめのExpressionが存在する場合、
+		i. testExprRef は、1つめのExpressionを評価した結果とする
+		ii. ToBoolean(GetValue(testExprRef)) が、 falseである場合、 return (normal, V, empty)
+	b. stmt は、Statementを評価した結果とする
+	c. stmt.value が、emptyではない場合、 V = stmt.value とする
+	d. stmt.type が、breakで且つ、 stmt.target が現在のラベルのセット内にある場合、return (normal, V, empty)
+	e. stmt.type が、continueでない、または、 stmt.target が、現在のラベルのセット内にない場合、
+		i. stmt が、途中完了(an abrupt completion)である場合、 stmt を返す
+	f.2つめのExpressionが存在する場合、
+		i. incExprRef は、2つめのExpressionを評価した結果とする
+		ii. GetValue(incExprRef) を呼ぶ(この値は使用されない)
+</pre>
+</div>
+
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+IterationStatement : for ( var VariableDeclarationListNoIn ; Expressionopt ; Expressionopt ) Statement
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. VariableDeclarationListNoInを評価
+2. V = empty とする
+3.繰り返す
+	a.1つめのExpressionが存在する場合、
+		i. testExprRef は、1つめのExpressionを評価した結果とする
+		ii. ToBoolean(GetValue(testExprRef)) が、 falseである場合、 return (normal, V, empty)
+	b. stmt は、Statementを評価した結果とする
+	c. stmt.value が、emptyではない場合、 V = stmt.value とする
+	d. stmt.type が、breakで且つ、 stmt.target が、現在のラベルのセット内にある場合、 return (normal, V, empty)
+	e. stmt.type が、continueでない、または、 stmt.target が、現在のラベルのセット内にない場合、
+		i. stmt が、途中完了(an abrupt completion)である場合、 stmt を返す
+	f.2つめのExpressionが存在する場合、
+		i. incExprRef は、2つめのExpressionを評価した結果とする
+		ii. GetValue(incExprRef)を呼ぶ(この値は使用されない)
+</pre>
+</div>
+
+		<h3>12.6.4  for-in 文</h3>
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+IterationStatement : for ( LeftHandSideExpression in Expression ) Statement
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. exprRef は、Expressionを評価した結果とする
+2. experValue は、 GetValue(exprRef) とする
+3. experValue が、 null または、 undefinedである場合、 return (normal, empty, empty)
+4. obj は、 ToObject(experValue) とする
+5. V = empty とする
+6.繰り返す
+	a. P は、[[Enumerable]]属性が、trueである obj の次のプロパティの名称とする、そのようなプロパティがない場合、 return (normal, V, empty)
+	b. lhsRef は、 LeftHandSideExpression を評価した結果とする (それは繰り返しと評価される場合がある)
+	c. PutValue(lhsRef, P) を呼ぶ
+	d. stmt は、Statementを評価した結果とする
+	e. stmt.value が、 emptyである場合、 V = stmt.value とする
+	f. stmt.type が、 breakで且つ stmt.target が、現在のラベルのセット内にある場合、 return (normal, V, empty)
+	g. stmt.type が、continueでない、または、 stmt.target が、現在のラベルのセット内にない場合、
+		i. stmt が、途中完了(an abrupt completion)である場合、 stmt を返す
+</pre>
+</div>
+
+		<p>
+		　プロダクション
+		</p>
+
+<div class="pre-div">
+<pre>
+IterationStatement : for ( var VariableDeclarationNoIn in Expression ) Statement
+</pre>
+</div>
+
+		<p>
+		は、次のように評価されます。
+		</p>
+
+<div class="pre-div">
+<pre>
+1. varName は、VariableDeclarationNoInを評価した結果とする
+2. exprRef は、Expressionを評価した結果とする
+3. experValue は、 GetValue(exprRef) とする
+4. experValue が、 null または、 undefinedである場合、return (normal, empty, empty)
+5. obj は、 ToObject(experValue) とする
+6. V = empty とする
+7.繰り返す
+	a. P は、[[Enumerable]]属性がtrueである obj の次のプロパティの名称とする、そのようなプロパティがない場合には、 return (normal, V, empty)
+	b. varRef は、識別子参照 (11.1.2)にあったように varName を評価した結果とする、それは繰り返しと評価される場合がある
+	c. PutValue(varRef, P) を呼ぶ
+	d. stmt は、Statementを評価した結果とする
+	e. stmt.value が、emptyではない場合、 let V = stmt.value とする
+	f. stmt.type が、 breakで且つ、stmt.target が、現在のラベルのセット内にある場合、 return (normal, V, empty)
+	g. stmt.type が、continueでない、または、 stmt.target が現在のラベルのセット内にない場合、
+		i. stmt が、途中完了(an abrupt completion)である場合、 stmt を返す
+</pre>
+</div>
+
+		<p>
+		　(1つめのアルゴリズムのステップ 6.a. 、2つめのステップ 7.a. にある)プロパティの仕組みと列挙順は、指定されません。
+		列挙中のオブジェクトのプロパティは、列挙中に削除される場合があります。
+		プロパティが、列挙中に削除され、もはや存在しない場合、それは存在しないでしょう。
+		新たなプロパティが、列挙中に列挙されるオブジェクトに追加される場合、新たに追加されたプロパティが、アクティブな列挙内に存在する保証はありません。
+		プロパティ名は、列挙子内に1度以上現れてはいけません。
+		</p>
+		<p>
+		　オブジェクトのプロパティを列挙中は、当該プロトタイプの列挙中のプロパティ、またはプロトタイプのプロトタイプ等々といった再帰を含みますが、同じ名称であるプロパティを持つプロトタイプチェーン内にあるオブジェクトの前に何かがある為に「陰になった」("shadowed"である)場合、プロトタイプのプロトタイプは列挙されません。
+		[[Enumerable]]属性の値は、プロトタイプチェーンにおけるプロトタイプオブジェクトのプロトタイプが、前のオブジェクトによって隠されているかどうかについて決める際には考慮されません。
+		</p>
+		<p>
+		[注釈]
+		</p>
+		<p>
+		11.13.1.注釈参照
+		</p>
+
+		
+
+		
+	

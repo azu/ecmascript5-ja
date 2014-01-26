@@ -1,0 +1,76 @@
+
+
+	
+		<h2>10.5 宣言型バインディングのインスタンス化 / Declaration Binding Instantiation / Standard ECMA-262 5.1 Edition</h2>
+
+		
+		
+		
+		
+		
+		
+		
+		<h3>10 実行コードと実行コンテキスト</h3>
+		
+
+		<h3>10.5 Declaration Binding Instantiation ／ 宣言型バインディングのインスタンス化</h3>
+		<p>
+		　各実行コンテキストは、関連したVariableEnvironmentを持ちます。
+		実行コンテキスト内で評価したECMAScriptコード内で定義した変数と関数は、そのVariableEnvironmentの環境レコード内でバインディングしたものとして追加されます。
+		関数コードについては、パラメータは、その環境レコードにバインディングするものとして追加されます。
+		</p>
+		<p>
+		　環境レコードは、実行コンテキストによって実行したECMAScriptコードの型に依存するその種類をバインドする為に使用されますが、残りの動作は、一般的なものです。
+		入力中の実行コンテキストにおいては、バインディングは、次のようなcallerが提供したコードを使用してVariableEnvironment内で生成され、それが関数コードである場合には、引数リストargsは、(以下のように評価されます。)
+		</p>
+
+<div class="pre-div">
+<pre>
+1.envは、実行中の実行コンテキストのVariableEnvironmentの環境レコードコンポーネントとする
+2.codeがevalコードである場合、configurableBindingsをtrueとし、それ以外は、configurableBindingsをfalseとする
+3.codeがstrict(厳格)モードのコードである場合には、strictをtrueとし、それ以外は、strictをfalseとする
+4.codeが関数コードである場合、
+	a.funcは、コードの実行を初期化した[[Call]]内部メソッドを持つ関数とする。namesは、funcの[[FormalParameters]]内部プロパティの値とする
+	b.argCountは、argsにある要素の数とする
+	c. n は数値0とする
+	d.namesにあるString型の各argNameにおいて、リスト順に実行します。
+		i. n は、 n + 1 を現在の値とする
+		ii. n が、argCountより大きい場合、 v は、undefined、それ以外は、 v は args の n 番めの要素の値とする
+		iii.argAlreadyDeclaredは、引数としてargNameを渡すことによって具体的なメソッドであるenvのHasBindingを呼んだものを結果とする
+		iv.argAlreadyDeclaredが、falseである場合、引数としてargNameを渡すことによって具体的なメソッドであるenvのCreateMutableBindingを呼ぶ
+		v.引数としてargName、v、strictを渡すことによって具体的なメソッドであるenvのSetMutableBindingを呼ぶ
+5.code内の各FunctionDeclaration f において、ソーステキスト順に実行する
+	a. fn は、FunctionDeclaration f 内のIdentifierとする
+	b. fo は、第13項で説明したようにインスタンス化中のFunctionDeclaration f の結果とする
+	c.funcAlreadyDeclaredは、引数として fn を渡すことによって具体的なメソッドであるenvのHasBindingを呼んだ結果とする
+	d.funcAlreadyDeclaredがfalseである場合、引数として fn 、 configurableBindingsを渡すことによって具体的なメソッドenvのCreateMutableBindingを呼ぶ
+	e.envがGlobal環境の環境レコードコンポーネントである場合、
+		i. go は、Globalオブジェクトとする
+		ii.existingPropは、引数 fn を伴う go の内部メソッド[[GetProperty]]を呼んだ結果とする
+		iii. existingProp .[[Configurable]] がtrueである場合、
+			1. 引数として fn 、プロパティ記述子{[[Value]]: undefined, [[Writable]]: true, [[Enumerable]]: true , [[Configurable]]: configurableBindings } 、true を渡すことによって go の内部メソッド[[DefineOwnProperty]]を呼ぶ
+		iv. IsAccessorDescriptor(existingProp) やexistingPropが属性値 {[[Writable]]: true, [[Enumerable]]: true} を持たない場合、
+			1.TypeError例外を投げる(スローする)
+	f.引数として fn 、fo 、strictを渡すことによって具体的なメソッドであるenvのSetMutableBindingを呼ぶ
+6.argumentsAlreadyDeclaredは、引数として"arguments"を渡すことによって具体的なメソッドであるenvのHasBindingを呼んだ結果とする
+7.codeが、関数コード、且つargumentsAlreadyDeclaredがfalseである場合、
+	a.argsObjは、引数としてfunc、names、args、env、strictを渡すことによって抽象操作CreateArgumentsObject (10.6) を呼んだ結果とする
+	b.strictがtrueである場合、
+		i.引数としてString型の"arguments"を渡すことによって具体的なメソッドであるenvのCreateImmutableBindingを呼ぶ
+		ii.引数として"arguments" と argsObj を渡すことによって具体的なメソッドであるenvのInitializeImmutableBindingを呼ぶ
+	c.それ以外の場合、
+		i.引数としてString型の"arguments"を渡すことによって具体的なメソッドであるenvのCreateMutableBindingを呼ぶ
+		ii.引数として"arguments"、argsObj、falseを渡すことによって具体的なメソッドであるenvのSetMutableBindingを呼ぶ
+8. code内にある各VariableDeclaration と VariableDeclarationNoIn d は、ソーステキスト順に実行する
+	a. dn は、 d 内のIdentifierとする
+	b.varAlreadyDeclaredは、引数として dn を渡すことによって具体的なメソッドであるenvのHasBindingを呼んで結果とする
+	c.varAlreadyDeclaredがfalseである場合、
+		i.引数として dn と configurableBindings を渡すことによって具体的なメソッドであるenvのCreateMutableBindingを呼ぶ
+		ii.引数として dn、undefined、strictを渡すことによって具体的なメソッドであるenvのSetMutableBindingを呼ぶ
+</pre>
+</div>
+
+		
+
+		
+	
