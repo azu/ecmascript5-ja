@@ -3,6 +3,21 @@
 [ECMAScript / Standard ECMA-262 Edition 5.1 訳](http://www.webzoit.net/hp/it/internet/homepage/script/ecmascript/ecma262_51/ "ECMAScript / Standard ECMA-262 Edition 5.1 訳") を元に
 読みやすく加工しようとしてるもの。
 
+## Usage
+
+``` sh
+npm install
+```
+
+### gulp task
+
+```
+[gulp]
+├── download
+├── html2markdown
+└── build
+```
+
 ## Copyright notice
 
 ```
