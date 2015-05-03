@@ -17,13 +17,13 @@ describe("eraser", function () {
     });
     it("should remove h3 ECMAScript言語仕様 / ECMA-262 5.1 Edition", function () {
         assert(!eraser(html).html().contains("ECMAScript言語仕様 / ECMA-262 5.1 Edition"));
-    })
+    });
     it("should remove div[class='clear_pos']", function () {
         assert(eraser(html).find('div[class="clear_pos"]').length === 0);
     });
     it("should remove p 訳の正確性を保証するものではありませんので必要に応じて原文である〜", function () {
         assert(!eraser(html).html().contains("訳の正確性を保証するものではありませんので必要に応じて原文である"));
-    })
+    });
     it("should remove p link to license", function () {
         assert(!eraser(html).html().contains("ECMA-262 5.1 Edition 著作権情報"));
     });

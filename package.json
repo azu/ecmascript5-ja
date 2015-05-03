@@ -1,25 +1,28 @@
 {
-    "name": "ecmascript5-ja",
-    "version": "0.0.0",
-    "description": "",
-    "dependencies": {
-    },
-    "devDependencies": {
-        "node.io": "~0.4.12",
-        "request": "~2.33.0",
-        "cheerio": "~0.13.1",
-        "async": "~0.2.10",
-        "power-assert": "~0.3.1",
-        "mocha": "~1.17.1",
-        "gulp-pandoc": "~0.1.0",
-        "gulp": "~3.5.0",
-        "event-stream": "~3.1.0",
-        "gulp-concat": "~2.1.7",
-        "gulp-marked": "~0.2.0"
-    },
-    "scripts": {
-        "test": "mocha tests"
-    },
-    "author": "azu",
-    "license": "MIT"
+  "name": "ecmascript5-ja",
+  "version": "0.0.0",
+  "description": "",
+  "dependencies": {},
+  "devDependencies": {
+    "async": "^0.9.0",
+    "cheerio": "^0.19.0",
+    "event-stream": "^3.3.0",
+    "gulp": "^3.8.11",
+    "gulp-concat": "^2.5.2",
+    "gulp-load-utils": "0.0.4",
+    "gulp-markdown-it": "^0.1.1",
+    "gulp-marked": "^1.0.0",
+    "gulp-pandoc": "^0.2.1",
+    "mocha": "^2.2.4",
+    "node.io": "^0.5.1",
+    "power-assert": "^0.11.0",
+    "request": "^2.55.0"
+  },
+  "scripts": {
+    "html2markdown": "gulp html2markdown",
+    "build": "gulp build",
+    "test": "mocha tests"
+  },
+  "author": "azu",
+  "license": "MIT"
 }
